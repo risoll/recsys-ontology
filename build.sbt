@@ -31,7 +31,8 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" % "scalikejdbc_2.11" % "2.2.6" withSources() ,
   "org.scalikejdbc" % "scalikejdbc-test_2.11" % "2.2.6" withSources(),
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0" withSources() ,
-  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41" withSources()
+  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41" withSources(),
+  "org.phenoscape" %% "scowl" % "1.2.1"
 )
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"

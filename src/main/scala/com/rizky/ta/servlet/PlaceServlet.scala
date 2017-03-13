@@ -7,7 +7,7 @@ import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.json._
 import com.rizky.ta.model._
 import org.json4s.jackson.Serialization
-
+import com.rizky.ta.util.PlacesUtil
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -43,25 +43,16 @@ class PlaceServlet extends ScalatraServlet with JacksonJsonSupport {
     Place.updatePlace(placeId, name, types, address, phone, openHours, lengthOfVisit, tariff)
   }
 
+  post("/bulkUpdatePlaces"){
+    val places = Place.list()
+    val result = PlacesUtil.createRowMap(places)
+    println("places", result)
+    result
+  }
+
   get("/places") {
     val places = Place.list()
-    var result = new ListBuffer[Map[String, Any]]()
-    var row = Map[String, Any]()
-    var counter: Int = 1
-
-    for (place <- places) {
-      row += ("counter" -> counter)
-      row += ("place_id" -> place.place_id)
-      row += ("name" -> place.name)
-      row += ("types" -> place.types)
-      row += ("address" -> place.address)
-      row += ("phone" -> place.phone)
-      row += ("open_hours" -> place.open_hours)
-      row += ("length_of_visit" -> place.length_of_visit)
-      row += ("tariff" -> place.tariff)
-      counter += 1
-      result += row
-    }
+    val result = PlacesUtil.createRowMap(places)
     val jsonResult = Serialization.write(result)
     jsonResult
   }
