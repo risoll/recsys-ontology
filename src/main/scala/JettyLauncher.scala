@@ -6,7 +6,7 @@ import org.scalatra.servlet.ScalatraListener
 object JettyLauncher { // this is my entry object as specified in sbt project definition
   def main(args: Array[String]) {
 //    val port = args(0).toInt
-    val port = if(System.getenv("PORT") != null) System.getenv("PORT").toInt else 8084
+    val port = if(System.getenv("PORT") != null) System.getenv("PORT").toInt else 8085
 
     val server = new Server(port)
     val context = new WebAppContext()

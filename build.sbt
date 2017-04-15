@@ -32,9 +32,18 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" % "scalikejdbc-test_2.11" % "2.2.6" withSources(),
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0" withSources() ,
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41" withSources(),
-  "org.phenoscape" %% "scowl" % "1.2.1"
+  "org.phenoscape" %% "scowl" % "1.2.1",
+  "com.typesafe.akka" %% "akka-actor" % "2.4.17",
+  "com.typesafe.akka" %% "akka-http-core" % "10.0.4",
+  "com.typesafe.akka" %% "akka-http" % "10.0.4",
+  "com.typesafe.akka" %% "akka-stream" % "2.4.17",
+  "com.typesafe.akka" %% "akka-stream-testkit" % "2.4.17",
+  "net.liftweb" %% "lift-json" % "2.6+",
+  "org.slf4j" % "slf4j-simple" % "1.7.12"
+
 )
 
+resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 resolvers += "ElasticSearch Repo" at "http://maven.elasticsearch.org/public-releases/"
 resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"

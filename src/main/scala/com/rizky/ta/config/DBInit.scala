@@ -10,7 +10,7 @@ import scalikejdbc.{ConnectionPool, GlobalSettings, LoggingSQLAndTimeSettings}
 object DBInit {
   val url = "jdbc:postgresql://localhost:5432/recsys-ta?charSet=UTF-8"
   val username = "postgres"
-  val password = "postgres"
+  val password = "PostgreS"
   val driver = "org.postgresql.Driver"
   var connection: Option[Connection] = None
 
