@@ -39,8 +39,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream" % "2.4.17",
   "com.typesafe.akka" %% "akka-stream-testkit" % "2.4.17",
   "net.liftweb" %% "lift-json" % "2.6+",
-  "org.slf4j" % "slf4j-simple" % "1.7.12"
-
+  "org.slf4j" % "slf4j-simple" % "1.7.12",
+  "se.walkercrou" % "google-places-api-java" % "2.1.2"
 )
 
 resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"

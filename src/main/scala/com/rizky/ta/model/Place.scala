@@ -18,7 +18,24 @@ object Place extends SQLSyntaxSupport[Place] {
 
   case class Return(html_attributions: List[String], results: List[Result], status: String)
 
+  override val tableName = "places"
+  //  override val useSnakeCaseColumnName = false
   val c = Place.syntax("c")
+
+  def createTablePlaces(implicit session: DBSession = autoSession): Unit ={
+    sql"""
+         CREATE TABLE places(
+          place_id VARCHAR(250) not NULL PRIMARY KEY,
+          name VARCHAR(50),
+          types VARCHAR(20),
+          address VARCHAR(200),
+          phone VARCHAR(20),
+          open_hours VARCHAR(50),
+          length_of_visit VARCHAR(100),
+          tariff VARCHAR(100))
+       """.execute().apply()
+  }
+
   def apply(c: ResultName[Place])(rs: WrappedResultSet): Place = new Place(
     place_id = rs.string(c.place_id),
     name = rs.string(c.name),
@@ -30,9 +47,6 @@ object Place extends SQLSyntaxSupport[Place] {
     tariff = rs.string(c.tariff)
   )
   def apply(c: SyntaxProvider[Place])(rs: WrappedResultSet): Place = apply(c.resultName)(rs)
-
-  override val tableName = "places"
-//  override val useSnakeCaseColumnName = false
 
   def create(placeId: String)
             (implicit session: DBSession = autoSession): Place = {

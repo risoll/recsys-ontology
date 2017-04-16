@@ -6,3 +6,4 @@ package com.rizky.ta.util
 object CommonUtil {
 
 }
+

@@ -57,4 +57,9 @@ class PlaceServlet extends ScalatraServlet with JacksonJsonSupport {
     jsonResult
   }
 
+  get("/createTablePlaces"){
+    Place.createTablePlaces()
+    Serialization.write("status" -> "table places created")
+  }
+
 }
