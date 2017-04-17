@@ -42,6 +42,7 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.12",
   "se.walkercrou" % "google-places-api-java" % "2.1.2"
 )
+enablePlugins(JavaAppPackaging)
 
 resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
