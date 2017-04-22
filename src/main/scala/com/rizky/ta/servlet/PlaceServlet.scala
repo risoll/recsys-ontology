@@ -15,9 +15,13 @@ import scala.collection.mutable.ListBuffer
   */
 
 
-class PlaceServlet extends ScalatraServlet with JacksonJsonSupport {
+class PlaceServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupport{
   protected implicit val jsonFormats: Formats = DefaultFormats
   protected implicit val apiKey: String = Common.apiKey
+
+  options("/*"){
+    response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
+  }
 
   // Before every action runs, set the content type to be in JSON format.
   before() {
