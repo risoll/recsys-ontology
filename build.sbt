@@ -19,18 +19,18 @@ val scalatraVersion = "2.3.0"
 
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % scalatraVersion withSources(),
-  "org.scalatra" %% "scalatra-json" % scalatraVersion withSources() ,
-  "org.json4s" %% "json4s-jackson" % "3.2.11" withSources() ,
-  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided" withSources() ,
-  "org.eclipse.jetty" % "jetty-webapp" % "9.2.10.v20150310" % "container" withSources() ,
-  "org.eclipse.jetty" % "jetty-servlets" % "9.2.10.v20150310" % "container" withSources() ,
-  "org.eclipse.jetty" % "jetty-plus" % "9.2.10.v20150310" % "container" withSources() ,
-  "c3p0" % "c3p0" % "0.9.1.2" withSources() ,
-  "org.scalatest" %% "scalatest" % "2.2.4" % "provided" withSources() ,
-  "org.scalatra" % "scalatra-specs2_2.11" % "2.3.1" withSources() ,
-  "org.scalikejdbc" % "scalikejdbc_2.11" % "2.2.6" withSources() ,
+  "org.scalatra" %% "scalatra-json" % scalatraVersion withSources(),
+  "org.json4s" %% "json4s-jackson" % "3.2.11" withSources(),
+  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided" withSources(),
+  "org.eclipse.jetty" % "jetty-webapp" % "9.2.10.v20150310" % "container" withSources(),
+  "org.eclipse.jetty" % "jetty-servlets" % "9.2.10.v20150310" % "container" withSources(),
+  "org.eclipse.jetty" % "jetty-plus" % "9.2.10.v20150310" % "container" withSources(),
+  "c3p0" % "c3p0" % "0.9.1.2" withSources(),
+  "org.scalatest" %% "scalatest" % "2.2.4" % "provided" withSources(),
+  "org.scalatra" % "scalatra-specs2_2.11" % "2.3.1" withSources(),
+  "org.scalikejdbc" % "scalikejdbc_2.11" % "2.2.6" withSources(),
   "org.scalikejdbc" % "scalikejdbc-test_2.11" % "2.2.6" withSources(),
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0" withSources() ,
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0" withSources(),
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41" withSources(),
   "org.phenoscape" %% "scowl" % "1.2.1",
   "com.typesafe.akka" %% "akka-actor" % "2.4.17",
@@ -40,7 +40,12 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream-testkit" % "2.4.17",
   "net.liftweb" %% "lift-json" % "2.6+",
   "org.slf4j" % "slf4j-simple" % "1.7.12",
-  "se.walkercrou" % "google-places-api-java" % "2.1.2"
+  "org.apache.jena" % "apache-jena-libs" % "3.3.0",
+  "org.scalatra" %% "scalatra-swagger" % "2.3.1",
+  "io.swagger" % "swagger-core" % "1.5.0",
+  "org.json4s"   %% "json4s-native" % "3.2.11",
+  "com.google.api-client" % "google-api-client" % "1.22.0"
+
 )
 enablePlugins(JavaAppPackaging)
 

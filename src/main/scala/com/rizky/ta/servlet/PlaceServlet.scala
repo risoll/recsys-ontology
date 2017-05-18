@@ -8,6 +8,8 @@ import org.scalatra.json._
 import com.rizky.ta.model._
 import org.json4s.jackson.Serialization
 import com.rizky.ta.util.PlacesUtil
+import org.scalatra.swagger.{Swagger, SwaggerSupport}
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -15,11 +17,17 @@ import scala.collection.mutable.ListBuffer
   */
 
 
-class PlaceServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupport{
+class PlaceServlet(implicit val swagger: Swagger)
+  extends ScalatraServlet
+  with JacksonJsonSupport
+  with CorsSupport
+  with SwaggerSupport {
+
+  protected val applicationDescription = "The places API. It exposes operations for browsing and searching lists of places"
   protected implicit val jsonFormats: Formats = DefaultFormats
   protected implicit val apiKey: String = Common.apiKey
 
-  options("/*"){
+  options("/*") {
     response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
   }
 
@@ -28,7 +36,13 @@ class PlaceServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupp
     contentType = formats("json")
   }
 
-  post("/addPlaces") {
+
+  val addPlaces =
+    (apiOperation[Unit]("/addPlaces")
+      summary "add bulk places"
+      notes "add multiple place, optional in collabs with UI"
+      parameter queryParam[Option[List[Result]]]("results").description("a list of result that will be added to the DB, from Google Place API"))
+  post("/addPlaces", operation(addPlaces)) {
     val results = (parsedBody \ "results").extract[List[Result]]
     for (result <- results) {
       Place.create(result.place_id)
@@ -47,7 +61,7 @@ class PlaceServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupp
     Place.updatePlace(placeId, name, types, address, phone, openHours, lengthOfVisit, tariff)
   }
 
-  post("/bulkUpdatePlaces"){
+  post("/bulkUpdatePlaces") {
     val places = Place.list()
     val result = PlacesUtil.createRowMap(places)
     println("places", result)
@@ -61,9 +75,10 @@ class PlaceServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupp
     jsonResult
   }
 
-  get("/createTablePlaces"){
+  get("/createTablePlaces") {
     Place.createTablePlaces()
     Serialization.write("status" -> "table places created")
   }
+
 
 }

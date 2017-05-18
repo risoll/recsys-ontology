@@ -13,15 +13,6 @@ object MavenToSbtUtil {
       val version = "SCALA_VERSION$"
     }
 
-//    val xml =
-//      <dependencies>
-//        <dependency>
-//          <groupId>se.walkercrou</groupId>
-//          <artifactId>google-places-api-java</artifactId>
-//          <version>2.1.2</version>
-//        </dependency>
-//      </dependencies>
-
 
     val data: Seq[(String, String, String)] = (xml \ "dependency") map { d =>
       val groupId = d \ "groupId" text
