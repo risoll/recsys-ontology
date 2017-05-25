@@ -1,4 +1,4 @@
-package com.rizky.ta.servlet
+package com.rizky.ta.controller
 
 import com.rizky.ta.model.Common.Geometry
 import com.rizky.ta.model.Place.Result
@@ -17,15 +17,15 @@ import scala.collection.mutable.ListBuffer
   */
 
 
-class PlaceServlet(implicit val swagger: Swagger)
+class PlaceController(implicit val swagger: Swagger)
   extends ScalatraServlet
   with JacksonJsonSupport
   with CorsSupport
   with SwaggerSupport {
 
+  protected implicit val apiKey: String = Common.apiKey
   protected val applicationDescription = "The places API. It exposes operations for browsing and searching lists of places"
   protected implicit val jsonFormats: Formats = DefaultFormats
-  protected implicit val apiKey: String = Common.apiKey
 
   options("/*") {
     response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));

@@ -10,6 +10,9 @@ import scala.language.postfixOps
   * Created by risol_000 on 3/12/2017.
   */
 object OwlUtil {
+  /**
+    * functions related to OWL API
+    */
   def createIri(path: String, fileName: String): IRI ={
     var newPath = path + """\"""
     newPath = newPath.replace("""\""", "/")

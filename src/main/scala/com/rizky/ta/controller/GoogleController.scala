@@ -1,4 +1,4 @@
-package com.rizky.ta.servlet
+package com.rizky.ta.controller
 
 import com.rizky.ta.util.GoogleUtil
 import org.json4s.{DefaultFormats, Formats}
@@ -8,7 +8,7 @@ import org.scalatra.json.JacksonJsonSupport
 /**
   * Created by solehuddien on 03/05/17.
   */
-class GoogleServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupport {
+class GoogleController extends ScalatraServlet with JacksonJsonSupport with CorsSupport {
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   options("/*"){

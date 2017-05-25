@@ -44,11 +44,12 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra-swagger" % "2.3.1",
   "io.swagger" % "swagger-core" % "1.5.0",
   "org.json4s"   %% "json4s-native" % "3.2.11",
-  "com.google.api-client" % "google-api-client" % "1.22.0"
-
+  "com.google.api-client" % "google-api-client" % "1.22.0",
+  "org.w3" %% "banana-jena" % "0.8.1"
 )
 enablePlugins(JavaAppPackaging)
 
+resolvers += "bblfish-snapshots" at "http://bblfish.net/work/repo/snapshots"
 resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 resolvers += "ElasticSearch Repo" at "http://maven.elasticsearch.org/public-releases/"

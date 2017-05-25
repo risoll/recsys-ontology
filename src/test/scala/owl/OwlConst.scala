@@ -1,10 +1,19 @@
 package owl
 
+import java.io.{File, FileReader}
+
+import com.rizky.ta.util.OwlUtil
+import org.apache.jena.ontology.OntModelSpec
+import org.apache.jena.rdf.model.ModelFactory
+import org.apache.jena.util.FileManager
+import org.semanticweb.owlapi.apibinding.OWLManager
+
 /**
   * Created by risol_000 on 3/13/2017.
   */
 object OwlConst {
-
+  val ROOT_PATH = System.getProperty("user.dir")
+  val OWL_FILE = "attractions.owl"
   val museums: List[String] = List("MuseumAlam", "MuseumBudaya", "MuseumSejarah")
 
   val edukasis: List[String] = List("Museum")

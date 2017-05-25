@@ -2,7 +2,7 @@ import org.scalatra.LifeCycle
 import javax.servlet.ServletContext
 
 import com.rizky.ta.config.DBInit
-import com.rizky.ta.servlet.{DatasetServlet, GoogleServlet, PlaceServlet}
+import com.rizky.ta.controller.{DatasetController, GoogleController, PlaceController, RecommendationController}
 import com.rizky.ta.swagger.{AppSwagger, ResourcesApp}
 
 /**
@@ -12,9 +12,10 @@ class ScalatraBootstrap extends LifeCycle{
     override def init(context: ServletContext){
       DBInit.config()
       implicit val swagger = new AppSwagger
-      context.mount(new DatasetServlet, "/*")
-      context.mount(new PlaceServlet, "/place", "place")
-      context.mount(new GoogleServlet, "/google/*")
+      context.mount(new DatasetController, "/*")
+      context.mount(new PlaceController, "/place", "place")
+      context.mount(new RecommendationController, "/recommendation", "rec")
+      context.mount(new GoogleController, "/google/*")
       context.mount(new ResourcesApp, "/api-docs/*")
 
 

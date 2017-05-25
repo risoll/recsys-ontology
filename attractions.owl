@@ -1,0 +1,1553 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata"
+     xml:base="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata"
+     xmlns:sdmxmeasure="http://purl.org/linked-data/sdmx/2009/measure#"
+     xmlns:xo="http://rhizomik.net/redefer/xsl/xsd2owl-functions.xsl"
+     xmlns:iao="http://purl.obolibrary.org/obo/iao/"
+     xmlns:xs="http://wwwworg/2001/XMLSchema"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:adms="http://www.w3.org/ns/adms#"
+     xmlns:story="http://www.example.org/story.owl#"
+     xmlns:time="http://www.w3.org/2006/time#"
+     xmlns:dcmi="http://dublincore.org/documents/2012/06/14/dcmiterms/"
+     xmlns:event="http://purl.org/NET/c4dm/event.owl#"
+     xmlns:vin="http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
+     xmlns:weather="http://archive.knoesis.org/research/semsci/application_domain/sem_sensor/ont/weather.owl"
+     xmlns:ace_lexicon="http://attempto.ifi.uzh.ch/ace_lexicon#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:xkos="http://purl.org/linked-data/xkos#"
+     xmlns:sdmxconcept="http://purl.org/linked-data/sdmx/2009/concept#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:food_smart_product="http://kmi.open.ac.uk/projects/smartproducts/ontologies/food.owl#"
+     xmlns:home="http://sensormeasurement.appspot.com/home#"
+     xmlns:sdmxcode="http://purl.org/linked-data/sdmx/2009/code#"
+     xmlns:wisata="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#"
+     xmlns:ffschema="http://www.thodoris.net/ontology/film-festival-model/"
+     xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:org="http://www.w3.org/ns/org#"
+     xmlns:cen="http://datiopen.istat.it/odi/ontologia/censimento/"
+     xmlns:SHOnt="file://SHOnt.owl#"
+     xmlns:provonto="http://datiopen.istat.it/odi/ontologia/provenance-ontologia/"
+     xmlns:m3-lite="http://purl.org/iot/vocab/m3-lite#"
+     xmlns:dm="http://learningsparql.com/ns/demo#"
+     xmlns:api="http://purl.org/linked-data/api/vocab#"
+     xmlns:sdmxattribute="http://purl.org/linked-data/sdmx/2009/attribute#"
+     xmlns:app="http://eagle-i.org/ont/app/1.0/"
+     xmlns:spitfire="http://spitfire-project.eu/ontology/ns/"
+     xmlns:d="http://learningsparql.com/ns/data#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:mo="http://purl.org/ontology/mo/"
+     xmlns:b="http://burgermeister.com/ontology#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:movie="http://www.movieontology.org/2010/01/movieontology.owl"
+     xmlns:emoca="http://ns.inria.fr/emoca#"
+     xmlns:shw="http://paul.staroch.name/thesis/SmartHomeWeather.owl#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:voaf="http://purl.org/vocommons/voaf#"
+     xmlns:naturopathy="http://sensormeasurement.appspot.com/naturopathy#"
+     xmlns:t="http://purl.org/NET/c4dm/timeline.owl#"
+     xmlns:stac="http://securitytoolbox.appspot.com/stac#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#"
+     xmlns:ucum="http://idi.fundacionctic.org/muo/ucum-instances.owl"
+     xmlns:ssn="http://purl.oclc.org/NET/ssnx/ssn#"
+     xmlns:sdmxdimension="http://purl.org/linked-data/sdmx/2009/dimension#"
+     xmlns:qudt="http://qudt.org/schema/qudt#"
+     xmlns:dogont="http://elite.polito.it/ontologies/dogont.owl#"
+     xmlns:timezone="http://www.w3.org/2006/timezone#"
+     xmlns:dcat="http://www.w3.org/TR/vocab-dcat/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:adasDataParsingOntologyVersion1="http://www.semanticweb.org/yogita.suryawanshi/ontologies/bmw/adasDataParsingOntologyVersion1#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:m3="http://sensormeasurement.appspot.com/m3#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:ontoSensor="http://mmisw.org/ont/univmemphis/sensor"
+     xmlns:openIoT="http://openiot.eu/ontology/ns/"
+     xmlns:aws="http://purl.oclc.org/NET/ssnx/meteo/aws#"
+     xmlns:food="http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#"
+     xmlns:dul="http://www.loa-cnr.it/ontologies/DUL.owl#"
+     xmlns:pizza="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:ter="http://datiopen.istat.it/odi/ontologia/territorio/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:qudt_unit="http://data.qudt.org/qudt/owl/1.0.0/unit.owl#"
+     xmlns:WeatherOntology="https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/WeatherOntology.owl#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:statistics="http://purl.org/net/OCRe/statistics.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:uol="http://keli.dk/"
+     xmlns:txn="http://lod.taxonconcept.org/ontology/txn.owl#"
+     xmlns:study_protocol="http://purl.org/net/OCRe/study_protocol.owl#"
+     xmlns:dbpedia="http://dbpedia.org/ontology/"
+     xmlns:cose="http://casas.wsu.edu/owl/cose.owl#"
+     xmlns:ifim="http://www.six-group.com/dfi/ifim#"
+     xmlns:camera="http://www.xfront.com/owl/ontologies/camera/#"
+     xmlns:sweet_unit="http://sweet.jpl.nasa.gov/ontology/units.owl#"
+     xmlns:qb="http://purl.org/linked-data/cube#"
+     xmlns:muo="http://purl.oclc.org/NET/muo/muo#"
+     xmlns:romeka="http://www.semanticweb.org/rudarskiodsek/ontologies/2017/4/Romeka#"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ab="http://learningsparql.com/ns/addressbook#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:sdmx="http://purl.org/linked-data/sdmx#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alamat -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alamat">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekdays -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekdays"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekend -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekend"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekdays -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekdays"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekend -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekend">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rata-Rata_Kunjungan -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rata-Rata_Kunjungan">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#short"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rating -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rating"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tarif -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tarif">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Telepon -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Telepon">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#ATV -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#ATV">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Budaya -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Budaya">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pegunungan"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Es_Krim -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Es_Krim">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiburan_Malam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiburan_Malam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiking -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiking">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Olah_Raga"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pegunungan"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kuliner"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kuliner"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kuliner -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kuliner">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makassar -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makassar">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Budaya"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Budaya"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Olah_Raga -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Olah_Raga">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Olah_Raga"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Padang -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Padang">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Paragliding -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Paragliding">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Olah_Raga"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pegunungan -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pegunungan">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Spa"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute_Kota -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute_Kota">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rute"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Shopping_Mall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Shopping_Mall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Spa -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Spa">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sunda -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sunda">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tempat_Wisata"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kuliner"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Agrowisata_Gambung -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Agrowisata_Gambung">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pasir Jambu Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Air_Terjun_Cipanji -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Air_Terjun_Cipanji">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pasir Jambu Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bale_Bambu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bale_Bambu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pasir Jambu Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bandung_Giri_Gahana -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bandung_Giri_Gahana">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Jatinangor Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Batu_Kuda -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Batu_Kuda">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cileunyi Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bulu_Ngampar -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bulu_Ngampar">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ibun Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cibingbin -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cibingbin">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desa Citengah Kec. Sumedang Selatan Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cibolang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cibolang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pangalengan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cipanas_Cileungsing -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cipanas_Cileungsing">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Conggeang Buah Dua Kec. Conggeang Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cipanas_Sekarwangi -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cipanas_Sekarwangi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Conggeang Buah Dua Kec. Conggeang Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Cilengkrang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Cilengkrang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cilengkrang kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Cinulang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Cinulang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cicalengka Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Eli -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Eli">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Salamanja -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Salamanja">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Tilu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Tilu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Danau_Ciharus -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Danau_Ciharus">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ibun Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Desa_Wisata_Lebak_Muncang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Desa_Wisata_Lebak_Muncang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pasir Jambu Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Desa_Wisata_Rawakalong -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Desa_Wisata_Rawakalong">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancakalong Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fragaria_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fragaria_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Geology_Museum -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Geology_Museum">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+        <wisata:Telepon rdf:datatype="http://www.w3.org/2001/XMLSchema#string">+62 22 7203822</wisata:Telepon>
+        <wisata:Rata-Rata_Kunjungan rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</wisata:Rata-Rata_Kunjungan>
+        <wisata:Rating rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</wisata:Rating>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Diponegoro 57, Bandung 75601, Indonesia</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Green_Hill_Park -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Green_Hill_Park">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gua_Pawon -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gua_Pawon">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cipatat Kab.Bandung Barat</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gunung_Kunci -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gunung_Kunci">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiking"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Pala Sari Kec. Sumedang Selatan Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gunung_Tangkuban_Perahu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gunung_Tangkuban_Perahu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Lembang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Indi_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Indi_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jayagiri -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jayagiri">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Lembang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kampung_Toga -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kampung_Toga">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desa Sukajaya Kec. Sumedang Selatan Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Karang_Setra -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Karang_Setra">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Sukajadi</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Kamojang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Kamojang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ibun Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Putih -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Putih">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Rengganis -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kawah_Rengganis">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Taman Sari Balubur</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kin_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kin_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kindy_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kindy_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Oniba -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Oniba">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cicalengka Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Priangan_Tirta -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Priangan_Tirta">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cikancung Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Tirta_Nadi -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Tirta_Nadi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Margaasih Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Valley_Ciwidey -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Renang_Valley_Ciwidey">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Tirta_Riang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kolam_Tirta_Riang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ciparay Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Komunitas_Batar_Ulin -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Komunitas_Batar_Ulin">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cimenyan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Dayeuh_Luhur -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Dayeuh_Luhur">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desa Dayeuh Luhur, Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Kabuyutan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Kabuyutan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pasir Jambu Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Marangge -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makam_Marangge">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Desa Tolengas Kec. Tomo Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Maribaya -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Maribaya">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Lembang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Masigit_Kareumbi -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Masigit_Kareumbi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cicalengka Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Menara_Mesjid_Raya_jabar -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Menara_Mesjid_Raya_jabar">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Asia Afrika</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Asia_Afrika -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Asia_Afrika">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat>Jl. Asia Afrika</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Gaeusan_Ulun -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Gaeusan_Ulun">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. P. Geulisan Ulun Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Pos_Indonesia -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Pos_Indonesia">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Cilaki No. 73</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Siliwangi -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Siliwangi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Lembong, Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_SriBaduga -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_SriBaduga">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat>Jl. BKR No. 185, Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Yayasan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Yayasan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat>Jl. Geusan Ulun</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Yayasan_Pangeran -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Yayasan_Pangeran">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. P. Geulisan Ulun Kab.Sumedang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pak_Ale_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pak_Ale_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Peneropongan_Bintang_Boscha -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Peneropongan_Bintang_Boscha">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Lembang Kab.Bandung Barat</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Perkebunan_Rancabali -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Perkebunan_Rancabali">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Family -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Family">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Mr._Dede -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Mr._Dede">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Raffa -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Raffa">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_The_Oneng -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_The_Oneng">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pondok_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pondok_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Puncak_Bintang_Moko -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Puncak_Bintang_Moko">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cimenyan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Ranca_Saladah_Waterboom -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Ranca_Saladah_Waterboom">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Ranca_Upas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Ranca_Upas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Regar_Orchid -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Regar_Orchid">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Saung_Angklung_Udjo -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Saung_Angklung_Udjo">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Padasuka, Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Seni_Calung_dan_Jaipongan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Seni_Calung_dan_Jaipongan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Kertasari Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sinar_Asih_Petik_Strawberry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sinar_Asih_Petik_Strawberry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Ciburuy -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Ciburuy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Padalarang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Cileunca -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Cileunca">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pangalengan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Cisanti -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Cisanti">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Kertasari Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Dano -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Dano">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pacet Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Lembang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Lembang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Patenggang -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situ_Patenggang">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Bumi_Alit_Kabuyutan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Bumi_Alit_Kabuyutan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cicalengka Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Cikahuripan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Cikahuripan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Makam_Eyang_Pakujaga -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Makam_Eyang_Pakujaga">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Strawberry_65 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Strawberry_65">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#THR._Ir._H._Juanda -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#THR._Ir._H._Juanda">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dago Atas</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#TWA_Cimanggu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#TWA_Cimanggu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tamada_All_Adventure_Team -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tamada_All_Adventure_Team">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#ATV"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Pacet Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Lalu_Lintas_Ade_Lima -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Lalu_Lintas_Ade_Lima">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Belitung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tebing_Keraton -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tebing_Keraton">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cimenyan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Terbang_Buhun_Pusaka_Medal_Laksana -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Terbang_Buhun_Pusaka_Medal_Laksana">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ibun Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waduk_Cirata -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waduk_Cirata">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cipendeuy Kab.Bandung Barat</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waduk_Saguling -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waduk_Saguling">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cipatat Kab.Banung Barat</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Walini -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Walini">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Belanja_Cibaduyut -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Belanja_Cibaduyut">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Cibaduyut</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Belanja_Ciwalk -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Belanja_Ciwalk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Cihampelas</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Lebah_Madu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Lebah_Madu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cimenyan Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Rohani_Daarut_Tauhid -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Rohani_Daarut_Tauhid">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Gegerkolong Girang</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Yasmin_Kartika_Sari -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Yasmin_Kartika_Sari">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Waterpark"/>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Arjasari Kab.Bandung</wisata:Alamat>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#testInd -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#testInd">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Cagar_Alam"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pegunungan"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Hiking"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Paragliding"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Shopping_Mall"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makassar"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Padang"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sunda"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.5-SNAPSHOT) http://owlapi.sourceforge.net -->
