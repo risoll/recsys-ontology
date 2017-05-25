@@ -1,18 +1,13 @@
 package com.rizky.ta.controller
 
-import com.rizky.ta.model.Place
-import com.rizky.ta.model.Place.Result
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
 import com.rizky.ta.model.owl.OwlConst
 import com.rizky.ta.util.SparqlUtil
-import org.apache.jena.query.{QueryExecutionFactory, QueryFactory}
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
-
-import scala.collection.mutable.ListBuffer
 
 /**
   * Created by solehuddien on 25/05/17.
@@ -43,7 +38,7 @@ class RecommendationController(implicit val swagger: Swagger)
   OWL_MODEL.read(inputStream, null)
 
 
-  val attractions =
+  private val attractions =
     (apiOperation[Unit]("/attractions")
       summary "get attractions based on lowest category"
       parameter queryParam[String]("category").defaultValue("Edukasi").description("get list of attractions which the category is the lowest node before leaf in ontology hierarchy"))
