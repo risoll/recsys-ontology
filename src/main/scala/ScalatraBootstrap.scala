@@ -12,11 +12,11 @@ class ScalatraBootstrap extends LifeCycle{
     override def init(context: ServletContext){
       DBInit.config()
       implicit val swagger = new AppSwagger
-      context.mount(new DatasetController, "/*")
-      context.mount(new PlaceController, "/place", "place")
-      context.mount(new RecommendationController, "/recommendation", "rec")
-      context.mount(new GoogleController, "/google/*")
+      context.mount(new ResourcesApp, "/*")
       context.mount(new ResourcesApp, "/api-docs/*")
+      context.mount(new PlaceController, "/place", "place")
+      context.mount(new RecommendationController, "/recommendation", "recommendation")
+      context.mount(new GoogleController, "/google/*")
 
 
       //    context.initParameters("org.scalatra.cors.allowedOrigins") = "http://10.251.223.122:9200"

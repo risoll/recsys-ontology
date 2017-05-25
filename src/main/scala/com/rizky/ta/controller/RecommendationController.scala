@@ -44,10 +44,10 @@ class RecommendationController(implicit val swagger: Swagger)
 
 
   val attractions =
-    (apiOperation[Unit]("/attractions/category")
+    (apiOperation[Unit]("/attractions")
       summary "get attractions based on lowest category"
-      parameter queryParam[String]("category").description("category which is the lowest node before leaf in ontology hierarchy"))
-  get("/attractions/:category", operation(attractions)) {
+      parameter queryParam[String]("category").defaultValue("Edukasi").description("get list of attractions which the category is the lowest node before leaf in ontology hierarchy"))
+  get("/attractions", operation(attractions)) {
     SparqlUtil.getAttractionsByCategory(
       params.get("category").getOrElse(""),
       OWL_MODEL
