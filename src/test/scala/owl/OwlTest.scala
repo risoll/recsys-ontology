@@ -167,7 +167,9 @@ object OwlTest extends App {
     s"""
        $OWL_PREFIX
        select * where {
-        ?name rdf:type data:Edukasi }
+        ?name rdf:type data:Pemandangan_Alam
+        filter ( ?name="Kawah_Putih"^^xsd:string )
+        }
     """
 
   val query = QueryFactory.create(queryString)

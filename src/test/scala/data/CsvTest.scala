@@ -27,13 +27,13 @@ object CsvTest extends App {
   //  }
   //  println(list)
   val xml =
-    <dependencies>
-      <dependency>
-        <groupId>com.google.api-client</groupId>
-        <artifactId>google-api-client</artifactId>
-        <version>1.22.0</version>
-      </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>se.walkercrou</groupId>
+      <artifactId>google-places-api-java</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+  </dependencies>
 
 
   println(MavenToSbtUtil.createSbtString(xml))

@@ -45,6 +45,7 @@ libraryDependencies ++= Seq(
   "io.swagger" % "swagger-core" % "1.5.0",
   "org.json4s"   %% "json4s-native" % "3.2.11",
   "com.google.api-client" % "google-api-client" % "1.22.0",
+  "org.scalaj" % "scalaj-http_2.11" % "2.3.0",
   "org.w3" %% "banana-jena" % "0.8.1"
 )
 enablePlugins(JavaAppPackaging)

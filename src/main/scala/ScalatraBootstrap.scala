@@ -16,7 +16,7 @@ class ScalatraBootstrap extends LifeCycle{
       context.mount(new ResourcesApp, "/api-docs/*")
       context.mount(new PlaceController, "/place", "place")
       context.mount(new RecommendationController, "/recommendation", "recommendation")
-      context.mount(new GoogleController, "/google/*")
+      context.mount(new GoogleController, "/google", "google")
 
 
       //    context.initParameters("org.scalatra.cors.allowedOrigins") = "http://10.251.223.122:9200"

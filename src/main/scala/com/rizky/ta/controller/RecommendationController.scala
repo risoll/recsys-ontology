@@ -3,7 +3,7 @@ package com.rizky.ta.controller
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
 import com.rizky.ta.model.owl.OwlConst
-import com.rizky.ta.util.SparqlUtil
+import com.rizky.ta.util.RecommendationUtil
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
@@ -18,7 +18,7 @@ class RecommendationController(implicit val swagger: Swagger)
     with CorsSupport
     with SwaggerSupport {
 
-  protected val applicationDescription = "The recommendation API. It will give the recommendation by querying with Sparql"
+  protected val applicationDescription = "The Recommendation API. It will give the recommendation by querying with Sparql"
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   options("/*") {
@@ -30,20 +30,21 @@ class RecommendationController(implicit val swagger: Swagger)
     contentType = formats("json")
   }
 
+  private val OWL_FILE = "attractions.owl"
   private val OWL_MODEL = ModelFactory.createDefaultModel()
-  private val inputStream = FileManager.get().open(OwlConst.OWL_FILE)
+  private val inputStream = FileManager.get().open(OWL_FILE)
   if (inputStream == null) {
-    throw new IllegalArgumentException(s"File ${OwlConst.OWL_FILE} not found")
+    throw new IllegalArgumentException(s"File $OWL_FILE not found")
   }
   OWL_MODEL.read(inputStream, null)
 
 
   private val attractions =
-    (apiOperation[Unit]("/attractions")
-      summary "get attractions based on lowest category"
-      parameter queryParam[String]("category").defaultValue("Edukasi").description("get list of attractions which the category is the lowest node before leaf in ontology hierarchy"))
+    (apiOperation[List[String]]("/attractions")
+      summary "get list of attractions which the category is the lowest node (right before leaf) in ontology hierarchy"
+      parameter queryParam[String]("category").defaultValue("Edukasi").description("category"))
   get("/attractions", operation(attractions)) {
-    SparqlUtil.getAttractionsByCategory(
+    RecommendationUtil.getAttractionsByCategory(
       params.get("category").getOrElse(""),
       OWL_MODEL
     )
