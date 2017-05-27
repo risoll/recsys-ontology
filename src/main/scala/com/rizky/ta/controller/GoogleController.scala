@@ -1,6 +1,5 @@
 package com.rizky.ta.controller
 
-import com.rizky.ta.model.google.GoogleConst
 import com.rizky.ta.util.GoogleUtil
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}

@@ -2,7 +2,6 @@ package com.rizky.ta.controller
 
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
-import com.rizky.ta.model.owl.OwlConst
 import com.rizky.ta.util.RecommendationUtil
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
