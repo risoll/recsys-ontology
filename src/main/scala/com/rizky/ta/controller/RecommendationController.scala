@@ -48,4 +48,11 @@ class RecommendationController(implicit val swagger: Swagger)
       OWL_MODEL
     )
   }
+
+  private val questionsGeneral =
+    (apiOperation[List[String]]("/questions/general")
+      summary "generate list of root question to initiate recommendation")
+  get("/questions/general", operation(questionsGeneral)) {
+    RecommendationUtil.generateGeneralQuestions(OWL_MODEL)
+  }
 }

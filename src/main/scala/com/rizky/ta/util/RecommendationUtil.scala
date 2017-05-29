@@ -26,13 +26,27 @@ object RecommendationUtil {
        select * where {
         ?name rdf:type data:$category }
     """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def generateGeneralQuestions(OWL_MODEL: Model): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        ?name rdfs:subClassOf data:Tempat_Wisata }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def executeQuery(queryString: String, OWL_MODEL: Model): List[String] ={
     val query = QueryFactory.create(queryString)
     val qe = QueryExecutionFactory.create(query, OWL_MODEL)
     val results = qe.execSelect()
-    val attractions = ListBuffer[String]()
+    val tmpResults = ListBuffer[String]()
     while(results.hasNext){
-      attractions.append(results.next().getResource("name").getLocalName)
+      tmpResults.append(results.next().getResource("name").getLocalName.replace("_", " "))
     }
-    attractions.toList
+    tmpResults.toList
   }
 }

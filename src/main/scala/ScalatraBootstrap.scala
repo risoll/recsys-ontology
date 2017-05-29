@@ -15,7 +15,7 @@ class ScalatraBootstrap extends LifeCycle{
       context.mount(new ResourcesApp, "/*")
       context.mount(new ResourcesApp, "/api-docs/*")
       context.mount(new PlaceController, "/place", "place")
-      context.mount(new RecommendationController, "/recommendation", "recommendation")
+      context.mount(new RecommendationController, "/recomm", "recomm")
       context.mount(new GoogleController, "/google", "google")
 
 
