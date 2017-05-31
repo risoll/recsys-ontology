@@ -166,9 +166,9 @@ object OwlTest extends App {
   val queryString =
     s"""
        $OWL_PREFIX
-       select * where {
-        ?name rdfs:subClassOf data:Tempat_Wisata
-        }
+       insert {
+
+       }
     """
 
   val query = QueryFactory.create(queryString)

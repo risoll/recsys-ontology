@@ -26,16 +26,38 @@ class GoogleController(implicit val swagger: Swagger)
     contentType = formats("json")
   }
 
+  private val bandungLat = -6.917464
+  private val bandungLng = 107.619123
+  private val radius = 5
+  private val maxWidth = 200
+  private val maxHeight = 200
+
+  private val textSearch =
+    (apiOperation[List[String]]("/search/text")
+      summary "get places by querying fuzzy text"
+      parameters(
+        queryParam[String]("query").defaultValue("Tangkuban Perahu").description("Fuzzy place name"),
+        queryParam[Double]("lat").defaultValue(bandungLat).description("Latitude"),
+        queryParam[Double]("lng").defaultValue(bandungLng).description("Longitude"),
+        queryParam[Double]("radius").defaultValue(radius).description("Radius in meter")
+    ))
+  get("/search/text", operation(textSearch)){
+    val query = params.get("query").get
+    val lat = params.get("lat").get.toDouble
+    val lng = params.get("lng").get.toDouble
+    val radius = params.get("radius").get.toDouble
+    GoogleUtil.textSearch(query, lat, lng, radius)
+  }
 
   private val radarSearch =
-    (apiOperation[List[String]]("/radarSearch")
+    (apiOperation[List[String]]("/search/radar")
       summary "get list of places with Google radar search API"
       parameters(
-        queryParam[Double]("lat").defaultValue(-6.917464).description("Latitude"),
-        queryParam[Double]("lng").defaultValue(107.619123).description("Longitude"),
-        queryParam[Double]("radius").defaultValue(25000).description("Radius in meter")
+        queryParam[Double]("lat").defaultValue(bandungLat).description("Latitude"),
+        queryParam[Double]("lng").defaultValue(bandungLng).description("Longitude"),
+        queryParam[Double]("radius").defaultValue(radius).description("Radius in meter")
     ))
-  get("/radarSearch", operation(radarSearch)){
+  get("/search/radar", operation(radarSearch)){
     val lat = params.get("lat").get.toDouble
     val lng = params.get("lng").get.toDouble
     val radius = params.get("radius").get.toDouble
@@ -43,16 +65,16 @@ class GoogleController(implicit val swagger: Swagger)
   }
 
   private val photos =
-    (apiOperation[List[String]]("/photos")
+    (apiOperation[List[String]]("/place/photo/bulk")
       summary "get list of photos from radar search API"
       parameters(
-        queryParam[Double]("lat").defaultValue(-6.917464).description("Latitude"),
-        queryParam[Double]("lng").defaultValue(107.619123).description("Longitude"),
-        queryParam[Double]("radius").defaultValue(5).description("Radius in meter"),
-        queryParam[Int]("maxWidth").defaultValue(200).description("Max width of photo in pixel"),
-        queryParam[Int]("maxHeight").defaultValue(200).description("Max height of photo in pixel")
+        queryParam[Double]("lat").defaultValue(bandungLat).description("Latitude"),
+        queryParam[Double]("lng").defaultValue(bandungLng).description("Longitude"),
+        queryParam[Double]("radius").defaultValue(radius).description("Radius in meter"),
+        queryParam[Int]("maxWidth").defaultValue(maxWidth).description("Max width of photo in pixel"),
+        queryParam[Int]("maxHeight").defaultValue(maxHeight).description("Max height of photo in pixel")
     ))
-  get("/photos", operation(photos)){
+  get("/place/photo/bulk", operation(photos)){
     val lat = params.get("lat").get.toDouble
     val lng = params.get("lng").get.toDouble
     val radius = params.get("radius").get.toDouble
@@ -64,33 +86,15 @@ class GoogleController(implicit val swagger: Swagger)
     photos
   }
 
-  private val placesDetails =
-    (apiOperation[List[String]]("/placesDetails")
-      summary "get list of place details from radar search API"
-      parameters(
-        queryParam[Double]("lat").defaultValue(-6.917464).description("Latitude"),
-        queryParam[Double]("lng").defaultValue(107.619123).description("Longitude"),
-        queryParam[Double]("radius").defaultValue(25000).description("Radius in meter"),
-        queryParam[Int]("maxWidth").defaultValue(400).description("Max width of photo in pixel")
-    ))
-  get("/placesDetails", operation(placesDetails)){
-    val lat = params.get("lat").get.toDouble
-    val lng = params.get("lng").get.toDouble
-    val radius = params.get("radius").get.toDouble
-    val maxWidth = params.get("maxWidth").get.toInt
-    val searchResults = GoogleUtil.radarSearch(lat, lng, radius)
-    GoogleUtil.getPlacesDetails(searchResults)
-  }
-
   private val photo =
-    (apiOperation[List[String]]("/photo")
+    (apiOperation[List[String]]("/place/photo")
       summary "get a place photo"
       parameters(
-        queryParam[Int]("maxWidth").defaultValue(200).description("Max image width in pixel"),
-        queryParam[Int]("maxHeight").defaultValue(200).description("Max image height in pixel"),
+        queryParam[Int]("maxWidth").defaultValue(maxWidth).description("Max image width in pixel"),
+        queryParam[Int]("maxHeight").defaultValue(maxHeight).description("Max image height in pixel"),
         queryParam[String]("photoReference").defaultValue("CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU").description("Reference of photo from place api")
     ))
-  get("/photo", operation(photo)){
+  get("/place/photo", operation(photo)){
     val maxWidth = params.get("maxWidth").get.toInt
     val maxHeight = params.get("maxHeight").get.toInt
     val photoReference = params.get("photoReference").get.toString
@@ -99,10 +103,10 @@ class GoogleController(implicit val swagger: Swagger)
   }
 
   private val placeDetails =
-    (apiOperation[List[String]]("/placeDetails")
+    (apiOperation[List[String]]("/place/details")
       summary "get details of a place"
       parameter queryParam[String]("placeId").defaultValue("ChIJN1t_tDeuEmsRUsoyG83frY4").description("Place ID"))
-  get("/placeDetails", operation(placeDetails)){
+  get("/place/details", operation(placeDetails)){
     val placeId = params.get("placeId").get
     GoogleUtil.getPlaceDetails(placeId)
   }

@@ -15,10 +15,36 @@ import scala.util.control.Breaks._
   */
 object GoogleUtil {
 
+  private val replaceQuery = Map("dan" -> "and")
+
   private val PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place"
 //  private val API_KEY = "AIzaSyC1a8GoIeNrSnLD0SrT7prEa1Cf_T_a2WA"
-  private val API_KEY = "AIzaSyB8N-RSVWGZseC1qQc7T1s85Z4kOtZYnN0"
+//  private val API_KEY = "AIzaSyB8N-RSVWGZseC1qQc7T1s85Z4kOtZYnN0"
+//  private val API_KEY = "AIzaSyC_cBzLwY0pZhuI3kDUykrvgGj5gnGUP7Q"
 //  private val API_KEY = "AIzaSyDglsvlpD_o8RPXbpI--KlLgTmz_tWJSyQ"
+//  private val API_KEY = "AIzaSyBpsIj_ThKLWEs26Ibf70lfN3d9eX0DBak"
+  private val API_KEY = "AIzaSyCJynwIXL7HAnw8p6WzqRKZ4EOgRakuu_o"
+
+  def textSearch(query: String, lat: Double, lng: Double, radius: Double): Map[String, Any] ={
+    var parsedQuery = s"${query.replace(" ", "+")}+bandung+attraction"
+    replaceQuery.foreach(query=>{
+      parsedQuery = parsedQuery.replace(query._1, query._2)
+    })
+    val params = Map("query" -> parsedQuery, "lat" -> lat, "lng" -> lng, "radius" -> radius, "key" -> API_KEY)
+    val prefix = s"$PLACES_API_BASE/textsearch/json?"
+    val response = requestHttp(prefix, params).asInstanceOf[Map[String, Any]]
+    var result: Map[String, Any] = Map()
+    response.get("results") match {
+      case Some(value) =>
+        value.asInstanceOf[List[Map[String, Any]]].foreach(v=>{
+          if(result.keys.size < v.keys.size)
+            result = v
+        })
+        result
+      case None =>
+        Map()
+    }
+  }
 
   def radarSearch(lat: Double, lng: Double, radius: Double): List[Map[String, Any]] = {
     val params = Map("location" -> s"$lat,$lng", "radius" -> radius, "type" -> "point_of_interest", "key" -> API_KEY)
@@ -82,17 +108,6 @@ object GoogleUtil {
     ids.toList
   }
 
-  def getPlacesDetails(searchResults: List[Map[String, Any]]): List[Map[String, Any]] ={
-    val places: ListBuffer[Map[String, Any]] = ListBuffer()
-    searchResults.foreach(result => {
-      val id = result("place_id").toString
-      val place = getPlaceDetails(id)
-      if(place.keys.nonEmpty)
-        places.append(place)
-    })
-    places.toList
-  }
-
   def getPlaceDetails(placeId: String): Map[String, Any] = {
     val params = Map("placeid" -> placeId, "key" -> API_KEY)
     val prefix = s"$PLACES_API_BASE/details/json?"
@@ -127,6 +142,7 @@ object GoogleUtil {
 
   def requestHttp(prefix: String, params: Map[String, Any], method: String = ""): Any = {
     val request = createRequestURI(prefix, params)
+    println(request)
     method match {
       case "HEAD" =>
         val response = Http(request).method("HEAD").asParams

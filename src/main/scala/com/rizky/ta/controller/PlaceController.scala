@@ -24,7 +24,7 @@ class PlaceController(implicit val swagger: Swagger)
   with SwaggerSupport {
 
   protected implicit val apiKey: String = Common.apiKey
-  protected val applicationDescription = "The places API. It exposes operations for browsing and searching lists of places"
+  protected val applicationDescription = "The Places API. It exposes operations for browsing and searching lists of places"
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   options("/*") {
@@ -37,48 +37,72 @@ class PlaceController(implicit val swagger: Swagger)
   }
 
 
-  val addPlaces =
-    (apiOperation[Unit]("/addPlaces")
-      summary "add bulk places"
-      notes "add multiple place, optional in collabs with UI"
-      parameter queryParam[Option[List[Result]]]("results").description("a list of result that will be added to the DB, from Google Place API"))
-  post("/addPlaces", operation(addPlaces)) {
-    val results = (parsedBody \ "results").extract[List[Result]]
-    for (result <- results) {
-      Place.create(result.place_id)
-    }
+  private val places =
+    (apiOperation[Unit]("/bulk")
+      summary "get list of all places")
+  get("/bulk", operation(places)) {
+    Place.list()
   }
 
-  post("/updatePlace") {
-    val placeId = (parsedBody \ "placeId").extract[String]
-    val name = (parsedBody \ "name").extract[String]
-    val types = (parsedBody \ "types").extract[List[String]].mkString(";")
-    val address = (parsedBody \ "address").extract[String]
-    val phone = (parsedBody \ "phone").extract[String]
-    val openHours = (parsedBody \ "openHours").extract[String]
-    val lengthOfVisit = (parsedBody \ "lengthOfVisit").extract[String]
-    val tariff = (parsedBody \ "tariff").extract[String]
-    Place.updatePlace(placeId, name, types, address, phone, openHours, lengthOfVisit, tariff)
+  private val placesPagination =
+    (apiOperation[Unit]("/pagination")
+      summary "get list of places with pagination"
+      parameters(
+      queryParam[Int]("limit").defaultValue(10).description("Number of content per page"),
+      queryParam[Int]("offset").defaultValue(10).description("Number of skipped rows")
+    ))
+  get("/pagination", operation(placesPagination)) {
+    val limit = params("limit").toInt
+    val offset = params("offset").toInt
+    Place.listPagination(limit, offset)
   }
 
-  post("/bulkUpdatePlaces") {
-    val places = Place.list()
-    val result = PlacesUtil.createRowMap(places)
-    println("places", result)
-    result
-  }
+//  post("/update") {
+//    val placeId = (parsedBody \ "placeId").extract[String]
+//    val name = (parsedBody \ "name").extract[String]
+//    val formattedAddress = (parsedBody \ "formattedAddress").extract[String]
+//    val phone = (parsedBody \ "phone").extract[String]
+//    val lengthOfVisit = (parsedBody \ "lengthOfVisit").extract[String]
+//    val tariff = (parsedBody \ "tariff").extract[String]
+//    val photo = (parsedBody \ "photo").extract[String]
+//    val lat = (parsedBody \ "lat").extract[Double]
+//    val lng = (parsedBody \ "lng").extract[Double]
+//    val rating = (parsedBody \ "rating").extract[Double]
+//    val openHoursMonday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursTuesday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursWednesday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursThursday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursFriday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursSaturday = (parsedBody \ "openHoursMonday").extract[String]
+//    val openHoursSunday = (parsedBody \ "openHoursMonday").extract[String]
+//    val clsoeHoursMonday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursTuesday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursWednesday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursThursday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursFriday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursSaturday = (parsedBody \ "openHoursMonday").extract[String]
+//    val closeHoursSunday = (parsedBody \ "openHoursMonday").extract[String]
+//    Place.updatePlace(
+//      placeId, name, formatted_address, phone, openHours,
+//      lengthOfVisit, tariff
+//    )
+//  }
 
-  get("/places") {
-    val places = Place.list()
-    val result = PlacesUtil.createRowMap(places)
-    val jsonResult = Serialization.write(result)
-    jsonResult
-  }
+//  post("/update/bulk") {
+//    val places = Place.list()
+//    val result = PlacesUtil.createRowMap(places)
+//    println("places", result)
+//    result
+//  }
 
-  get("/createTablePlaces") {
-    Place.createTablePlaces()
-    Serialization.write("status" -> "table places created")
-  }
+//  get("/bulk") {
+//    Place.list()
+//    val places = Place.list()
+//    val result = PlacesUtil.createRowMap(places)
+//    val jsonResult = Serialization.write(result)
+//    jsonResult
+//  }
+
 
 
 }

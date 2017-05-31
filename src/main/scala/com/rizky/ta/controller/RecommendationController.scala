@@ -55,4 +55,11 @@ class RecommendationController(implicit val swagger: Swagger)
   get("/questions/general", operation(questionsGeneral)) {
     RecommendationUtil.generateGeneralQuestions(OWL_MODEL)
   }
+
+  private val individuals =
+    (apiOperation[List[String]]("/individual/bulk")
+      summary "get a list of all available individuals")
+  get("/individual/bulk", operation(individuals)) {
+    RecommendationUtil.getAllIndividual(OWL_MODEL)
+  }
 }

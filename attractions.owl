@@ -4,8 +4,8 @@
      xmlns:sdmxmeasure="http://purl.org/linked-data/sdmx/2009/measure#"
      xmlns:xo="http://rhizomik.net/redefer/xsl/xsd2owl-functions.xsl"
      xmlns:iao="http://purl.obolibrary.org/obo/iao/"
-     xmlns:xs="http://wwwworg/2001/XMLSchema"
      xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:xs="http://wwwworg/2001/XMLSchema"
      xmlns:adms="http://www.w3.org/ns/adms#"
      xmlns:story="http://www.example.org/story.owl#"
      xmlns:time="http://www.w3.org/2006/time#"
@@ -23,32 +23,32 @@
      xmlns:sdmxcode="http://purl.org/linked-data/sdmx/2009/code#"
      xmlns:wisata="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#"
      xmlns:ffschema="http://www.thodoris.net/ontology/film-festival-model/"
-     xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
      xmlns:org="http://www.w3.org/ns/org#"
      xmlns:cen="http://datiopen.istat.it/odi/ontologia/censimento/"
      xmlns:SHOnt="file://SHOnt.owl#"
-     xmlns:provonto="http://datiopen.istat.it/odi/ontologia/provenance-ontologia/"
      xmlns:m3-lite="http://purl.org/iot/vocab/m3-lite#"
+     xmlns:provonto="http://datiopen.istat.it/odi/ontologia/provenance-ontologia/"
      xmlns:dm="http://learningsparql.com/ns/demo#"
      xmlns:api="http://purl.org/linked-data/api/vocab#"
      xmlns:sdmxattribute="http://purl.org/linked-data/sdmx/2009/attribute#"
      xmlns:app="http://eagle-i.org/ont/app/1.0/"
-     xmlns:spitfire="http://spitfire-project.eu/ontology/ns/"
-     xmlns:d="http://learningsparql.com/ns/data#"
      xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:d="http://learningsparql.com/ns/data#"
+     xmlns:spitfire="http://spitfire-project.eu/ontology/ns/"
      xmlns:mo="http://purl.org/ontology/mo/"
      xmlns:b="http://burgermeister.com/ontology#"
      xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
-     xmlns:movie="http://www.movieontology.org/2010/01/movieontology.owl"
      xmlns:emoca="http://ns.inria.fr/emoca#"
+     xmlns:movie="http://www.movieontology.org/2010/01/movieontology.owl"
      xmlns:shw="http://paul.staroch.name/thesis/SmartHomeWeather.owl#"
-     xmlns:obo="http://purl.obolibrary.org/obo/"
      xmlns:voaf="http://purl.org/vocommons/voaf#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
      xmlns:naturopathy="http://sensormeasurement.appspot.com/naturopathy#"
      xmlns:t="http://purl.org/NET/c4dm/timeline.owl#"
-     xmlns:stac="http://securitytoolbox.appspot.com/stac#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:sql="http://ns.inria.fr/ast/sql#"
      xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:stac="http://securitytoolbox.appspot.com/stac#"
      xmlns:ucum="http://idi.fundacionctic.org/muo/ucum-instances.owl"
      xmlns:ssn="http://purl.oclc.org/NET/ssnx/ssn#"
      xmlns:sdmxdimension="http://purl.org/linked-data/sdmx/2009/dimension#"
@@ -59,41 +59,46 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:adasDataParsingOntologyVersion1="http://www.semanticweb.org/yogita.suryawanshi/ontologies/bmw/adasDataParsingOntologyVersion1#"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
      xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
-     xmlns:m3="http://sensormeasurement.appspot.com/m3#"
+     xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:m3="http://sensormeasurement.appspot.com/m3#"
      xmlns:ontoSensor="http://mmisw.org/ont/univmemphis/sensor"
      xmlns:openIoT="http://openiot.eu/ontology/ns/"
      xmlns:aws="http://purl.oclc.org/NET/ssnx/meteo/aws#"
-     xmlns:food="http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#"
      xmlns:dul="http://www.loa-cnr.it/ontologies/DUL.owl#"
+     xmlns:food="http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#"
      xmlns:pizza="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:ter="http://datiopen.istat.it/odi/ontologia/territorio/"
-     xmlns:cc="http://creativecommons.org/ns#"
      xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:restaurant="http://dbpedia.org/ontology/restaurant#"
      xmlns:qudt_unit="http://data.qudt.org/qudt/owl/1.0.0/unit.owl#"
      xmlns:WeatherOntology="https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/WeatherOntology.owl#"
-     xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:statistics="http://purl.org/net/OCRe/statistics.owl#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:uol="http://keli.dk/"
-     xmlns:txn="http://lod.taxonconcept.org/ontology/txn.owl#"
      xmlns:study_protocol="http://purl.org/net/OCRe/study_protocol.owl#"
+     xmlns:txn="http://lod.taxonconcept.org/ontology/txn.owl#"
      xmlns:dbpedia="http://dbpedia.org/ontology/"
      xmlns:cose="http://casas.wsu.edu/owl/cose.owl#"
      xmlns:ifim="http://www.six-group.com/dfi/ifim#"
+     xmlns:film="http://dbpedia.org/ontology/film#"
      xmlns:camera="http://www.xfront.com/owl/ontologies/camera/#"
      xmlns:sweet_unit="http://sweet.jpl.nasa.gov/ontology/units.owl#"
+     xmlns:venue="http://dbpedia.org/ontology/venue#"
      xmlns:qb="http://purl.org/linked-data/cube#"
+     xmlns:general="http://www.dbpedia.org/ontology#"
      xmlns:muo="http://purl.oclc.org/NET/muo/muo#"
+     xmlns:ns4="http://creativecommons.org/ns#"
      xmlns:romeka="http://www.semanticweb.org/rudarskiodsek/ontologies/2017/4/Romeka#"
+     xmlns:ns0="http://www.w3.org/2003/06/sw-vocab-status/ns#"
      xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:ab="http://learningsparql.com/ns/addressbook#"
-     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:sdmx="http://purl.org/linked-data/sdmx#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata"/>
     
@@ -118,29 +123,87 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekdays -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Jumat -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekdays"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Jumat"/>
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekend -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Kamis -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Weekend"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Kamis"/>
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekdays -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Minggu -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekdays"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Minggu"/>
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekend -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Rabu -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Weekend">
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
-    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Rabu"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Sabtu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Sabtu"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Selasa -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Selasa"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Senin -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Buka_Senin"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Jumat -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Jumat"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Kamis -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Kamis"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Minggu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Minggu"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Rabu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Rabu"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Sabtu -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Sabtu"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Selasa -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Selasa"/>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Senin -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jam_Tutup_Senin"/>
     
 
 
@@ -892,14 +955,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kindy_Strawberry -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kindy_Strawberry">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
     
 
 
@@ -1461,14 +1516,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#testInd -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#testInd">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Camping"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1477,6 +1524,30 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Shopping_Mall"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
+        </owl:members>
+    </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
@@ -1500,23 +1571,6 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jajanan"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Tradisional"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Edukasi"/>
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain"/>
@@ -1525,25 +1579,18 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Shopping_Mall"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Makassar"/>
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Padang"/>
             <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sunda"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah"/>
         </owl:members>
     </rdf:Description>
 </rdf:RDF>

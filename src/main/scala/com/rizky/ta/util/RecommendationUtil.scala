@@ -39,6 +39,16 @@ object RecommendationUtil {
     executeQuery(queryString, OWL_MODEL)
   }
 
+  def getAllIndividual(OWL_MODEL: Model): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        ?name rdf:type owl:NamedIndividual }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
   def executeQuery(queryString: String, OWL_MODEL: Model): List[String] ={
     val query = QueryFactory.create(queryString)
     val qe = QueryExecutionFactory.create(query, OWL_MODEL)
