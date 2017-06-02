@@ -22,11 +22,12 @@ object GoogleUtil {
 //  private val API_KEY = "AIzaSyB8N-RSVWGZseC1qQc7T1s85Z4kOtZYnN0"
 //  private val API_KEY = "AIzaSyC_cBzLwY0pZhuI3kDUykrvgGj5gnGUP7Q"
 //  private val API_KEY = "AIzaSyDglsvlpD_o8RPXbpI--KlLgTmz_tWJSyQ"
-//  private val API_KEY = "AIzaSyBpsIj_ThKLWEs26Ibf70lfN3d9eX0DBak"
-  private val API_KEY = "AIzaSyCJynwIXL7HAnw8p6WzqRKZ4EOgRakuu_o"
+  private val API_KEY = "AIzaSyBpsIj_ThKLWEs26Ibf70lfN3d9eX0DBak"
+//  private val API_KEY = "AIzaSyCJynwIXL7HAnw8p6WzqRKZ4EOgRakuu_o"
 
   def textSearch(query: String, lat: Double, lng: Double, radius: Double): Map[String, Any] ={
-    var parsedQuery = s"${query.replace(" ", "+")}+bandung+attraction"
+    var parsedQuery = s"${query.replace(" ", "+")}"
+    parsedQuery += "+bandung+attraction"
     replaceQuery.foreach(query=>{
       parsedQuery = parsedQuery.replace(query._1, query._2)
     })

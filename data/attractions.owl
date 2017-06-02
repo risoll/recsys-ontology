@@ -691,13 +691,6 @@
     </owl:NamedIndividual>
     
 
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bulu_Ngampar -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bulu_Ngampar">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Alam"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Ibun Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
     
 
 
@@ -764,11 +757,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Salamanja -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Luyung -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Salamanja">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Curug_Luyung">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
+        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Parongpong Kab.Bandung Barat</wisata:Alamat>
     </owl:NamedIndividual>
     
 
@@ -944,16 +937,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kin_Strawberry -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kin_Strawberry">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
-    
-
 
     
 
@@ -1003,9 +986,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Komunitas_Batar_Ulin -->
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Batar_Ulin -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Komunitas_Batar_Ulin">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Batar_Ulin">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
         <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Cimenyan Kab.Bandung</wisata:Alamat>
     </owl:NamedIndividual>
@@ -1135,16 +1118,6 @@
         <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. P. Geulisan Ulun Kab.Sumedang</wisata:Alamat>
     </owl:NamedIndividual>
     
-
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pak_Ale_Strawberry -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pak_Ale_Strawberry">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
     
 
 
@@ -1178,26 +1151,7 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Mr._Dede -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Mr._Dede">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Raffa -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_Raffa">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
-    
 
 
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Petik_Strawberry_The_Oneng -->
@@ -1266,24 +1220,6 @@
     </owl:NamedIndividual>
     
 
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Seni_Calung_dan_Jaipongan -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Seni_Calung_dan_Jaipongan">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Kertasari Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sinar_Asih_Petik_Strawberry -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Sinar_Asih_Petik_Strawberry">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Alam"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Rancabali Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
     
 
 
@@ -1365,13 +1301,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Makam_Eyang_Pakujaga -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Situs_Makam_Eyang_Pakujaga">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Sejarah"/>
-        <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kec. Paseh Kab.Bandung</wisata:Alamat>
-    </owl:NamedIndividual>
     
 
 

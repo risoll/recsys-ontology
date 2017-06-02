@@ -2,7 +2,7 @@ import org.scalatra.LifeCycle
 import javax.servlet.ServletContext
 
 import com.rizky.ta.config.DBInit
-import com.rizky.ta.controller.{DatasetController, GoogleController, PlaceController, RecommendationController}
+import com.rizky.ta.controller._
 import com.rizky.ta.swagger.{AppSwagger, ResourcesApp}
 
 /**
@@ -17,6 +17,7 @@ class ScalatraBootstrap extends LifeCycle{
       context.mount(new PlaceController, "/place", "place")
       context.mount(new RecommendationController, "/recomm", "recomm")
       context.mount(new GoogleController, "/google", "google")
+      context.mount(new FeedbackController, "/feedback", "feedback")
 
 
       //    context.initParameters("org.scalatra.cors.allowedOrigins") = "http://10.251.223.122:9200"

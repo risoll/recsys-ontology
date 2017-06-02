@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager
   */
 object OwlConst {
   val ROOT_PATH = System.getProperty("user.dir")
-  val OWL_FILE = "attractions.owl"
+  val OWL_FILE = "data/attractions.owl"
   val museums: List[String] = List("MuseumAlam", "MuseumBudaya", "MuseumSejarah")
 
   val edukasis: List[String] = List("Museum")

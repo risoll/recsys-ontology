@@ -54,12 +54,16 @@ object JenaTest extends App{
 //    println("childrenOfAlarm", childrenOfAlam.nextStatement().getResource.getURI)
 //  }
 
-  val listStatement = model.listStatements(alam, parentOf, null)
-  while(listStatement.hasNext){
-    println(listStatement.nextStatement().getResource.getURI)
-  }
+//  val listStatement = model.listStatements(alam, parentOf, null)
+//  while(listStatement.hasNext){
+//    println(listStatement.nextStatement().getResource.getURI)
+//  }
+//
+//  val serviceURI = "http://localhost:3030/ds/data"
+//  val accessor = DatasetAccessorFactory.createHTTP(serviceURI)
 
-  val serviceURI = "http://localhost:3030/ds/data"
-  val accessor = DatasetAccessorFactory.createHTTP(serviceURI)
+  val str = "Thursday: 8:00 AM – 9:00 PM"
+  val str2 = str.substring(str.indexOf("day:") + 5, str.length)
+  println(str2)
 
 }

@@ -165,19 +165,21 @@ object OwlTest extends App {
 
   val queryString =
     s"""
-       $OWL_PREFIX
-       insert {
-
-       }
+          $OWL_PREFIX
+          select * where {
+           ?name rdf:type owl:NamedIndividual }
     """
 
   val query = QueryFactory.create(queryString)
   val qe = QueryExecutionFactory.create(query, OWL_MODEL)
   val results = qe.execSelect()
   println("results")
+  var i = 0
   while(results.hasNext){
     println(results.next().getResource("name").getLocalName)
+    i += 1
   }
+  println(i)
 //  ResultSetFormatter.out(System.out, results, query)
   //  OWL_MODEL.write(System.out)
 }

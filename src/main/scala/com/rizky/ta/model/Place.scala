@@ -10,16 +10,21 @@ import scalikejdbc._
 //heroku pg:backups:restore 'https://dl.dropboxusercontent.com/s/1lgcg0vteu0trf2/recsys-ta.dump?dl=0' DATABASE_URL --app jalan-belakang
 //pg_dump -Fc --no-acl --no-owner -h localhost -U postgres recsys-ta > recsys-ta.dump
 
+//case class Place(place_id: String, name: String, formatted_address: String,
+//                 phone: String, length_of_visit: String, tariff: Int,
+//                 photo: String, lat: Double, lng: Double, rating: Double,
+//                 open_hours_id: Int, close_hours_id: Int)
+
 case class Place(place_id: String, name: String, formatted_address: String,
                  phone: String, length_of_visit: String, tariff: Int,
                  photo: String, lat: Double, lng: Double, rating: Double,
-                 open_hours_monday: String, open_hours_tuesday: String,
-                 open_hours_wednesday: String, open_hours_thursday: String,
-                 open_hours_friday: String, open_hours_saturday: String,
-                 open_hours_sunday: String, close_hours_monday: String,
-                 close_hours_tuesday: String, close_hours_wednesday: String,
-                 close_hours_thursday: String, close_hours_friday: String,
-                 close_hours_saturday: String, close_hours_sunday: String)
+                 monday: String,
+                 tuesday: String,
+                 wednesday: String,
+                 thursday: String,
+                 friday: String,
+                 saturday: String,
+                 sunday: String)
 
 object Place extends SQLSyntaxSupport[Place] {
 
@@ -45,20 +50,13 @@ object Place extends SQLSyntaxSupport[Place] {
     photo = rs.string(c.photo),
     lat = rs.double(c.lat),
     lng = rs.double(c.lng),
-    open_hours_monday = rs.string(c.open_hours_monday),
-    open_hours_tuesday = rs.string(c.open_hours_tuesday),
-    open_hours_wednesday = rs.string(c.open_hours_wednesday),
-    open_hours_thursday = rs.string(c.open_hours_thursday),
-    open_hours_friday = rs.string(c.open_hours_friday),
-    open_hours_saturday = rs.string(c.open_hours_saturday),
-    open_hours_sunday = rs.string(c.open_hours_sunday),
-    close_hours_monday = rs.string(c.close_hours_monday),
-    close_hours_tuesday = rs.string(c.close_hours_tuesday),
-    close_hours_wednesday = rs.string(c.close_hours_wednesday),
-    close_hours_thursday = rs.string(c.close_hours_thursday),
-    close_hours_friday = rs.string(c.close_hours_friday),
-    close_hours_saturday = rs.string(c.close_hours_saturday),
-    close_hours_sunday = rs.string(c.close_hours_sunday)
+    monday = rs.string(c.monday),
+    tuesday = rs.string(c.tuesday),
+    wednesday = rs.string(c.wednesday),
+    thursday = rs.string(c.thursday),
+    friday = rs.string(c.friday),
+    saturday = rs.string(c.saturday),
+    sunday = rs.string(c.sunday)
   )
   def apply(c: SyntaxProvider[Place])(rs: WrappedResultSet): Place = apply(c.resultName)(rs)
 
@@ -66,29 +64,23 @@ object Place extends SQLSyntaxSupport[Place] {
              name: String, formatted_address: String = "",
              phone: String = "", length_of_visit: String = "", tariff: Int = 0,
              photo: String, lat: Double = 0, lng: Double = 0, rating: Double = 0,
-             open_hours_monday: String = "", open_hours_tuesday: String = "",
-             open_hours_wednesday: String = "", open_hours_thursday: String = "",
-             open_hours_friday: String = "", open_hours_saturday: String = "",
-             open_hours_sunday: String = "", close_hours_monday: String = "",
-             close_hours_tuesday: String = "", close_hours_wednesday: String = "",
-             close_hours_thursday: String = "", close_hours_friday: String = "",
-             close_hours_saturday: String = "", close_hours_sunday: String = "")
+             monday: String,
+             tuesday: String,
+             wednesday: String,
+             thursday: String,
+             friday: String,
+             saturday: String,
+             sunday: String)
             (implicit session: DBSession = autoSession): Place = {
     withSQL {
       insert.into(Place).values(
         place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-        lng, rating, open_hours_monday, open_hours_tuesday, open_hours_wednesday, open_hours_thursday,
-        open_hours_friday, open_hours_saturday, open_hours_sunday, close_hours_monday, close_hours_tuesday,
-        close_hours_wednesday, close_hours_thursday, close_hours_friday, close_hours_saturday,
-        close_hours_sunday
+        lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
       )
     }.update().apply()
     Place(
       place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-      lng, rating, open_hours_monday, open_hours_tuesday, open_hours_wednesday, open_hours_thursday,
-      open_hours_friday, open_hours_saturday, open_hours_sunday, close_hours_monday, close_hours_tuesday,
-      close_hours_wednesday, close_hours_thursday, close_hours_friday, close_hours_saturday,
-      close_hours_sunday
+      lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
     )
   }
 
@@ -105,13 +97,13 @@ object Place extends SQLSyntaxSupport[Place] {
                   name: String = "", formatted_address: String = "",
                   phone: String = "", length_of_visit: String = "", tariff: Int = 0,
                   photo: String = "", lat: Double = 0, lng: Double = 0, rating: Double = 0,
-                  open_hours_monday: String = "", open_hours_tuesday: String = "",
-                  open_hours_wednesday: String = "", open_hours_thursday: String = "",
-                  open_hours_friday: String = "", open_hours_saturday: String = "",
-                  open_hours_sunday: String = "", close_hours_monday: String = "",
-                  close_hours_tuesday: String = "", close_hours_wednesday: String = "",
-                  close_hours_thursday: String = "", close_hours_friday: String = "",
-                  close_hours_saturday: String = "", close_hours_sunday: String = "")
+                  monday: String,
+                  tuesday: String,
+                  wednesday: String,
+                  thursday: String,
+                  friday: String,
+                  saturday: String,
+                  sunday: String)
                  (implicit session: DBSession = autoSession): Place = {
     withSQL{
       val c = Place.column
@@ -122,31 +114,21 @@ object Place extends SQLSyntaxSupport[Place] {
         c.length_of_visit -> length_of_visit,
         c.tariff -> tariff,
         c.photo -> photo,
-        c.photo -> lat,
-        c.photo -> lng,
-        c.photo -> rating,
-        c.open_hours_monday -> open_hours_monday,
-        c.open_hours_tuesday -> open_hours_tuesday,
-        c.open_hours_wednesday -> open_hours_wednesday,
-        c.open_hours_thursday -> open_hours_thursday,
-        c.open_hours_friday -> open_hours_friday,
-        c.open_hours_saturday -> open_hours_saturday,
-        c.open_hours_sunday -> open_hours_sunday,
-        c.close_hours_monday -> close_hours_monday,
-        c.close_hours_tuesday -> close_hours_tuesday,
-        c.close_hours_wednesday -> close_hours_wednesday,
-        c.close_hours_thursday -> close_hours_thursday,
-        c.close_hours_friday -> close_hours_friday,
-        c.close_hours_saturday -> close_hours_saturday,
-        c.close_hours_sunday -> close_hours_sunday
+        c.lat -> lat,
+        c.lng -> lng,
+        c.rating -> rating,
+        c.monday -> monday,
+        c.tuesday -> tuesday,
+        c.wednesday -> c.wednesday,
+        c.thursday -> c.thursday,
+        c.friday -> c.friday,
+        c.saturday -> c.saturday,
+        c.sunday -> c.sunday
       ).where.eq(c.place_id, place_id)
     }.update().apply()
     Place(
       place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-      lng, rating, open_hours_monday, open_hours_tuesday, open_hours_wednesday, open_hours_thursday,
-      open_hours_friday, open_hours_saturday, open_hours_sunday, close_hours_monday, close_hours_tuesday,
-      close_hours_wednesday, close_hours_thursday, close_hours_friday, close_hours_saturday,
-      close_hours_sunday
+      lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
     )
   }
 

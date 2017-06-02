@@ -29,7 +29,7 @@ class RecommendationController(implicit val swagger: Swagger)
     contentType = formats("json")
   }
 
-  private val OWL_FILE = "attractions.owl"
+  private val OWL_FILE = "data/attractions.owl"
   private val OWL_MODEL = ModelFactory.createDefaultModel()
   private val inputStream = FileManager.get().open(OWL_FILE)
   if (inputStream == null) {
