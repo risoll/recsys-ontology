@@ -42,7 +42,7 @@ class FeedbackController(implicit val swagger: Swagger)
     val feedback = parsedBody.extract[Feedback]
     Feedback.create(
       feedback.user_agent, feedback.platform, feedback.ip, feedback.city,
-      feedback.name, feedback.gender, feedback.origin, feedback.age,
+      feedback.name, feedback.gender, feedback.age,
       feedback.profession, feedback.univ, feedback.majors, feedback.rating
     )
   }

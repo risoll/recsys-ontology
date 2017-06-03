@@ -17,7 +17,7 @@ import scalikejdbc._
 
 case class Feedback(id: Int, user_agent: String, platform: String,
                     ip: String, city: String, name: String, gender: String,
-                    origin: String, age: Int, profession: String,
+                    age: Int, profession: String,
                     univ: String, majors: String, rating: Double)
 
 object Feedback extends SQLSyntaxSupport[Feedback] {
@@ -35,7 +35,6 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
     city = rs.string(c.city),
     name = rs.string(c.name),
     gender = rs.string(c.gender),
-    origin = rs.string(c.origin),
     age = rs.int(c.age),
     profession = rs.string(c.profession),
     univ = rs.string(c.univ),
@@ -46,7 +45,7 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
 
   def create(user_agent: String, platform: String,
              ip: String, city: String, name: String, gender: String,
-             origin: String, age: Int, profession: String,
+             age: Int, profession: String,
              univ: String, majors: String, rating: Double)
             (implicit session: DBSession = autoSession): Feedback = {
 
@@ -58,7 +57,6 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
         column.city -> city,
         column.name -> name,
         column.gender -> gender,
-        column.origin -> origin,
         column.age -> age,
         column.profession -> profession,
         column.univ -> univ,
@@ -66,7 +64,7 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
         column.rating -> rating
       )
     }.updateAndReturnGeneratedKey.apply().toInt
-    Feedback(id, user_agent, platform, ip, city, name, gender, origin,
+    Feedback(id, user_agent, platform, ip, city, name, gender,
       age, profession, univ, majors, rating)
 
   }
