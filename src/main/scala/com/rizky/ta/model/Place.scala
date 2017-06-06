@@ -10,11 +10,6 @@ import scalikejdbc._
 //heroku pg:backups:restore 'https://dl.dropboxusercontent.com/s/1lgcg0vteu0trf2/recsys-ta.dump?dl=0' DATABASE_URL --app jalan-belakang
 //pg_dump -Fc --no-acl --no-owner -h localhost -U postgres recsys-ta > recsys-ta.dump
 
-//case class Place(place_id: String, name: String, formatted_address: String,
-//                 phone: String, length_of_visit: String, tariff: Int,
-//                 photo: String, lat: Double, lng: Double, rating: Double,
-//                 open_hours_id: Int, close_hours_id: Int)
-
 case class Place(place_id: String, name: String, formatted_address: String,
                  phone: String, length_of_visit: String, tariff: Int,
                  photo: String, lat: Double, lng: Double, rating: Double,

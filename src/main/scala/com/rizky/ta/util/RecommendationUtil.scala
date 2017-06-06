@@ -24,7 +24,7 @@ object RecommendationUtil {
       s"""
        $PREFIX
        select * where {
-        ?name rdf:type data:$category }
+        ?name rdf:type data:${parseNode(category)} }
     """
     executeQuery(queryString, OWL_MODEL)
   }
@@ -47,6 +47,30 @@ object RecommendationUtil {
         ?name rdf:type owl:NamedIndividual }
     """
     executeQuery(queryString, OWL_MODEL)
+  }
+
+  def getChildren(OWL_MODEL: Model, node: String): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        ?name rdfs:subClassOf data:${parseNode(node)} }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def getParent(OWL_MODEL: Model, node: String): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        data:${parseNode(node)} rdfs:subClassOf ?name }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def parseNode(node: String): String = {
+    node.split(" ").map(_.capitalize).mkString("_")
   }
 
   def executeQuery(queryString: String, OWL_MODEL: Model): List[String] ={

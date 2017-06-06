@@ -158,25 +158,52 @@ object OwlTest extends App {
 
   val OWL_PREFIX =
     "PREFIX data:<http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#>" +
-      "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>" +
-      "PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
-      "PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" +
-      "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+    "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>" +
+    "PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
+    "PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" +
+    "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+    "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
+
+//  val queryString =
+//    s"""
+//      $OWL_PREFIX
+//      select * where {
+//      ?name rdfs:subClassOf data:Tempat_Wisata}
+//    """
 
   val queryString =
     s"""
           $OWL_PREFIX
           select * where {
-           ?name rdf:type owl:NamedIndividual }
+         ?name rdfs:subClassOf data:Edukasi }
     """
+
+
+//  val queryString =
+//    s"""
+//          $OWL_PREFIX
+//          select * where {
+//           ?name rdf:type owl:NamedIndividual
+//          }
+//    """
+
+
+  //  val queryString =
+//    s"""
+//          $OWL_PREFIX
+//          select * where {
+//            ?alamat data:Alamat owl:NamedIndividual}
+//    """
 
   val query = QueryFactory.create(queryString)
   val qe = QueryExecutionFactory.create(query, OWL_MODEL)
   val results = qe.execSelect()
   println("results")
   var i = 0
+  var name = ""
   while(results.hasNext){
-    println(results.next().getResource("name").getLocalName)
+    name = results.next.getResource("name").getLocalName
+    println(name)
     i += 1
   }
   println(i)

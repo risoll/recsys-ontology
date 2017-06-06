@@ -62,4 +62,22 @@ class RecommendationController(implicit val swagger: Swagger)
   get("/individual/bulk", operation(individuals)) {
     RecommendationUtil.getAllIndividual(OWL_MODEL)
   }
+
+  private val children =
+    (apiOperation[List[String]]("/class/children")
+      summary "get a list of children from the current node"
+      parameter queryParam[String]("node").defaultValue("Tempat Wisata").description("The node which inherit the children"))
+  get("/class/children", operation(children)) {
+    val node = params("node")
+    RecommendationUtil.getChildren(OWL_MODEL, node)
+  }
+
+  private val parents =
+    (apiOperation[List[String]]("/class/parents")
+      summary "get a list of parent from the current node"
+      parameter queryParam[String]("node").defaultValue("Edukasi").description("The children node"))
+  get("/class/parent", operation(parents)) {
+    val node = params("node")
+    RecommendationUtil.getParent(OWL_MODEL, node)
+  }
 }
