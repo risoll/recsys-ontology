@@ -19,22 +19,12 @@ object RecommendationUtil {
       PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     """
 
-  def getAttractionsByCategory(category: String, OWL_MODEL: Model): List[String] ={
+  def getIndividualByCategory(category: String, OWL_MODEL: Model): List[String] ={
     val queryString =
       s"""
        $PREFIX
        select * where {
         ?name rdf:type data:${parseNode(category)} }
-    """
-    executeQuery(queryString, OWL_MODEL)
-  }
-
-  def generateGeneralQuestions(OWL_MODEL: Model): List[String] ={
-    val queryString =
-      s"""
-       $PREFIX
-       select * where {
-        ?name rdfs:subClassOf data:Tempat_Wisata }
     """
     executeQuery(queryString, OWL_MODEL)
   }

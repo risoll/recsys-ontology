@@ -7,6 +7,8 @@ import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
+import net.liftweb.json._
+import scala.util.parsing.json.JSON
 
 /**
   * Created by solehuddien on 25/05/17.
@@ -38,22 +40,15 @@ class RecommendationController(implicit val swagger: Swagger)
   OWL_MODEL.read(inputStream, null)
 
 
-  private val attractions =
-    (apiOperation[List[String]]("/attractions")
-      summary "get list of attractions which the category is the lowest node (right before leaf) in ontology hierarchy"
-      parameter queryParam[String]("category").defaultValue("Edukasi").description("category"))
-  get("/attractions", operation(attractions)) {
-    RecommendationUtil.getAttractionsByCategory(
+  private val individualCategory =
+    (apiOperation[List[String]]("/individual/category")
+      summary "get list of individuals within certain category"
+      parameter queryParam[String]("category").defaultValue("Edukasi").description("The lowest class right before individual"))
+  get("/individual/category", operation(individualCategory)) {
+    RecommendationUtil.getIndividualByCategory(
       params.get("category").getOrElse(""),
       OWL_MODEL
     )
-  }
-
-  private val questionsGeneral =
-    (apiOperation[List[String]]("/questions/general")
-      summary "generate list of root question to initiate recommendation")
-  get("/questions/general", operation(questionsGeneral)) {
-    RecommendationUtil.generateGeneralQuestions(OWL_MODEL)
   }
 
   private val individuals =
@@ -65,19 +60,45 @@ class RecommendationController(implicit val swagger: Swagger)
 
   private val children =
     (apiOperation[List[String]]("/class/children")
-      summary "get a list of children from the current node"
-      parameter queryParam[String]("node").defaultValue("Tempat Wisata").description("The node which inherit the children"))
+      summary "get a list of children from the current parent node"
+      parameter queryParam[String]("node").defaultValue("Tempat Wisata").description("The parent node which inherit the children"))
   get("/class/children", operation(children)) {
     val node = params("node")
     RecommendationUtil.getChildren(OWL_MODEL, node)
   }
 
+  private val bulkChildren =
+    (apiOperation[List[String]]("/class/bulk/children")
+      summary "get a list of children from multiple parent node at once"
+      parameter bodyParam[String]("nodes").defaultValue("[\"Alam\", \"Kuliner\"]").description("The parent nodes which inherit the children"))
+  post("/class/bulk/children", operation(bulkChildren)) {
+    val nodes = parsedBody.extract[List[String]]
+    var result = List[String]()
+    nodes.foreach(node=>{
+      result ++= RecommendationUtil.getChildren(OWL_MODEL, node)
+    })
+    result
+  }
+
   private val parents =
     (apiOperation[List[String]]("/class/parents")
-      summary "get a list of parent from the current node"
+      summary "get a list of parent from the current child node"
       parameter queryParam[String]("node").defaultValue("Edukasi").description("The children node"))
-  get("/class/parent", operation(parents)) {
+  get("/class/parents", operation(parents)) {
     val node = params("node")
     RecommendationUtil.getParent(OWL_MODEL, node)
+  }
+
+  private val bulkParents =
+    (apiOperation[List[String]]("/class/bulk/parents")
+      summary "get a list of parents from multiple child node at once"
+      parameter bodyParam[String]("nodes").defaultValue("[\"Pemandangan Alam\", \"Edukasi\"]").description("The children nodes"))
+  post("/class/bulk/parents", operation(bulkParents)) {
+    val nodes = parsedBody.extract[List[String]]
+    var result = List[String]()
+    nodes.foreach(node=>{
+      result ++= RecommendationUtil.getParent(OWL_MODEL, node)
+    })
+    result
   }
 }

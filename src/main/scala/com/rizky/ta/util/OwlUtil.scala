@@ -1,5 +1,7 @@
 package com.rizky.ta.util
 
+import java.io.File
+
 import org.phenoscape.scowl._
 import org.semanticweb.owlapi.apibinding.OWLManager
 import org.semanticweb.owlapi.model._
@@ -24,6 +26,19 @@ object OwlUtil {
     val ont = manager.createOntology(iri)
     manager.saveOntology(ont)
     ont
+  }
+
+  def loadOntology(): Unit = {
+    val manager = OWLManager.createOWLOntologyManager()
+    val file = new File("data/attractions.owl")
+    // Now load the local copy
+    val ont = manager.loadOntologyFromOntologyDocument(file)
+    println("Loaded ontology: " + ont)
+    // We can always obtain the location where an ontology was loaded from
+    val documentIRI = manager.getOntologyDocumentIRI(ont)
+    println("    from: " + documentIRI)
+    // Remove the ontology again so we can reload it later
+    manager.removeOntology(ont)
   }
 
   def addObjProp(iri: IRI, propName: String): OWLObjectProperty ={

@@ -2,6 +2,7 @@ package owl
 
 import java.io.{File, FileReader}
 
+import com.rizky.ta.util.OwlUtil
 import org.apache.jena.ontology.{OntModel, OntModelSpec}
 import org.apache.jena.query.{QueryExecutionFactory, QueryFactory, ResultSetFormatter, Syntax}
 import org.apache.jena.rdf.model.ModelFactory
@@ -164,19 +165,23 @@ object OwlTest extends App {
     "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
     "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
 
-//  val queryString =
-//    s"""
-//      $OWL_PREFIX
-//      select * where {
-//      ?name rdfs:subClassOf data:Tempat_Wisata}
-//    """
-
   val queryString =
     s"""
-          $OWL_PREFIX
-          select * where {
-         ?name rdfs:subClassOf data:Edukasi }
+      $OWL_PREFIX
+      select * where {
+      VALUES ?value
+      {
+
+      }
+      ?name rdfs:subClassOf data:Alam data:}
     """
+
+//  val queryString =
+//    s"""
+//          $OWL_PREFIX
+//          select * where {
+//         ?name rdfs:subClassOf data:Edukasi }
+//    """
 
 
 //  val queryString =
@@ -188,11 +193,11 @@ object OwlTest extends App {
 //    """
 
 
-  //  val queryString =
+//    val queryString =
 //    s"""
 //          $OWL_PREFIX
 //          select * where {
-//            ?alamat data:Alamat owl:NamedIndividual}
+//            ?name owl:Class rdfs:subClassOf}
 //    """
 
   val query = QueryFactory.create(queryString)
@@ -201,12 +206,13 @@ object OwlTest extends App {
   println("results")
   var i = 0
   var name = ""
-  while(results.hasNext){
-    name = results.next.getResource("name").getLocalName
-    println(name)
-    i += 1
-  }
-  println(i)
+//  while(results.hasNext){
+//    name = results.next.getResource("name").getLocalName
+//    println(name)
+//    i += 1
+//  }
+//  println(i)
+  OwlUtil.loadOntology()
 //  ResultSetFormatter.out(System.out, results, query)
   //  OWL_MODEL.write(System.out)
 }
