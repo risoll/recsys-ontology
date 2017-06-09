@@ -2,6 +2,8 @@ package owl
 
 import java.io.{File, FileReader}
 
+import com.rizky.ta.config.DBInit
+import com.rizky.ta.model.Classes
 import com.rizky.ta.util.OwlUtil
 import org.apache.jena.ontology.{OntModel, OntModelSpec}
 import org.apache.jena.query.{QueryExecutionFactory, QueryFactory, ResultSetFormatter, Syntax}
@@ -165,16 +167,16 @@ object OwlTest extends App {
     "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
     "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
 
-  val queryString =
-    s"""
-      $OWL_PREFIX
-      select * where {
-      VALUES ?value
-      {
-
-      }
-      ?name rdfs:subClassOf data:Alam data:}
-    """
+//  val queryString =
+//    s"""
+//      $OWL_PREFIX
+//      select * where {
+//      VALUES ?value
+//      {
+//
+//      }
+//      ?name rdfs:subClassOf data:Alam data:}
+//    """
 
 //  val queryString =
 //    s"""
@@ -184,13 +186,13 @@ object OwlTest extends App {
 //    """
 
 
-//  val queryString =
-//    s"""
-//          $OWL_PREFIX
-//          select * where {
-//           ?name rdf:type owl:NamedIndividual
-//          }
-//    """
+  val queryString =
+    s"""
+          $OWL_PREFIX
+          select * where {
+           ?name rdf:type owl:Class
+          }
+    """
 
 
 //    val queryString =
@@ -199,20 +201,24 @@ object OwlTest extends App {
 //          select * where {
 //            ?name owl:Class rdfs:subClassOf}
 //    """
-
+  DBInit.config()
   val query = QueryFactory.create(queryString)
   val qe = QueryExecutionFactory.create(query, OWL_MODEL)
   val results = qe.execSelect()
   println("results")
   var i = 0
   var name = ""
-//  while(results.hasNext){
-//    name = results.next.getResource("name").getLocalName
-//    println(name)
-//    i += 1
-//  }
-//  println(i)
-  OwlUtil.loadOntology()
+  while(results.hasNext){
+    name = results.next.getResource("name").getLocalName
+    name = name.replace("_", " ")
+    if(name != "Tempat Wisata"){
+      val coba = Classes.getByName(name)
+      println(name, coba.get.image)
+    }
+    i += 1
+  }
+  println(i)
+//  OwlUtil.loadOntology()
 //  ResultSetFormatter.out(System.out, results, query)
   //  OWL_MODEL.write(System.out)
 }

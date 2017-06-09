@@ -1,5 +1,6 @@
 package com.rizky.ta.controller
 
+import com.rizky.ta.model.Classes
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
 import com.rizky.ta.util.RecommendationUtil
@@ -8,6 +9,8 @@ import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
 import net.liftweb.json._
+
+import scala.collection.mutable.ListBuffer
 import scala.util.parsing.json.JSON
 
 /**
@@ -64,7 +67,11 @@ class RecommendationController(implicit val swagger: Swagger)
       parameter queryParam[String]("node").defaultValue("Tempat Wisata").description("The parent node which inherit the children"))
   get("/class/children", operation(children)) {
     val node = params("node")
-    RecommendationUtil.getChildren(OWL_MODEL, node)
+    val result = ListBuffer[Map[String, String]]()
+    RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child=>{
+      result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
+    })
+    result
   }
 
   private val bulkChildren =
@@ -73,9 +80,11 @@ class RecommendationController(implicit val swagger: Swagger)
       parameter bodyParam[String]("nodes").defaultValue("[\"Alam\", \"Kuliner\"]").description("The parent nodes which inherit the children"))
   post("/class/bulk/children", operation(bulkChildren)) {
     val nodes = parsedBody.extract[List[String]]
-    var result = List[String]()
+    val result = ListBuffer[Map[String, String]]()
     nodes.foreach(node=>{
-      result ++= RecommendationUtil.getChildren(OWL_MODEL, node)
+      RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child=>{
+        result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
+      })
     })
     result
   }
@@ -86,7 +95,11 @@ class RecommendationController(implicit val swagger: Swagger)
       parameter queryParam[String]("node").defaultValue("Edukasi").description("The children node"))
   get("/class/parents", operation(parents)) {
     val node = params("node")
-    RecommendationUtil.getParent(OWL_MODEL, node)
+    val result = ListBuffer[Map[String, String]]()
+    RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent=>{
+      result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
+    })
+    result
   }
 
   private val bulkParents =
@@ -95,9 +108,11 @@ class RecommendationController(implicit val swagger: Swagger)
       parameter bodyParam[String]("nodes").defaultValue("[\"Pemandangan Alam\", \"Edukasi\"]").description("The children nodes"))
   post("/class/bulk/parents", operation(bulkParents)) {
     val nodes = parsedBody.extract[List[String]]
-    var result = List[String]()
+    val result = ListBuffer[Map[String, String]]()
     nodes.foreach(node=>{
-      result ++= RecommendationUtil.getParent(OWL_MODEL, node)
+      RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent=>{
+        result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
+      })
     })
     result
   }
