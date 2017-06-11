@@ -7,7 +7,9 @@ import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.json._
 import com.rizky.ta.model._
 import org.json4s.jackson.Serialization
-import com.rizky.ta.util.PlacesUtil
+import com.rizky.ta.util.{PlacesUtil, RecommendationUtil}
+import org.apache.jena.rdf.model.ModelFactory
+import org.apache.jena.util.FileManager
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
 
 import scala.collection.mutable.ListBuffer
@@ -36,6 +38,13 @@ class PlaceController(implicit val swagger: Swagger)
     contentType = formats("json")
   }
 
+  private val OWL_FILE = "data/attractions.owl"
+  private val OWL_MODEL = ModelFactory.createDefaultModel()
+  private val inputStream = FileManager.get().open(OWL_FILE)
+  if (inputStream == null) {
+    throw new IllegalArgumentException(s"File $OWL_FILE not found")
+  }
+  OWL_MODEL.read(inputStream, null)
 
   private val places =
     (apiOperation[Unit]("/bulk")
@@ -57,51 +66,21 @@ class PlaceController(implicit val swagger: Swagger)
     Place.listPagination(limit, offset)
   }
 
-//  post("/update") {
-//    val placeId = (parsedBody \ "placeId").extract[String]
-//    val name = (parsedBody \ "name").extract[String]
-//    val formattedAddress = (parsedBody \ "formattedAddress").extract[String]
-//    val phone = (parsedBody \ "phone").extract[String]
-//    val lengthOfVisit = (parsedBody \ "lengthOfVisit").extract[String]
-//    val tariff = (parsedBody \ "tariff").extract[String]
-//    val photo = (parsedBody \ "photo").extract[String]
-//    val lat = (parsedBody \ "lat").extract[Double]
-//    val lng = (parsedBody \ "lng").extract[Double]
-//    val rating = (parsedBody \ "rating").extract[Double]
-//    val openHoursMonday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursTuesday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursWednesday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursThursday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursFriday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursSaturday = (parsedBody \ "openHoursMonday").extract[String]
-//    val openHoursSunday = (parsedBody \ "openHoursMonday").extract[String]
-//    val clsoeHoursMonday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursTuesday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursWednesday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursThursday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursFriday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursSaturday = (parsedBody \ "openHoursMonday").extract[String]
-//    val closeHoursSunday = (parsedBody \ "openHoursMonday").extract[String]
-//    Place.updatePlace(
-//      placeId, name, formatted_address, phone, openHours,
-//      lengthOfVisit, tariff
-//    )
-//  }
+  private val placesCategories =
+    (apiOperation[Unit]("/bulk/categories")
+      summary "get list of places with given classes"
+      parameter bodyParam[String]("nodes").defaultValue("[\"Alam\", \"Edukasi\"]").description("The leaf nodes which inherit the individuals"))
+  post("/bulk/categories", operation(placesCategories)) {
+    val nodes = parsedBody.extract[List[String]]
+    val result = ListBuffer[Option[Place]]()
+    nodes.foreach(node=>{
+      RecommendationUtil.getIndividualByCategory(node, OWL_MODEL).foreach(individual=>{
+        result.append(Place.getByName(individual))
+      })
+    })
+    result
 
-//  post("/update/bulk") {
-//    val places = Place.list()
-//    val result = PlacesUtil.createRowMap(places)
-//    println("places", result)
-//    result
-//  }
-
-//  get("/bulk") {
-//    Place.list()
-//    val places = Place.list()
-//    val result = PlacesUtil.createRowMap(places)
-//    val jsonResult = Serialization.write(result)
-//    jsonResult
-//  }
+  }
 
 
 
