@@ -1128,7 +1128,6 @@
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_SriBaduga -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_SriBaduga">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Museum_Budaya"/>
         <wisata:Alamat>Jl. BKR No. 185, Bandung</wisata:Alamat>
     </owl:NamedIndividual>

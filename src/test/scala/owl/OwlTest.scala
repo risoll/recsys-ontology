@@ -190,7 +190,8 @@ object OwlTest extends App {
     s"""
           $OWL_PREFIX
           select * where {
-           ?name rdf:type owl:Class
+            data:Museum_Yayasan_Pangeran rdf:type ?name
+
           }
     """
 
@@ -211,10 +212,11 @@ object OwlTest extends App {
   while(results.hasNext){
     name = results.next.getResource("name").getLocalName
     name = name.replace("_", " ")
-    if(name != "Tempat Wisata"){
-      val coba = Classes.getByName(name)
-      println(name, coba.get.image)
-    }
+    println(name)
+//    if(name != "Tempat Wisata"){
+//      val coba = Classes.getByName(name)
+//      println(name, coba.get.image)
+//    }
     i += 1
   }
   println(i)

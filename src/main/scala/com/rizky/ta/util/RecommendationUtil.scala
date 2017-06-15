@@ -59,6 +59,16 @@ object RecommendationUtil {
     executeQuery(queryString, OWL_MODEL)
   }
 
+  def getCategory(OWL_MODEL: Model, node: String): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+          data:${parseNode(node)} rdf:type ?name }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
   def parseNode(node: String): String = {
     node.split(" ").map(_.capitalize).mkString("_")
   }
