@@ -133,57 +133,20 @@ class RecommendationController(implicit val swagger: Swagger)
       parameter bodyParam[String]("nodes").defaultValue("[\"Kebun Binatang\", \"Kawah Rengganis\", \"Museum Yayasan Pangeran\"]").description("The individual nodes"))
   post("/individual/traverse/bulk", operation(traverseNodes)) {
     val nodes = parsedBody.extract[List[String]].to[ListBuffer]
-    var result = ListBuffer[Map[String, Any]]()
-    var seqs = ListBuffer[String]()
+    val result = ListBuffer[Map[String, Any]]()
     var categories = ListBuffer[String]()
     var temp = Map[String, Any]()
-    var tmpResult = Map[String, Any]()
-    var i = 0
     tmpClass = ListBuffer()
-    var parents = List[String]()
     nodes.foreach(node=>{
       tmpClass = ListBuffer()
-      seqs = ListBuffer()
       categories = RecommendationUtil.getCategory(OWL_MODEL, node).to[ListBuffer]
       categories -= ("NamedIndividual", "Class")
-      println("node", node, categories)
       traverse(categories.toList)
-      tmpClass.foreach(tmp => {
-        println("tmp", tmp)
-      })
-//      parents = tmpClass.head("parents").asInstanceOf[List[String]]
-//      parents.foreach(parent=>{
-//        seqs.append(s"$parent, ${createClassTree(node, parent, parents.count(_ == parent))}")
-//      })
-//      temp = Map("name" -> node, "sequence" -> seqs, "parents" -> tmpClass)
       temp = Map("name" -> node, "parents" -> tmpClass)
       result.append(temp)
     })
     result
   }
-
-//  def createClassTree(node: String, _parent: String, idx: Int): String ={
-//    var seqString = node
-//    val result = Map[String, Any]()
-//    var tmpResult = mutable.HashMap[String, Any]()
-//    var i = 1
-//    var drop = 0
-//    tmpClass.foreach(tmp=>{
-//      if(tmp("child") == _parent){
-//        if(i == idx)
-//          drop = i
-//        i += 1
-//      }
-//    })
-//    val _tmpClass = tmpClass.drop(drop)
-//    _tmpClass.foreach(tmp=>{
-//      seqString += s", ${tmp("child")}"
-//      tmp("parents").asInstanceOf[List[String]].foreach(parent=>{
-//        seqString += s", $parent"
-//      })
-//    })
-//    seqString
-//  }
 
   def traverse(categories: List[String]): Unit ={
     categories.foreach(category=>{
