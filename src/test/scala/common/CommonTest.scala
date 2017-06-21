@@ -8,6 +8,6 @@ import owl.OwlConst
 object CommonTest extends App{
 //  println("OWL_PREFIX", OwlConst.OWL_PREFIX)
   val list = List("a", "b", "c")
-  val res = list.exists("a".contains)
+  val res = list.exists("d".contains)
   println(res)
 }

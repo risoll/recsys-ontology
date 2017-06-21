@@ -117,7 +117,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node=>{
       RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent=>{
-        if(resultBuffer.exists(_ != parent))
+        if(!resultBuffer.exists(parent.contains))
           result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
         resultBuffer.append(parent)
       })
