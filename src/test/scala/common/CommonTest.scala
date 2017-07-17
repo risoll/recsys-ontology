@@ -7,7 +7,14 @@ import owl.OwlConst
   */
 object CommonTest extends App{
 //  println("OWL_PREFIX", OwlConst.OWL_PREFIX)
-  val list = List("a", "b", "c")
-  val res = list.exists("d".contains)
-  println(res)
+  var list = List("pemandangan", "b", "c")
+  list ++= List("gg")
+  println("==========", list)
+//  val res = list.exists("Pemandangan".contentEquals)
+//  println(res)
+//  var m = Map("gg" -> 1, "gg2" -> 2)
+//  val m2 = Map("gg3" -> 3)
+//  m ++= m2
+//  val m3 = m.filterKeys(Set("gg").contains)
+//  println(m3)
 }

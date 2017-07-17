@@ -4,6 +4,7 @@ import com.rizky.ta.model.Classes
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
 import com.rizky.ta.util.RecommendationUtil
+import grizzled.slf4j.Logger
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
@@ -84,7 +85,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node=>{
       RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child=>{
-        if(!resultBuffer.exists(child.contains))
+        if(!resultBuffer.exists(child.contentEquals))
           result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
         resultBuffer.append(child)
       })
@@ -117,7 +118,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node=>{
       RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent=>{
-        if(!resultBuffer.exists(parent.contains))
+        if(!resultBuffer.exists(parent.contentEquals))
           result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
         resultBuffer.append(parent)
       })
@@ -126,7 +127,6 @@ class RecommendationController(implicit val swagger: Swagger)
   }
 
   private var tmpClass = ListBuffer[Map[String, Any]]()
-
   private val traverseNodes =
     (apiOperation[List[String]]("/individual/traverse/bulk")
       summary "get a list of traversable class of the current individuals"
@@ -160,5 +160,81 @@ class RecommendationController(implicit val swagger: Swagger)
       }
       traverse(_categories)
     })
+  }
+
+  private var propagation = Map[String, Map[String, Any]]()
+  private var childBuffer = mutable.HashMap[String, Map[String, Double]]()
+  private val nodesDown =
+  """{
+    "Rekreasi": {
+      "pref": 0.6,
+      "conf": 1
+    },
+    "Alam": {
+      "pref": 0.8,
+      "conf": 1
+    }
+  }"""
+  private val downwardPropagation =
+    (apiOperation[List[String]]("/propagation/downward")
+      summary "down propagation, update preference and confidence value of each children nodes"
+      parameter bodyParam[String]("nodes").defaultValue(nodesDown).description("The nodes which inherit the children"))
+  post("/propagation/downward", operation(downwardPropagation)) {
+    val nodes = parsedBody.extract[Map[String, Map[String, Double]]]
+    propagation = Map()
+    childBuffer = mutable.HashMap()
+    nodes.map(node => childBuffer.put(node._1, node._2))
+    bfsPropagation(nodes)
+    propagation
+  }
+
+  def bfsPropagation(nodes: Map[String, Map[String, Double]]): Unit ={
+    var newNodes = Map[String, Map[String, Double]]()
+    nodes.foreach(node=>{
+      val children = RecommendationUtil.getChildren(OWL_MODEL, node._1)
+      children.foreach(child=>{
+        val parents = RecommendationUtil.getParent(OWL_MODEL, child)
+        val newParents = mutable.HashMap[String, Map[String, Double]]()
+        newParents.put(node._1, node._2)
+        parents.foreach(parent => {
+          if(childBuffer.keys.exists(parent.contentEquals)){
+            newParents.put(parent, childBuffer(parent))
+          }
+        })
+        val values = RecommendationUtil.calcValues(newParents.toMap)
+        val newChildren = Map(child -> values)
+        childBuffer.put(child, values)
+        newNodes ++= newChildren
+      })
+    })
+    propagation ++= newNodes
+    if(newNodes.nonEmpty)
+      bfsPropagation(newNodes)
+  }
+
+  def propagate(nodes: Map[String, Map[String, Any]], parent: String, children: List[String], kind: String): Unit ={
+//    children.foreach(child=>{
+//      val parents = RecommendationUtil.getParent(OWL_MODEL, child)
+//      val fixedAncestors = nodes.filterKeys(parents.contains)
+//      val newChildren = RecommendationUtil.getChildren(OWL_MODEL, child)
+//      println("received ancestor", child, parents, fixedAncestors)
+//
+//      var values = RecommendationUtil.calcValues(fixedAncestors)
+//      println("values", child, values)
+//      if(childBuffer.keys.exists(child.contentEquals)){
+//        values = RecommendationUtil.updateValues(childBuffer(child), values)
+//        println("updated values", child, values)
+//      }
+//
+//      //newNodeValues adalah hasil propagasi tiap child
+//      val newNodeValues = Map(
+//        "parents" -> parents,
+//        "pref" -> values("pref"),
+//        "conf" -> values("conf")
+//      )
+//      childBuffer.put(child, newNodeValues)
+//      propagation ++= Map(child -> newNodeValues)
+//      propagate(Map(child -> newNodeValues), child, newChildren, "down")
+//    })
   }
 }

@@ -76,7 +76,7 @@ class PlaceController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node=>{
       RecommendationUtil.getIndividualByCategory(node, OWL_MODEL).foreach(individual=>{
-        if(!resultBuffer.exists(individual.contains))
+        if(!resultBuffer.exists(individual.contentEquals))
           result.append(Place.getByName(individual))
         resultBuffer.append(individual)
       })
