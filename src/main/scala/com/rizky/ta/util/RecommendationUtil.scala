@@ -70,6 +70,16 @@ object RecommendationUtil {
     executeQuery(queryString, OWL_MODEL)
   }
 
+  def filterLeafNodes(OWL_MODEL: Model, nodes: List[String]): List[String] = {
+    val newNodes = ListBuffer[String]()
+    nodes.foreach(node=>{
+      if(getChildren(OWL_MODEL, node).isEmpty)
+        if(!newNodes.exists(node.contentEquals))
+          newNodes.append(node)
+    })
+    newNodes.toList
+  }
+
   def parseNode(node: String): String = {
     node.split(" ").map(_.capitalize).mkString("_")
   }
@@ -103,12 +113,12 @@ object RecommendationUtil {
     Map("pref" -> preference, "conf" -> confidence)
   }
 
-  def calcValues(srcNodes: Map[String, Map[String, Any]]): Map[String, Double] ={
+  def calcValues(srcNodes: List[Map[String, Any]]): Map[String, Double] ={
     var counter: Double = 0
     var denominator: Double = 0
     srcNodes.foreach(node=>{
-      val pref = node._2("pref").asInstanceOf[Double]
-      val conf = node._2("conf").asInstanceOf[Double]
+      val pref = node("pref").toString.toDouble
+      val conf = node("conf").toString.toDouble
       counter += pref * conf
       denominator += conf
     })

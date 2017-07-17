@@ -162,55 +162,79 @@ class RecommendationController(implicit val swagger: Swagger)
     })
   }
 
-  private var propagation = Map[String, Map[String, Any]]()
-  private var childBuffer = mutable.HashMap[String, Map[String, Double]]()
+//  private var propagation = Map[String, Map[String, Any]]()
+  private var propagation = ListBuffer[Map[String, Any]]()
+  private var childBuffer = ListBuffer[Map[String, Any]]()
   private val nodesDown =
-  """{
-    "Rekreasi": {
+  """[
+    {
+      "name": "Rekreasi",
       "pref": 0.6,
       "conf": 1
     },
-    "Alam": {
+    {
+      "name": "Alam",
       "pref": 0.8,
       "conf": 1
     }
-  }"""
+  ]"""
   private val downwardPropagation =
     (apiOperation[List[String]]("/propagation/downward")
       summary "down propagation, update preference and confidence value of each children nodes"
       parameter bodyParam[String]("nodes").defaultValue(nodesDown).description("The nodes which inherit the children"))
   post("/propagation/downward", operation(downwardPropagation)) {
-    val nodes = parsedBody.extract[Map[String, Map[String, Double]]]
-    propagation = Map()
-    childBuffer = mutable.HashMap()
-    nodes.map(node => childBuffer.put(node._1, node._2))
+    val nodes = parsedBody.extract[List[Map[String, Any]]]
+    println("nodes", nodes)
+//    propagation = Map()
+    propagation = ListBuffer()
+    childBuffer = nodes.to[ListBuffer]
     bfsPropagation(nodes)
-    propagation
+    val askedNodes = RecommendationUtil.filterLeafNodes(OWL_MODEL, propagation.map(_("name").toString).toList)
+    Map(
+      "data" -> propagation,
+      "askedNodes" -> askedNodes.map(node=>{
+        Map("name" -> node, "image" -> Classes.getByName(node).get.image)
+      })
+    )
   }
 
-  def bfsPropagation(nodes: Map[String, Map[String, Double]]): Unit ={
-    var newNodes = Map[String, Map[String, Double]]()
+  def bfsPropagation(nodes: List[Map[String, Any]]): Unit ={
+    var newNodes = ListBuffer[Map[String, Any]]()
     nodes.foreach(node=>{
-      val children = RecommendationUtil.getChildren(OWL_MODEL, node._1)
+      //dapatkan children dari node yg dipilih
+      val children = RecommendationUtil.getChildren(OWL_MODEL, node("name").asInstanceOf[String])
       children.foreach(child=>{
+        //cek parents dari tiap child, karena bisa saja satu child punya 2 atau lebih parent
         val parents = RecommendationUtil.getParent(OWL_MODEL, child)
-        val newParents = mutable.HashMap[String, Map[String, Double]]()
-        newParents.put(node._1, node._2)
+        val newParents = ListBuffer[Map[String, Any]]()
+        newParents.append(node)
         parents.foreach(parent => {
-          if(childBuffer.keys.exists(parent.contentEquals)){
-            newParents.put(parent, childBuffer(parent))
-          }
+          //cek jika child punya lebih dari satu parent
+          childBuffer.foreach(child=>{
+            if(child("name") == parent){
+              //jika parent sudah ada sebelumnya, tidak usah ditambah ke buffer
+              if(!newParents.map(_("name").toString).exists(parent.contentEquals))
+                newParents.append(child)
+            }
+          })
         })
-        val values = RecommendationUtil.calcValues(newParents.toMap)
-        val newChildren = Map(child -> values)
-        childBuffer.put(child, values)
-        newNodes ++= newChildren
+        val values = RecommendationUtil.calcValues(newParents.toList)
+        val newValues = Map(
+          "name" -> child,
+          "parents" -> newParents,
+          "pref" -> values("pref"),
+          "conf" -> values("conf")
+        )
+        childBuffer.append(newValues)
+        newNodes.append(newValues)
       })
     })
     propagation ++= newNodes
     if(newNodes.nonEmpty)
-      bfsPropagation(newNodes)
+      bfsPropagation(newNodes.toList)
   }
+
+
 
   def propagate(nodes: Map[String, Map[String, Any]], parent: String, children: List[String], kind: String): Unit ={
 //    children.foreach(child=>{
