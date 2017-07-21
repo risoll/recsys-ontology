@@ -17,11 +17,15 @@ object CommonTest extends App{
 //  m ++= m2
 //  val m3 = m.filterKeys(Set("gg").contains)
 //  println(m3)
-  val m = List(Map(
+  var m = List(Map(
     "name" -> "gg",
     "parents" -> List()
   ))
-  if(m.map(_("name").toString).exists("gg".contentEquals)){
-    println("gg")
-  }
+  println(m.head.keys.exists("c".contentEquals))
+//  var m2 = m.head
+//  m2 = m2 + ("name" -> "gg2")
+//  println(m2)
+//  if(m.map(_("name").toString).exists("gg".contentEquals)){
+//    println("gg")
+//  }
 }

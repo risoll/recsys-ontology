@@ -69,7 +69,7 @@ class RecommendationController(implicit val swagger: Swagger)
   get("/class/children", operation(children)) {
     val node = params("node")
     val result = ListBuffer[Map[String, String]]()
-    RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child=>{
+    RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child => {
       result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
     })
     result
@@ -83,9 +83,9 @@ class RecommendationController(implicit val swagger: Swagger)
     val nodes = parsedBody.extract[List[String]]
     val result = ListBuffer[Map[String, String]]()
     val resultBuffer = ListBuffer[String]()
-    nodes.foreach(node=>{
-      RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child=>{
-        if(!resultBuffer.exists(child.contentEquals))
+    nodes.foreach(node => {
+      RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child => {
+        if (!resultBuffer.exists(child.contentEquals))
           result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
         resultBuffer.append(child)
       })
@@ -102,7 +102,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val result = ListBuffer[Map[String, String]]()
     val parents = RecommendationUtil.getParent(OWL_MODEL, node).to[ListBuffer]
     parents -= "Tempat Wisata"
-    parents.foreach(parent=>{
+    parents.foreach(parent => {
       result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
     })
     result
@@ -116,9 +116,9 @@ class RecommendationController(implicit val swagger: Swagger)
     val nodes = parsedBody.extract[List[String]]
     val result = ListBuffer[Map[String, String]]()
     val resultBuffer = ListBuffer[String]()
-    nodes.foreach(node=>{
-      RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent=>{
-        if(!resultBuffer.exists(parent.contentEquals))
+    nodes.foreach(node => {
+      RecommendationUtil.getParent(OWL_MODEL, node).foreach(parent => {
+        if (!resultBuffer.exists(parent.contentEquals))
           result.append(Map("name" -> parent, "image" -> Classes.getByName(parent).get.image))
         resultBuffer.append(parent)
       })
@@ -137,7 +137,7 @@ class RecommendationController(implicit val swagger: Swagger)
     var categories = ListBuffer[String]()
     var temp = Map[String, Any]()
     tmpClass = ListBuffer()
-    nodes.foreach(node=>{
+    nodes.foreach(node => {
       tmpClass = ListBuffer()
       categories = RecommendationUtil.getCategory(OWL_MODEL, node).to[ListBuffer]
       categories -= ("NamedIndividual", "Class")
@@ -148,10 +148,10 @@ class RecommendationController(implicit val swagger: Swagger)
     result
   }
 
-  def traverse(categories: List[String]): Unit ={
-    categories.foreach(category=>{
+  def traverse(categories: List[String]): Unit = {
+    categories.foreach(category => {
       val _categories = RecommendationUtil.getParent(OWL_MODEL, category)
-      if(category != "Tempat Wisata"){
+      if (category != "Tempat Wisata") {
         tmpClass.append(Map(
           "child" -> category,
           "image" -> Classes.getByName(category).get.image,
@@ -162,11 +162,11 @@ class RecommendationController(implicit val swagger: Swagger)
     })
   }
 
-//  private var propagation = Map[String, Map[String, Any]]()
-  private var propagation = ListBuffer[Map[String, Any]]()
+  private var downPropResult = ListBuffer[Map[String, Any]]()
   private var childBuffer = ListBuffer[Map[String, Any]]()
+
   private val nodesDown =
-  """[
+    """[
     {
       "name": "Rekreasi",
       "pref": 0.6,
@@ -185,80 +185,631 @@ class RecommendationController(implicit val swagger: Swagger)
   post("/propagation/downward", operation(downwardPropagation)) {
     val nodes = parsedBody.extract[List[Map[String, Any]]]
     println("nodes", nodes)
-//    propagation = Map()
-    propagation = ListBuffer()
+    downPropResult = ListBuffer()
     childBuffer = nodes.to[ListBuffer]
-    bfsPropagation(nodes)
-    val askedNodes = RecommendationUtil.filterLeafNodes(OWL_MODEL, propagation.map(_("name").toString).toList)
+    downwardPropagation(nodes)
+    val askedNodes = RecommendationUtil.filterLeafNodes(OWL_MODEL, downPropResult.map(_ ("name").toString).toList)
     Map(
-      "data" -> propagation,
-      "askedNodes" -> askedNodes.map(node=>{
+      "data" -> downPropResult,
+      "askedNodes" -> askedNodes.map(node => {
         Map("name" -> node, "image" -> Classes.getByName(node).get.image)
       })
     )
   }
 
-  def bfsPropagation(nodes: List[Map[String, Any]]): Unit ={
+  private var upPropResult = mutable.HashMap[String, Map[String, Any]]()
+  private var parentBuffer = mutable.HashMap[String, Map[String, Double]]()
+  private val nodesUp =
+    """{
+                         "assigned":[
+                              {
+                                "name": "Kebun Binatang",
+                                "pref": 0.8,
+                                "conf": 1
+                              }
+                         ],
+                         "old":[
+                              {
+                                "name": "Spa",
+                                "parents": [
+                                  {
+                                    "name": "Rekreasi",
+                                    "pref": 0.6,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Keluarga",
+                                "parents": [
+                                  {
+                                    "name": "Rekreasi",
+                                    "pref": 0.6,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Hiburan Malam",
+                                "parents": [
+                                  {
+                                    "name": "Rekreasi",
+                                    "pref": 0.6,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Belanja",
+                                "parents": [
+                                  {
+                                    "name": "Rekreasi",
+                                    "pref": 0.6,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Taman",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Pemandian Air Panas",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  },
+                                  {
+                                    "name": "Spa",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.71429,
+                                "conf": 0.625
+                              },
+                              {
+                                "name": "Pemandangan",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Pegunungan",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Museum Alam",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Camping",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  },
+                                  {
+                                    "name": "Pegunungan",
+                                    "parents": [
+                                      {
+                                        "name": "Alam",
+                                        "pref": 0.8,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.8,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.625
+                              },
+                              {
+                                "name": "Cagar Alam",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.75
+                              },
+                              {
+                                "name": "Taman Bermain",
+                                "parents": [
+                                  {
+                                    "name": "Keluarga",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Kebun Binatang",
+                                "parents": [
+                                  {
+                                    "name": "Alam",
+                                    "pref": 0.8,
+                                    "conf": 1
+                                  },
+                                  {
+                                    "name": "Keluarga",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Edukasi",
+                                "parents": [
+                                  {
+                                    "name": "Keluarga",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Shopping Mall",
+                                "parents": [
+                                  {
+                                    "name": "Belanja",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Oleh-oleh",
+                                "parents": [
+                                  {
+                                    "name": "Belanja",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Fashion",
+                                "parents": [
+                                  {
+                                    "name": "Belanja",
+                                    "parents": [
+                                      {
+                                        "name": "Rekreasi",
+                                        "pref": 0.6,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Pemandangan Kota",
+                                "parents": [
+                                  {
+                                    "name": "Pemandangan",
+                                    "parents": [
+                                      {
+                                        "name": "Alam",
+                                        "pref": 0.8,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.8,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Pemandangan Alam",
+                                "parents": [
+                                  {
+                                    "name": "Pemandangan",
+                                    "parents": [
+                                      {
+                                        "name": "Alam",
+                                        "pref": 0.8,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.8,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Hiking",
+                                "parents": [
+                                  {
+                                    "name": "Pegunungan",
+                                    "parents": [
+                                      {
+                                        "name": "Alam",
+                                        "pref": 0.8,
+                                        "conf": 1
+                                      }
+                                    ],
+                                    "pref": 0.8,
+                                    "conf": 0.75
+                                  }
+                                ],
+                                "pref": 0.8,
+                                "conf": 0.5
+                              },
+                              {
+                                "name": "Waterpark",
+                                "parents": [
+                                  {
+                                    "name": "Taman Bermain",
+                                    "parents": [
+                                      {
+                                        "name": "Keluarga",
+                                        "parents": [
+                                          {
+                                            "name": "Rekreasi",
+                                            "pref": 0.6,
+                                            "conf": 1
+                                          }
+                                        ],
+                                        "pref": 0.6,
+                                        "conf": 0.75
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.5
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.25
+                              },
+                              {
+                                "name": "ATV",
+                                "parents": [
+                                  {
+                                    "name": "Taman Bermain",
+                                    "parents": [
+                                      {
+                                        "name": "Keluarga",
+                                        "parents": [
+                                          {
+                                            "name": "Rekreasi",
+                                            "pref": 0.6,
+                                            "conf": 1
+                                          }
+                                        ],
+                                        "pref": 0.6,
+                                        "conf": 0.75
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.5
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.25
+                              },
+                              {
+                                "name": "Museum",
+                                "parents": [
+                                  {
+                                    "name": "Edukasi",
+                                    "parents": [
+                                      {
+                                        "name": "Keluarga",
+                                        "parents": [
+                                          {
+                                            "name": "Rekreasi",
+                                            "pref": 0.6,
+                                            "conf": 1
+                                          }
+                                        ],
+                                        "pref": 0.6,
+                                        "conf": 0.75
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.5
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0.25
+                              },
+                              {
+                                "name": "Museum Sejarah",
+                                "parents": [
+                                  {
+                                    "name": "Museum",
+                                    "parents": [
+                                      {
+                                        "name": "Edukasi",
+                                        "parents": [
+                                          {
+                                            "name": "Keluarga",
+                                            "parents": [
+                                              {
+                                                "name": "Rekreasi",
+                                                "pref": 0.6,
+                                                "conf": 1
+                                              }
+                                            ],
+                                            "pref": 0.6,
+                                            "conf": 0.75
+                                          }
+                                        ],
+                                        "pref": 0.6,
+                                        "conf": 0.5
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.25
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0
+                              },
+                              {
+                                "name": "Museum Budaya",
+                                "parents": [
+                                  {
+                                    "name": "Museum",
+                                    "parents": [
+                                      {
+                                        "name": "Edukasi",
+                                        "parents": [
+                                          {
+                                            "name": "Keluarga",
+                                            "parents": [
+                                              {
+                                                "name": "Rekreasi",
+                                                "pref": 0.6,
+                                                "conf": 1
+                                              }
+                                            ],
+                                            "pref": 0.6,
+                                            "conf": 0.75
+                                          }
+                                        ],
+                                        "pref": 0.6,
+                                        "conf": 0.5
+                                      }
+                                    ],
+                                    "pref": 0.6,
+                                    "conf": 0.25
+                                  }
+                                ],
+                                "pref": 0.6,
+                                "conf": 0
+                              }
+                            ]}"""
+  private val upwardPropagation =
+    (apiOperation[List[String]]("/propagation/upward")
+      summary "upward propagation, update preference and confidence value of each parent nodes"
+      parameter bodyParam[String]("nodes").defaultValue(nodesUp).description("The children nodes"))
+  post("/propagation/upward", operation(upwardPropagation)) {
+    val nodes = parsedBody.extract[Map[String, List[Map[String, Any]]]]
+    val old = nodes("old")
+    val assigned = nodes("assigned")
+    println("old", old)
+    println("assigned", assigned)
+    var updated = ListBuffer[Map[String, Any]]()
+    upPropResult = mutable.HashMap()
+    parentBuffer = mutable.HashMap()
+    //update values
+    assigned.foreach(a => {
+      //ambil old value
+      val matched = old.filter(_ ("name") == a("name")).head
+      //update preference dan confidence
+      updated.append(Map(
+        "name" -> a("name"),
+        "pef" -> RecommendationUtil.updatePreference(matched("pref").toString.toDouble, a("pref").toString.toDouble),
+        "conf" -> RecommendationUtil.updateConfidence(matched("conf").toString.toDouble, a("conf").toString.toDouble)
+      ))
+    })
+    println("updated", updated)
+
+    //propagasi keatas, terdapat agregasi dan update value
+    upwardPropagation(old)
+    updated ++= RecommendationUtil.mapToList(parentBuffer.toMap)
+
+    val roots = RecommendationUtil.getChildren(OWL_MODEL, "tempat wisata")
+    val updatedRoots = ListBuffer[Map[String, Any]]()
+    updated.foreach(upd => {
+      if (roots.exists(upd("name").toString.contentEquals)) {
+        updatedRoots.append(upd)
+      }
+    })
+
+    //propagasi kebawah seperti biasa, tanpa decay factor a
+    downPropResult = ListBuffer()
+    childBuffer = updatedRoots
+    downwardPropagation(updatedRoots.toList, true)
+    downPropResult
+
+  }
+
+  def upwardPropagation(nodes: List[Map[String, Any]]): Unit = {
+    nodes.foreach(node => {
+      //cek apakah node punya key parent
+      if (node.keys.exists("parents".contentEquals)) {
+        println("NODE", node("name"))
+        val parents = node("parents").asInstanceOf[List[Map[String, Any]]]
+        // buat nilai agregasi untuk tiap parent
+        val aggValues = RecommendationUtil.calcValues(parents, true)
+        println("aggregated", aggValues, parents)
+        parents.foreach(parent => {
+          val pOld = parent("pref").toString.toDouble
+          val cOld = parent("conf").toString.toDouble
+          //update parent values
+          var updAggValues = RecommendationUtil.updateFromAgg(pOld, aggValues("pref"), cOld, aggValues("conf"))
+          println("updated", parent("name"), updAggValues, "old", pOld, cOld, "agg", aggValues("pref"), aggValues("conf"))
+          //cek apakah parent ada di buffer
+          val parentName = parent("name").toString
+          if (parentBuffer.keys.exists(parentName.contentEquals)) {
+            //buat rata-rata updated values, karena iterasi tiap child, dan child bisa punya parent yang sama
+            val newPref = (parentBuffer(parentName)("pref") + updAggValues("pref")) / 2
+            val newConf = (parentBuffer(parentName)("conf") + updAggValues("conf")) / 2
+            updAggValues += "pref" -> newPref
+            updAggValues += "conf" -> newConf
+            println("updated 2", updAggValues, parentBuffer(parentName)("pref"), parentBuffer(parentName)("conf"))
+          }
+
+          //node rekreasi tetap bernilai besar karena agregasi awal dari child spa bernilai 1.0,
+          //dan tidak ada yang inherit node rekreasi lagi
+          //(tidak terupdate, berbeda dengan node alam)
+
+          //masukkan parent beserta valuesnya ke buffer
+          parentBuffer.put(parentName, Map("pref" -> updAggValues("pref"), "conf" -> updAggValues("conf")))
+          println("parentBuffer", parentBuffer)
+          if (parent.keys.exists("parents".contentEquals)) {
+            upwardPropagation(parent("parents").asInstanceOf[List[Map[String, Any]]])
+          }
+        })
+      }
+    })
+  }
+
+  def downwardPropagation(nodes: List[Map[String, Any]], fromAgg: Boolean = false): Unit = {
     var newNodes = ListBuffer[Map[String, Any]]()
-    nodes.foreach(node=>{
+    nodes.foreach(node => {
       //dapatkan children dari node yg dipilih
       val children = RecommendationUtil.getChildren(OWL_MODEL, node("name").asInstanceOf[String])
-      children.foreach(child=>{
+      children.foreach(child => {
         //cek parents dari tiap child, karena bisa saja satu child punya 2 atau lebih parent
         val parents = RecommendationUtil.getParent(OWL_MODEL, child)
         val newParents = ListBuffer[Map[String, Any]]()
         newParents.append(node)
         parents.foreach(parent => {
           //cek jika child punya lebih dari satu parent
-          childBuffer.foreach(child=>{
-            if(child("name") == parent){
+          childBuffer.foreach(child => {
+            if (child("name") == parent) {
               //jika parent sudah ada sebelumnya, tidak usah ditambah ke buffer
-              if(!newParents.map(_("name").toString).exists(parent.contentEquals))
+              if (!newParents.map(_ ("name").toString).exists(parent.contentEquals))
                 newParents.append(child)
             }
           })
         })
-        val values = RecommendationUtil.calcValues(newParents.toList)
-        val newValues = Map(
-          "name" -> child,
-          "parents" -> newParents,
-          "pref" -> values("pref"),
-          "conf" -> values("conf")
-        )
-        childBuffer.append(newValues)
-        newNodes.append(newValues)
+        val values = RecommendationUtil.calcValues(newParents.toList, fromAgg)
+
+        //cek jika node sudah ditraverse sebelumnya, jika iya tidak usah dimasukkan lagi
+        if (!childBuffer.map(_ ("name").toString).exists(child.contentEquals)) {
+          val newValues = Map(
+            "name" -> child,
+            "parents" -> newParents,
+            "pref" -> values("pref"),
+            "conf" -> values("conf")
+          )
+          childBuffer.append(newValues)
+          newNodes.append(newValues)
+        }
       })
     })
-    propagation ++= newNodes
-    if(newNodes.nonEmpty)
-      bfsPropagation(newNodes.toList)
-  }
-
-
-
-  def propagate(nodes: Map[String, Map[String, Any]], parent: String, children: List[String], kind: String): Unit ={
-//    children.foreach(child=>{
-//      val parents = RecommendationUtil.getParent(OWL_MODEL, child)
-//      val fixedAncestors = nodes.filterKeys(parents.contains)
-//      val newChildren = RecommendationUtil.getChildren(OWL_MODEL, child)
-//      println("received ancestor", child, parents, fixedAncestors)
-//
-//      var values = RecommendationUtil.calcValues(fixedAncestors)
-//      println("values", child, values)
-//      if(childBuffer.keys.exists(child.contentEquals)){
-//        values = RecommendationUtil.updateValues(childBuffer(child), values)
-//        println("updated values", child, values)
-//      }
-//
-//      //newNodeValues adalah hasil propagasi tiap child
-//      val newNodeValues = Map(
-//        "parents" -> parents,
-//        "pref" -> values("pref"),
-//        "conf" -> values("conf")
-//      )
-//      childBuffer.put(child, newNodeValues)
-//      propagation ++= Map(child -> newNodeValues)
-//      propagate(Map(child -> newNodeValues), child, newChildren, "down")
-//    })
+    downPropResult ++= newNodes
+    if (newNodes.nonEmpty)
+      downwardPropagation(newNodes.toList)
   }
 }

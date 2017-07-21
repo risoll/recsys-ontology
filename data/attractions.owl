@@ -415,6 +415,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
     </owl:Class>
     
 

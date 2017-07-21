@@ -19,6 +19,15 @@ object RecommendationUtil {
       PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
       PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     """
+  // decay factor untuk confidence value per level
+  // nilai 0.25 diambil karena total depth di ontology berjumlah 4
+  private val a = 0.25
+
+  // decay factor untuk update preference dan confidence value
+  private val b = 0.3
+
+  val fp = 0.6 // threshold untuk preference value
+  val fc = 0.6 //threshold untuk confidence value
 
   def getIndividualByCategory(category: String, OWL_MODEL: Model): List[String] ={
     val queryString =
@@ -60,6 +69,16 @@ object RecommendationUtil {
     executeQuery(queryString, OWL_MODEL)
   }
 
+  def updatePreference(pOld: Double, pAssign: Double): Double ={
+    round(Math.min(1, pOld + b * pAssign))
+  }
+
+  def updateConfidence(cOld: Double, cAssign: Double): Double = {
+    round(b * cOld + (1 - b) * cAssign)
+  }
+
+
+
   def getCategory(OWL_MODEL: Model, node: String): List[String] ={
     val queryString =
       s"""
@@ -96,24 +115,22 @@ object RecommendationUtil {
     results.toMap
   }
 
-  def updateValues(oldValues: Map[String, Any], newValues: Map[String, Any]): Map[String, Double] ={
-    val oldPref = oldValues("pref").asInstanceOf[Double]
-    val oldConf = oldValues("conf").asInstanceOf[Double]
-    val newPref = newValues("pref").asInstanceOf[Double]
-    val newConf = newValues("conf").asInstanceOf[Double]
-    println("counter formula update values", oldPref + "*" + oldConf + "+" + newPref + "*" + newConf)
-    println("denom formula update values", oldConf + "*" + newConf)
+//  def updateValues(srcNodes: List[Map[String, Any]]): Map[String, Double] ={
+//    var counter: Double = 0
+//    var denominator: Double = 0
+//    srcNodes.foreach(node=>{
+//      val pref = node("pref").toString.toDouble
+//      val conf = node("conf").toString.toDouble
+//      counter += pref * conf
+//      denominator += conf
+//    })
+//    val totalNode = srcNodes.size
+//    val preference = round(counter/denominator)
+//    val confidence = round(denominator/totalNode - a)
+//    Map("pref" -> preference, "conf" -> confidence)
+//  }
 
-    val counter = (oldPref * oldConf) + (newPref * newConf)
-    val denominator = oldConf + newConf
-    val a = 0.1
-    val totalNode = 2
-    val preference = round(counter/denominator)
-    val confidence = round(denominator/totalNode - a)
-    Map("pref" -> preference, "conf" -> confidence)
-  }
-
-  def calcValues(srcNodes: List[Map[String, Any]]): Map[String, Double] ={
+  def calcValues(srcNodes: List[Map[String, Any]], agg: Boolean = false): Map[String, Double] ={
     var counter: Double = 0
     var denominator: Double = 0
     srcNodes.foreach(node=>{
@@ -122,15 +139,36 @@ object RecommendationUtil {
       counter += pref * conf
       denominator += conf
     })
-    val a = 0.1
     val totalNode = srcNodes.size
     val preference = round(counter/denominator)
-    val confidence = round(denominator/totalNode - a)
+    var confidence: Double = 0.0
+    if(!agg)
+      confidence = round(denominator/totalNode - a)
+    else
+      confidence = round(denominator/totalNode)
     Map("pref" -> preference, "conf" -> confidence)
+  }
+
+  def updateFromAgg(pOld: Double, pAgg: Double, cOld: Double, cAgg: Double): Map[String, Double] = {
+    val pref = round(((1 - b) * cOld * pOld + b * cAgg * pAgg) / ((1-b) * pOld + b * pAgg))
+    val conf = round(b * cOld + (1 - b) * cAgg)
+    Map("pref" -> pref, "conf" -> conf)
   }
 
   def createActivationValues(): Unit ={
 
+  }
+
+  def mapToList(nodes: Map[String, Map[String, Any]]): List[Map[String, Any]] ={
+    val res = ListBuffer[Map[String, Any]]()
+    nodes.foreach(node => {
+      res.append(Map(
+        "name" -> node._1,
+        "pref" -> node._2("pref").asInstanceOf[Double],
+        "conf" -> node._2("conf").asInstanceOf[Double]
+      ))
+    })
+    res.toList
   }
 
   def executeQuery(queryString: String, OWL_MODEL: Model): List[String] ={
