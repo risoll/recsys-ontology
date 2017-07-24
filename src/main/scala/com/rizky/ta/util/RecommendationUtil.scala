@@ -21,7 +21,7 @@ object RecommendationUtil {
     """
   // decay factor untuk confidence value per level
   // nilai 0.25 diambil karena total depth di ontology berjumlah 4
-  private val a = 0.25
+  private val a = 0.24
 
   // decay factor untuk update preference dan confidence value
   private val b = 0.3
@@ -115,21 +115,6 @@ object RecommendationUtil {
     results.toMap
   }
 
-//  def updateValues(srcNodes: List[Map[String, Any]]): Map[String, Double] ={
-//    var counter: Double = 0
-//    var denominator: Double = 0
-//    srcNodes.foreach(node=>{
-//      val pref = node("pref").toString.toDouble
-//      val conf = node("conf").toString.toDouble
-//      counter += pref * conf
-//      denominator += conf
-//    })
-//    val totalNode = srcNodes.size
-//    val preference = round(counter/denominator)
-//    val confidence = round(denominator/totalNode - a)
-//    Map("pref" -> preference, "conf" -> confidence)
-//  }
-
   def calcValues(srcNodes: List[Map[String, Any]], agg: Boolean = false): Map[String, Double] ={
     var counter: Double = 0
     var denominator: Double = 0
@@ -159,16 +144,27 @@ object RecommendationUtil {
 
   }
 
-  def mapToList(nodes: Map[String, Map[String, Any]]): List[Map[String, Any]] ={
+  def mapToList(nodes: Map[String, Map[String, Double]]): List[Map[String, Any]] ={
     val res = ListBuffer[Map[String, Any]]()
     nodes.foreach(node => {
       res.append(Map(
         "name" -> node._1,
-        "pref" -> node._2("pref").asInstanceOf[Double],
-        "conf" -> node._2("conf").asInstanceOf[Double]
+        "pref" -> node._2("pref"),
+        "conf" -> node._2("conf")
       ))
     })
     res.toList
+  }
+
+  def listToMap(nodes: List[Map[String, Any]]): Map[String, Map[String, Double]] = {
+    val res = mutable.HashMap[String, Map[String, Double]]()
+    nodes.foreach(node=>{
+      res.put(node("name").toString, Map(
+        "pref" -> node("pref").asInstanceOf[Double],
+        "conf" -> node("conf").asInstanceOf[Double]
+      ))
+    })
+    res.toMap
   }
 
   def executeQuery(queryString: String, OWL_MODEL: Model): List[String] ={
