@@ -18,12 +18,46 @@ object GoogleUtil {
   private val replaceQuery = Map("dan" -> "and")
 
   private val PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place"
+  private val DISTANCE_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric"
 //  private val API_KEY = "AIzaSyC1a8GoIeNrSnLD0SrT7prEa1Cf_T_a2WA"
 //  private val API_KEY = "AIzaSyB8N-RSVWGZseC1qQc7T1s85Z4kOtZYnN0"
 //  private val API_KEY = "AIzaSyC_cBzLwY0pZhuI3kDUykrvgGj5gnGUP7Q"
 //  private val API_KEY = "AIzaSyDglsvlpD_o8RPXbpI--KlLgTmz_tWJSyQ"
   private val API_KEY = "AIzaSyBpsIj_ThKLWEs26Ibf70lfN3d9eX0DBak"
 //  private val API_KEY = "AIzaSyCJynwIXL7HAnw8p6WzqRKZ4EOgRakuu_o"
+
+  def distanceMatrix(origins: Map[String, Double], destinations: List[Map[String, Any]]): List[Map[String, Any]] ={
+    val org = origins.values.mkString(",")
+    val dest = destinations.map(_.filter(_._1 != "name").values.mkString(",")).mkString("|")
+    val prefix = s"$DISTANCE_API_BASE"
+    val params = Map("origins" -> org, "destinations" -> dest, "key" -> API_KEY)
+    println(prefix)
+    val response = requestHttp(prefix, params).asInstanceOf[Map[String, Any]]
+    val result = ListBuffer[Map[String, Any]]()
+    response.get("rows") match {
+      case Some(values) =>
+        val rows = values.asInstanceOf[List[Map[String, List[Map[String, Map[String, Any]]]]]]
+        rows.head.get("elements") match {
+          case Some(value) =>
+            var i = 0
+            value.foreach(v=>{
+              if(v("status").asInstanceOf[String] == "OK")
+                result.append(Map(
+                  "name" -> destinations(i)("name").toString,
+                  "distance" -> v("distance"),
+                  "duration" -> v("duration")
+                ))
+              i += 1
+            })
+            result.toList
+          case None =>
+            List()
+        }
+      case None =>
+        List()
+    }
+
+  }
 
   def textSearch(query: String, lat: Double, lng: Double, radius: Double): Map[String, Any] ={
     var parsedQuery = s"${query.replace(" ", "+")}"

@@ -20,14 +20,19 @@ object RecommendationUtil {
       PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     """
   // decay factor untuk confidence value per level
-  // nilai 0.25 diambil karena total depth di ontology berjumlah 4
-  private val a = 0.24
+  // nilai 0.24 diambil karena total depth di ontology berjumlah 4
+  private val alpha = 0.24
 
   // decay factor untuk update preference dan confidence value
-  private val b = 0.3
+  private val beta = 0.3
+
+  // decay factor untuk normalisasi activation level
+  private val normFactorActivation = 0.49
+//  private val normFactorActivation = 0.2
 
   val fp = 0.6 // threshold untuk preference value
   val fc = 0.6 //threshold untuk confidence value
+  val fa = 0.6 //threshold untuk activation value
 
   def getIndividualByCategory(category: String, OWL_MODEL: Model): List[String] ={
     val queryString =
@@ -70,11 +75,11 @@ object RecommendationUtil {
   }
 
   def updatePreference(pOld: Double, pAssign: Double): Double ={
-    round(Math.min(1, pOld + b * pAssign))
+    round(Math.min(1, pOld + beta * pAssign))
   }
 
   def updateConfidence(cOld: Double, cAssign: Double): Double = {
-    round(b * cOld + (1 - b) * cAssign)
+    round(beta * cOld + (1 - beta) * cAssign)
   }
 
 
@@ -128,20 +133,42 @@ object RecommendationUtil {
     val preference = round(counter/denominator)
     var confidence: Double = 0.0
     if(!agg)
-      confidence = round(denominator/totalNode - a)
+      confidence = round(denominator/totalNode - alpha)
     else
       confidence = round(denominator/totalNode)
-    Map("pref" -> preference, "conf" -> confidence)
+    Map("pref" -> preference, "conf" -> Math.max(0, confidence))
   }
 
   def updateFromAgg(pOld: Double, pAgg: Double, cOld: Double, cAgg: Double): Map[String, Double] = {
-    val pref = round(((1 - b) * cOld * pOld + b * cAgg * pAgg) / ((1-b) * pOld + b * pAgg))
-    val conf = round(b * cOld + (1 - b) * cAgg)
+    val pref = round(((1 - beta) * cOld * pOld + beta * cAgg * pAgg) / ((1-beta) * pOld + beta * pAgg))
+    val conf = round(beta * cOld + (1 - beta) * cAgg)
     Map("pref" -> pref, "conf" -> conf)
   }
 
-  def createActivationValues(): Unit ={
+  def getActivation(neighbors: List[Map[String, Any]], a: Double = 0.0): Double ={
+    //
+    var newActivation = a
+//    var newActivation = 0.0
+    val linkWeight: Double = 1.0 / neighbors.size * normFactorActivation
+//    val linkWeight: Double = neighbors.size * normFactorActivation
+//    val linkWeight: Double = calcNILF(possibleNodesSize, neighbors.size)
+    neighbors.foreach(neighbor=>{
+      var value = 0.0
+      neighbor.get("activation") match {
+        case Some(activation) =>
+          value = activation.toString.toDouble
+        case None =>
+          value = neighbor("pref").toString.toDouble
+      }
+      newActivation += value * linkWeight
+    })
+    println("LINK", linkWeight, "a", a, "newA", newActivation, "size", neighbors.size)
+    Math.min(1, round(newActivation))
+  }
 
+  def calcNILF(possibleNodesSize: Int, neighborsSize: Int): Double = {
+    val ILF = Math.log(possibleNodesSize/neighborsSize)
+    ILF/Math.log(possibleNodesSize)
   }
 
   def mapToList(nodes: Map[String, Map[String, Double]]): List[Map[String, Any]] ={

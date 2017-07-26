@@ -41,5 +41,23 @@ object CommonUtil {
     val args = cmf.erasure.getDeclaredFields().map( f => vals(f.getName) )
     ctor.newInstance(args : _*).asInstanceOf[T]
   }
+
+  /**
+    * Convert case class ke Map
+    * @param cc
+    * @return
+    */
+  def getCCParams(cc: Product): Map[String, Any] = {
+    val values = cc.productIterator
+    cc.getClass.getDeclaredFields.map {
+      _.getName -> (values.next() match {
+        case p: Product if p.productArity > 0 => getCCParams(p)
+        case x => x
+      })
+    }.toMap
+  }
+
+
+
 }
 

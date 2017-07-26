@@ -1,6 +1,8 @@
 package common
 
 import owl.OwlConst
+import util.control.Breaks._
+
 
 /**
   * Created by solehuddien on 23/05/17.
@@ -33,7 +35,16 @@ object CommonTest extends App{
 //  if(m.map(_("name").toString).exists("gg".contentEquals)){
 //    println("gg")
 //  }
-  for(i <- 1 until 2){
-    println("xx")
+//  for(i <- 1 until 2){
+//    println("xx")
+//  }
+  val exes = List("2")
+  var x = List(Map("name" -> "1"), Map("name" -> "2"), Map("name" -> "3"))
+  breakable{
+    x.foreach(y=>{
+      println(y("name"))
+      if(y("name") == "2") break
+      println("ganteng")
+    })
   }
 }

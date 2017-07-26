@@ -1,9 +1,11 @@
 package com.rizky.ta.controller
 
-import com.rizky.ta.model.Classes
+import com.rizky.ta.model.{Classes, Place}
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.util.FileManager
-import com.rizky.ta.util.RecommendationUtil
+import com.rizky.ta.util.{CommonUtil, GoogleUtil, RecommendationUtil}
+
+import util.control.Breaks._
 import grizzled.slf4j.Logger
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.{CorsSupport, ScalatraServlet}
@@ -206,6 +208,8 @@ class RecommendationController(implicit val swagger: Swagger)
 
   private val nodesUp =
     """{
+       "distance": 55,
+       "userLocation": {"lat":-6.9780761,"lng":107.6319546},
        "assigned":[
             {
               "name": "Kebun Binatang",
@@ -214,8 +218,83 @@ class RecommendationController(implicit val swagger: Swagger)
             }
        ],
        "old":[
+     {
+       "name": "Spa",
+       "activation": 0.294,
+       "parents": [
+         {
+           "name": "Rekreasi",
+           "pref": 0.6,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.6
+     },
+     {
+       "name": "Keluarga",
+       "activation": 0.294,
+       "parents": [
+         {
+           "name": "Rekreasi",
+           "pref": 0.6,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.6
+     },
+     {
+       "name": "Hiburan Malam",
+       "activation": 0.294,
+       "parents": [
+         {
+           "name": "Rekreasi",
+           "pref": 0.6,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.6
+     },
+     {
+       "name": "Belanja",
+       "activation": 0.294,
+       "parents": [
+         {
+           "name": "Rekreasi",
+           "pref": 0.6,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.6
+     },
+     {
+       "name": "Taman",
+       "activation": 0.392,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.8
+     },
+     {
+       "name": "Pemandian Air Panas",
+       "activation": 0.56203,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         },
          {
            "name": "Spa",
+           "activation": 0.294,
            "parents": [
              {
                "name": "Rekreasi",
@@ -223,11 +302,64 @@ class RecommendationController(implicit val swagger: Swagger)
                "conf": 1
              }
            ],
-           "pref": 0.6,
-           "conf": 0.76
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.64,
+       "pref": 0.71364
+     },
+     {
+       "name": "Pemandangan",
+       "activation": 0.392,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.8
+     },
+     {
+       "name": "Pegunungan",
+       "activation": 0.392,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.8
+     },
+     {
+       "name": "Museum Alam",
+       "activation": 0.392,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.8
+     },
+     {
+       "name": "Kebun Binatang",
+       "activation": 0.56203,
+       "parents": [
+         {
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
          },
          {
            "name": "Keluarga",
+           "activation": 0.294,
            "parents": [
              {
                "name": "Rekreasi",
@@ -235,83 +367,25 @@ class RecommendationController(implicit val swagger: Swagger)
                "conf": 1
              }
            ],
-           "pref": 0.6,
-           "conf": 0.76
-         },
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.64,
+       "pref": 0.71364
+     },
+     {
+       "name": "Camping",
+       "activation": 0.68404,
+       "parents": [
          {
-           "name": "Hiburan Malam",
-           "parents": [
-             {
-               "name": "Rekreasi",
-               "pref": 0.6,
-               "conf": 1
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.76
-         },
-         {
-           "name": "Belanja",
-           "parents": [
-             {
-               "name": "Rekreasi",
-               "pref": 0.6,
-               "conf": 1
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.76
-         },
-         {
-           "name": "Taman",
-           "parents": [
-             {
-               "name": "Alam",
-               "pref": 0.8,
-               "conf": 1
-             }
-           ],
+           "name": "Alam",
            "pref": 0.8,
-           "conf": 0.76
-         },
-         {
-           "name": "Pemandian Air Panas",
-           "parents": [
-             {
-               "name": "Alam",
-               "pref": 0.8,
-               "conf": 1
-             },
-             {
-               "name": "Spa",
-               "parents": [
-                 {
-                   "name": "Rekreasi",
-                   "pref": 0.6,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.71364,
-           "conf": 0.64
-         },
-         {
-           "name": "Pemandangan",
-           "parents": [
-             {
-               "name": "Alam",
-               "pref": 0.8,
-               "conf": 1
-             }
-           ],
-           "pref": 0.8,
-           "conf": 0.76
+           "conf": 1
          },
          {
            "name": "Pegunungan",
+           "activation": 0.392,
            "parents": [
              {
                "name": "Alam",
@@ -319,71 +393,159 @@ class RecommendationController(implicit val swagger: Swagger)
                "conf": 1
              }
            ],
-           "pref": 0.8,
-           "conf": 0.76
-         },
+           "conf": 0.76,
+           "pref": 0.8
+         }
+       ],
+       "conf": 0.64,
+       "pref": 0.8
+     },
+     {
+       "name": "Cagar Alam",
+       "activation": 0.392,
+       "parents": [
          {
-           "name": "Museum Alam",
+           "name": "Alam",
+           "pref": 0.8,
+           "conf": 1
+         }
+       ],
+       "conf": 0.76,
+       "pref": 0.8
+     },
+     {
+       "name": "Taman Bermain",
+       "activation": 0.43806,
+       "parents": [
+         {
+           "name": "Keluarga",
+           "activation": 0.294,
            "parents": [
              {
-               "name": "Alam",
-               "pref": 0.8,
-               "conf": 1
-             }
-           ],
-           "pref": 0.8,
-           "conf": 0.76
-         },
-         {
-           "name": "Kebun Binatang",
-           "parents": [
-             {
-               "name": "Alam",
-               "pref": 0.8,
-               "conf": 1
-             },
-             {
-               "name": "Keluarga",
-               "parents": [
-                 {
-                   "name": "Rekreasi",
-                   "pref": 0.6,
-                   "conf": 1
-                 }
-               ],
+               "name": "Rekreasi",
                "pref": 0.6,
-               "conf": 0.76
+               "conf": 1
              }
            ],
-           "pref": 0.71364,
-           "conf": 0.64
-         },
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.6
+     },
+     {
+       "name": "Edukasi",
+       "activation": 0.43806,
+       "parents": [
          {
-           "name": "Camping",
+           "name": "Keluarga",
+           "activation": 0.294,
+           "parents": [
+             {
+               "name": "Rekreasi",
+               "pref": 0.6,
+               "conf": 1
+             }
+           ],
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.6
+     },
+     {
+       "name": "Shopping Mall",
+       "activation": 0.43806,
+       "parents": [
+         {
+           "name": "Belanja",
+           "activation": 0.294,
+           "parents": [
+             {
+               "name": "Rekreasi",
+               "pref": 0.6,
+               "conf": 1
+             }
+           ],
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.6
+     },
+     {
+       "name": "Oleh-oleh",
+       "activation": 0.43806,
+       "parents": [
+         {
+           "name": "Belanja",
+           "activation": 0.294,
+           "parents": [
+             {
+               "name": "Rekreasi",
+               "pref": 0.6,
+               "conf": 1
+             }
+           ],
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.6
+     },
+     {
+       "name": "Fashion",
+       "activation": 0.43806,
+       "parents": [
+         {
+           "name": "Belanja",
+           "activation": 0.294,
+           "parents": [
+             {
+               "name": "Rekreasi",
+               "pref": 0.6,
+               "conf": 1
+             }
+           ],
+           "conf": 0.76,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.6
+     },
+     {
+       "name": "Pemandangan Kota",
+       "activation": 0.58408,
+       "parents": [
+         {
+           "name": "Pemandangan",
+           "activation": 0.392,
            "parents": [
              {
                "name": "Alam",
                "pref": 0.8,
                "conf": 1
-             },
-             {
-               "name": "Pegunungan",
-               "parents": [
-                 {
-                   "name": "Alam",
-                   "pref": 0.8,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.8,
-               "conf": 0.76
              }
            ],
-           "pref": 0.8,
-           "conf": 0.64
-         },
+           "conf": 0.76,
+           "pref": 0.8
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.8
+     },
+     {
+       "name": "Pemandangan Alam",
+       "activation": 0.58408,
+       "parents": [
          {
-           "name": "Cagar Alam",
+           "name": "Pemandangan",
+           "activation": 0.392,
            "parents": [
              {
                "name": "Alam",
@@ -391,14 +553,45 @@ class RecommendationController(implicit val swagger: Swagger)
                "conf": 1
              }
            ],
-           "pref": 0.8,
-           "conf": 0.76
-         },
+           "conf": 0.76,
+           "pref": 0.8
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.8
+     },
+     {
+       "name": "Hiking",
+       "activation": 0.58408,
+       "parents": [
+         {
+           "name": "Pegunungan",
+           "activation": 0.392,
+           "parents": [
+             {
+               "name": "Alam",
+               "pref": 0.8,
+               "conf": 1
+             }
+           ],
+           "conf": 0.76,
+           "pref": 0.8
+         }
+       ],
+       "conf": 0.52,
+       "pref": 0.8
+     },
+     {
+       "name": "Waterpark",
+       "activation": 0.65271,
+       "parents": [
          {
            "name": "Taman Bermain",
+           "activation": 0.43806,
            "parents": [
              {
                "name": "Keluarga",
+               "activation": 0.294,
                "parents": [
                  {
                    "name": "Rekreasi",
@@ -406,18 +599,57 @@ class RecommendationController(implicit val swagger: Swagger)
                    "conf": 1
                  }
                ],
-               "pref": 0.6,
-               "conf": 0.76
+               "conf": 0.76,
+               "pref": 0.6
              }
            ],
-           "pref": 0.6,
-           "conf": 0.52
-         },
+           "conf": 0.52,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.28,
+       "pref": 0.6
+     },
+     {
+       "name": "ATV",
+       "activation": 0.65271,
+       "parents": [
+         {
+           "name": "Taman Bermain",
+           "activation": 0.43806,
+           "parents": [
+             {
+               "name": "Keluarga",
+               "activation": 0.294,
+               "parents": [
+                 {
+                   "name": "Rekreasi",
+                   "pref": 0.6,
+                   "conf": 1
+                 }
+               ],
+               "conf": 0.76,
+               "pref": 0.6
+             }
+           ],
+           "conf": 0.52,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.28,
+       "pref": 0.6
+     },
+     {
+       "name": "Museum",
+       "activation": 0.65271,
+       "parents": [
          {
            "name": "Edukasi",
+           "activation": 0.43806,
            "parents": [
              {
                "name": "Keluarga",
+               "activation": 0.294,
                "parents": [
                  {
                    "name": "Rekreasi",
@@ -425,187 +657,32 @@ class RecommendationController(implicit val swagger: Swagger)
                    "conf": 1
                  }
                ],
-               "pref": 0.6,
-               "conf": 0.76
+               "conf": 0.76,
+               "pref": 0.6
              }
            ],
-           "pref": 0.6,
-           "conf": 0.52
-         },
-         {
-           "name": "Shopping Mall",
-           "parents": [
-             {
-               "name": "Belanja",
-               "parents": [
-                 {
-                   "name": "Rekreasi",
-                   "pref": 0.6,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.52
-         },
-         {
-           "name": "Oleh-oleh",
-           "parents": [
-             {
-               "name": "Belanja",
-               "parents": [
-                 {
-                   "name": "Rekreasi",
-                   "pref": 0.6,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.52
-         },
-         {
-           "name": "Fashion",
-           "parents": [
-             {
-               "name": "Belanja",
-               "parents": [
-                 {
-                   "name": "Rekreasi",
-                   "pref": 0.6,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.52
-         },
-         {
-           "name": "Pemandangan Kota",
-           "parents": [
-             {
-               "name": "Pemandangan",
-               "parents": [
-                 {
-                   "name": "Alam",
-                   "pref": 0.8,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.8,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.8,
-           "conf": 0.52
-         },
-         {
-           "name": "Pemandangan Alam",
-           "parents": [
-             {
-               "name": "Pemandangan",
-               "parents": [
-                 {
-                   "name": "Alam",
-                   "pref": 0.8,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.8,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.8,
-           "conf": 0.52
-         },
-         {
-           "name": "Hiking",
-           "parents": [
-             {
-               "name": "Pegunungan",
-               "parents": [
-                 {
-                   "name": "Alam",
-                   "pref": 0.8,
-                   "conf": 1
-                 }
-               ],
-               "pref": 0.8,
-               "conf": 0.76
-             }
-           ],
-           "pref": 0.8,
-           "conf": 0.52
-         },
-         {
-           "name": "Waterpark",
-           "parents": [
-             {
-               "name": "Taman Bermain",
-               "parents": [
-                 {
-                   "name": "Keluarga",
-                   "parents": [
-                     {
-                       "name": "Rekreasi",
-                       "pref": 0.6,
-                       "conf": 1
-                     }
-                   ],
-                   "pref": 0.6,
-                   "conf": 0.76
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.52
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.28
-         },
-         {
-           "name": "ATV",
-           "parents": [
-             {
-               "name": "Taman Bermain",
-               "parents": [
-                 {
-                   "name": "Keluarga",
-                   "parents": [
-                     {
-                       "name": "Rekreasi",
-                       "pref": 0.6,
-                       "conf": 1
-                     }
-                   ],
-                   "pref": 0.6,
-                   "conf": 0.76
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.52
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.28
-         },
+           "conf": 0.52,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.28,
+       "pref": 0.6
+     },
+     {
+       "name": "Museum Sejarah",
+       "activation": 0.97254,
+       "parents": [
          {
            "name": "Museum",
+           "activation": 0.65271,
            "parents": [
              {
                "name": "Edukasi",
+               "activation": 0.43806,
                "parents": [
                  {
                    "name": "Keluarga",
+                   "activation": 0.294,
                    "parents": [
                      {
                        "name": "Rekreasi",
@@ -613,94 +690,72 @@ class RecommendationController(implicit val swagger: Swagger)
                        "conf": 1
                      }
                    ],
-                   "pref": 0.6,
-                   "conf": 0.76
+                   "conf": 0.76,
+                   "pref": 0.6
                  }
                ],
-               "pref": 0.6,
-               "conf": 0.52
+               "conf": 0.52,
+               "pref": 0.6
              }
            ],
-           "pref": 0.6,
-           "conf": 0.28
-         },
-         {
-           "name": "Museum Sejarah",
-           "parents": [
-             {
-               "name": "Museum",
-               "parents": [
-                 {
-                   "name": "Edukasi",
-                   "parents": [
-                     {
-                       "name": "Keluarga",
-                       "parents": [
-                         {
-                           "name": "Rekreasi",
-                           "pref": 0.6,
-                           "conf": 1
-                         }
-                       ],
-                       "pref": 0.6,
-                       "conf": 0.76
-                     }
-                   ],
-                   "pref": 0.6,
-                   "conf": 0.52
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.28
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.04
-         },
-         {
-           "name": "Museum Budaya",
-           "parents": [
-             {
-               "name": "Museum",
-               "parents": [
-                 {
-                   "name": "Edukasi",
-                   "parents": [
-                     {
-                       "name": "Keluarga",
-                       "parents": [
-                         {
-                           "name": "Rekreasi",
-                           "pref": 0.6,
-                           "conf": 1
-                         }
-                       ],
-                       "pref": 0.6,
-                       "conf": 0.76
-                     }
-                   ],
-                   "pref": 0.6,
-                   "conf": 0.52
-                 }
-               ],
-               "pref": 0.6,
-               "conf": 0.28
-             }
-           ],
-           "pref": 0.6,
-           "conf": 0.04
+           "conf": 0.28,
+           "pref": 0.6
          }
-       ]}"""
+       ],
+       "conf": 0.04,
+       "pref": 0.6
+     },
+     {
+       "name": "Museum Budaya",
+       "activation": 0.97254,
+       "parents": [
+         {
+           "name": "Museum",
+           "activation": 0.65271,
+           "parents": [
+             {
+               "name": "Edukasi",
+               "activation": 0.43806,
+               "parents": [
+                 {
+                   "name": "Keluarga",
+                   "activation": 0.294,
+                   "parents": [
+                     {
+                       "name": "Rekreasi",
+                       "pref": 0.6,
+                       "conf": 1
+                     }
+                   ],
+                   "conf": 0.76,
+                   "pref": 0.6
+                 }
+               ],
+               "conf": 0.52,
+               "pref": 0.6
+             }
+           ],
+           "conf": 0.28,
+           "pref": 0.6
+         }
+       ],
+       "conf": 0.04,
+       "pref": 0.6
+     }
+   ]}"""
   private val upwardPropagation =
     (apiOperation[List[String]]("/propagation/upward")
       summary "upward propagation, update preference and confidence value of each parent nodes"
       parameter bodyParam[String]("nodes").defaultValue(nodesUp).description("The children nodes"))
   post("/propagation/upward", operation(upwardPropagation)) {
-    val nodes = parsedBody.extract[Map[String, List[Map[String, Any]]]]
-    val old = nodes("old")
-    val assigned = nodes("assigned")
+    val nodes = parsedBody.extract[Map[String, Any]]
+    val old = nodes("old").asInstanceOf[List[Map[String, Any]]]
+    val assigned = nodes("assigned").asInstanceOf[List[Map[String, Any]]]
+    val location = nodes("userLocation").asInstanceOf[Map[String, Double]]
+    val distance = nodes("distance").toString.toDouble
     println("old", old)
     println("assigned", assigned)
+
     val updated = ListBuffer[Map[String, Any]]()
     upPropResult = mutable.HashMap()
     parentBuffer = mutable.HashMap()
@@ -741,23 +796,148 @@ class RecommendationController(implicit val swagger: Swagger)
     downPropResult = ListBuffer()
     childBuffer = listUpdateNew.to[ListBuffer]
     downwardPropagation(listUpdateNew, true)
-    downPropResult
+
+    //  filter hasil propagasi terakhir dengan threshold tertentu
+    val recommendedClasses = recommendClasses(downPropResult)
+    val recommendedPlaces = ListBuffer[Place]()
+    recommendedClasses.foreach(recomm => {
+      val category = recomm("name").toString
+      println("CATEGORY", category)
+      val places = RecommendationUtil.getIndividualByCategory(category, OWL_MODEL)
+      places.foreach(place => {
+        val p = Place.getByName(place)
+        p match {
+          case Some(value) =>
+            recommendedPlaces.append(value)
+          case None =>
+        }
+      })
+    })
+
+    println("DISTANCES", recommendedPlaces)
+    val mergedPlaces = ListBuffer[Map[String, Any]]()
+    val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
+    placesDistance.foreach(place => {
+      val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
+      mergedPlaces.append(place ++ matched)
+    })
+    mergedPlaces
+    //    downPropResult
+
   }
 
-  def aggregateUpdateValues(tmpLevel: Double, tmpInverse: mutable.HashMap[String, Map[String, Map[String, Double]]]): Map[String, Map[String, Double]] ={
+  def getPlacesDistance(origins: Map[String, Double], distance: Double, places: List[Place]): List[Map[String, Any]] = {
+    val newPlaces = ListBuffer[Map[String, Any]]()
+    places.foreach(place => {
+      println(place)
+      if (!newPlaces.map(_ ("name").toString).exists(place.name.contentEquals))
+        newPlaces.append(Map(
+          "name" -> place.name,
+          "lat" -> place.lat,
+          "lng" -> place.lng
+        ))
+    })
+    GoogleUtil.distanceMatrix(origins, newPlaces.toList).filter(_ ("distance").asInstanceOf[Map[String, Any]]("value").toString.toDouble <= distance * 1000)
+  }
+
+  def recommendClasses(nodes: ListBuffer[Map[String, Any]]): List[Map[String, Any]] = {
+    val recommended = ListBuffer[Map[String, Any]]()
+    val decay = 0.8
+    val fp = nodes.map(_ ("pref").toString.toDouble).sum / nodes.size * decay // threshold untuk preference value
+    val fc = nodes.map(_ ("conf").toString.toDouble).sum / nodes.size * decay //threshold untuk confidence value
+    val fa = nodes.map(_ ("activation").toString.toDouble).sum / nodes.size * decay //threshold untuk activation value
+
+    println("FP", fp, "FC", fc, "FA", fa)
+
+    var nodeToAppend = Map[String, Any]()
+    var passed = false
+
+    nodes.foreach(node => {
+      passed = false
+      breakable {
+        val pref = node("pref").toString.toDouble
+        val conf = node("conf").toString.toDouble
+        val activation = node("activation").toString.toDouble
+
+        nodeToAppend = Map(
+          "name" -> node("name"),
+          "pref" -> pref,
+          "conf" -> conf,
+          "activation" -> activation
+        )
+
+        //        cek confidence,preference dan activation value > threshold
+        //        if(conf > fc){
+        //          passed = true
+        //          break
+        //        }
+        //
+        //        if(pref > fp){
+        //          if(activation > fa){
+        //            passed = true
+        //            break
+        //          }
+        //        }
+        if (conf > fc) {
+          if (pref > fp) {
+            if (activation > fa) {
+              passed = true
+              break
+            }
+          }
+        }
+
+        //cek confidence, preference dan activation value tiap parent
+        val parents = node("parents").asInstanceOf[ListBuffer[Map[String, Any]]]
+        parents.foreach(parent => {
+          parent.get("activation") match {
+            case Some(value) =>
+              val parentActivation = value.toString.toDouble
+              val parentConf = parent("conf").toString.toDouble
+              val parentPref = parent("pref").toString.toDouble
+              //              if(parentConf > fc){
+              //                passed = true
+              //                break
+              //              }
+              //              if (parentPref > fp) {
+              //                if(parentActivation > fa){
+              //                  passed = true
+              //                  break
+              //                }
+              //              }
+              if (parentConf > fc) {
+                if (parentPref > fp) {
+                  if (parentActivation > fa) {
+                    passed = true
+                    break
+                  }
+                }
+              }
+            case None =>
+          }
+        })
+      }
+      if (passed)
+        recommended.append(nodeToAppend)
+    })
+    println("RECOMMENDED SIZE", recommended.size)
+    println("NODES SIZE", nodes.size)
+    recommended.toList
+  }
+
+  def aggregateUpdateValues(tmpLevel: Double, tmpInverse: mutable.HashMap[String, Map[String, Map[String, Double]]]): Map[String, Map[String, Double]] = {
     var tmpUpdated = Map[String, Map[String, Double]]()
-    for(level <- 0 to tmpLevel.toInt){
+    for (level <- 0 to tmpLevel.toInt) {
       //filter node per level
       val filteredInv = tmpInverse.filter(_._2("metadata")("level") == level)
-      filteredInv.foreach(f=>{
-        println("F", f._1)
+      filteredInv.foreach(f => {
         //hapus key yang tidak diperlukan
         var truncInv = f._2 - "values" - "metadata"
 
         //update value dari nilai node sebelumnya yang sudah di aggregasi dan update
         val updatedTrunc = mutable.HashMap[String, Map[String, Double]]()
-        truncInv.foreach(tr=>{
-          if(tmpUpdated.keys.exists(tr._1.contentEquals)){
+        truncInv.foreach(tr => {
+          if (tmpUpdated.keys.exists(tr._1.contentEquals)) {
             updatedTrunc.put(tr._1, tmpUpdated(tr._1))
           }
         })
@@ -811,47 +991,6 @@ class RecommendationController(implicit val swagger: Swagger)
     })
   }
 
-  //  def upwardPropagation(nodes: List[Map[String, Any]]): Unit = {
-  //    nodes.foreach(node => {
-  //      //cek apakah node punya key parent
-  //      if (node.keys.exists("parents".contentEquals)) {
-  //        println("NODE", node("name"))
-  //        val parents = node("parents").asInstanceOf[List[Map[String, Any]]]
-  //        // buat nilai agregasi untuk tiap parent
-  //        val aggValues = RecommendationUtil.calcValues(parents, true)
-  //        println("aggregated", aggValues, parents)
-  //        parents.foreach(parent => {
-  //          val pOld = parent("pref").toString.toDouble
-  //          val cOld = parent("conf").toString.toDouble
-  //          //update parent values
-  //          var updAggValues = RecommendationUtil.updateFromAgg(pOld, aggValues("pref"), cOld, aggValues("conf"))
-  //          println("updated", parent("name"), updAggValues, "old", pOld, cOld, "agg", aggValues("pref"), aggValues("conf"))
-  //          //cek apakah parent ada di buffer
-  //          val parentName = parent("name").toString
-  //          if (parentBuffer.keys.exists(parentName.contentEquals)) {
-  //            //buat rata-rata updated values, karena iterasi tiap child, dan child bisa punya parent yang sama
-  //            val newPref = (parentBuffer(parentName)("pref") + updAggValues("pref")) / 2
-  //            val newConf = (parentBuffer(parentName)("conf") + updAggValues("conf")) / 2
-  //            updAggValues += "pref" -> newPref
-  //            updAggValues += "conf" -> newConf
-  //            println("updated 2", updAggValues, parentBuffer(parentName)("pref"), parentBuffer(parentName)("conf"))
-  //          }
-  //
-  //          //node rekreasi tetap bernilai besar karena agregasi awal dari child spa bernilai 1.0,
-  //          //dan tidak ada yang inherit node rekreasi lagi
-  //          //(tidak terupdate, berbeda dengan node alam)
-  //
-  //          //masukkan parent beserta valuesnya ke buffer
-  //          parentBuffer.put(parentName, Map("pref" -> updAggValues("pref"), "conf" -> updAggValues("conf")))
-  //          println("parentBuffer", parentBuffer)
-  //          if (parent.keys.exists("parents".contentEquals)) {
-  //            upwardPropagation(parent("parents").asInstanceOf[List[Map[String, Any]]])
-  //          }
-  //        })
-  //      }
-  //    })
-  //  }
-
   def downwardPropagation(nodes: List[Map[String, Any]], fromAgg: Boolean = false): Unit = {
     var newNodes = ListBuffer[Map[String, Any]]()
     nodes.foreach(node => {
@@ -860,6 +999,8 @@ class RecommendationController(implicit val swagger: Swagger)
       children.foreach(child => {
         //cek parents dari tiap child, karena bisa saja satu child punya 2 atau lebih parent
         val parents = RecommendationUtil.getParent(OWL_MODEL, child)
+        var currentActivation = 0.0
+
         val newParents = ListBuffer[Map[String, Any]]()
         newParents.append(node)
         parents.foreach(parent => {
@@ -869,18 +1010,30 @@ class RecommendationController(implicit val swagger: Swagger)
               //jika parent sudah ada sebelumnya, tidak usah ditambah ke buffer
               if (!newParents.map(_ ("name").toString).exists(parent.contentEquals))
                 newParents.append(child)
+
+              //set previous activation ke current activation, hal ini seharusnya dilakukan segera setelah spreading
+              child.get("activation") match {
+                case Some(value) =>
+                  currentActivation = value.toString.toDouble
+                case None =>
+              }
             }
           })
         })
         val values = RecommendationUtil.calcValues(newParents.toList, fromAgg)
 
+        //buat activation level
+        println("NEIGHBOR", child)
+        val activation = RecommendationUtil.getActivation(newParents.toList, currentActivation)
+
         //cek jika node sudah ditraverse sebelumnya, jika iya tidak usah dimasukkan lagi
         if (!childBuffer.map(_ ("name").toString).exists(child.contentEquals)) {
           val newValues = Map(
             "name" -> child,
-            "parents" -> newParents,
+            "activation" -> activation,
             "pref" -> values("pref"),
-            "conf" -> values("conf")
+            "conf" -> values("conf"),
+            "parents" -> newParents
           )
           childBuffer.append(newValues)
           newNodes.append(newValues)
