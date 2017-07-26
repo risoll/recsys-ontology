@@ -259,6 +259,7 @@ object PlaceTest extends App {
             val lng = tmpResult("lng").toString.toDouble
             val rating = tmpResult("rating").toString.toDouble
             val weekdayText = tmpResult2("weekday_text").asInstanceOf[List[String]]
+            val description = ""
             var monday = ""
             var tuesday = ""
             var wednesday = ""
@@ -278,7 +279,7 @@ object PlaceTest extends App {
             }
             println("INSERTED", place, "\n")
             Place.create(placeId, name, formattedAddress, phone, lengthOfVisit,
-              tariff, photo, lat, lng, rating, monday,
+              tariff, photo, lat, lng, rating, description, monday,
               tuesday, wednesday, thursday, friday, saturday, sunday)
           }
         }

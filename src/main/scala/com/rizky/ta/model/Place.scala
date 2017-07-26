@@ -10,6 +10,7 @@ import scalikejdbc._
 case class Place(place_id: String, name: String, formatted_address: String,
                  phone: String, length_of_visit: String, tariff: Int,
                  photo: String, lat: Double, lng: Double, rating: Double,
+                 description: String,
                  monday: String,
                  tuesday: String,
                  wednesday: String,
@@ -42,6 +43,7 @@ object Place extends SQLSyntaxSupport[Place] {
     photo = rs.string(c.photo),
     lat = rs.double(c.lat),
     lng = rs.double(c.lng),
+    description = rs.string(c.description),
     monday = rs.string(c.monday),
     tuesday = rs.string(c.tuesday),
     wednesday = rs.string(c.wednesday),
@@ -56,6 +58,7 @@ object Place extends SQLSyntaxSupport[Place] {
              name: String, formatted_address: String = "",
              phone: String = "", length_of_visit: String = "", tariff: Int = 0,
              photo: String, lat: Double = 0, lng: Double = 0, rating: Double = 0,
+             description: String,
              monday: String,
              tuesday: String,
              wednesday: String,
@@ -67,12 +70,12 @@ object Place extends SQLSyntaxSupport[Place] {
     withSQL {
       insert.into(Place).values(
         place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-        lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
+        lng, rating, description, monday, tuesday, wednesday, thursday, friday, saturday, sunday
       )
     }.update().apply()
     Place(
       place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-      lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
+      lng, rating, description, monday, tuesday, wednesday, thursday, friday, saturday, sunday
     )
   }
 
@@ -89,6 +92,7 @@ object Place extends SQLSyntaxSupport[Place] {
                   name: String = "", formatted_address: String = "",
                   phone: String = "", length_of_visit: String = "", tariff: Int = 0,
                   photo: String = "", lat: Double = 0, lng: Double = 0, rating: Double = 0,
+                  description: String,
                   monday: String,
                   tuesday: String,
                   wednesday: String,
@@ -109,6 +113,7 @@ object Place extends SQLSyntaxSupport[Place] {
         c.lat -> lat,
         c.lng -> lng,
         c.rating -> rating,
+        c.description -> description,
         c.monday -> monday,
         c.tuesday -> tuesday,
         c.wednesday -> c.wednesday,
@@ -120,7 +125,7 @@ object Place extends SQLSyntaxSupport[Place] {
     }.update().apply()
     Place(
       place_id, name, formatted_address, phone, length_of_visit, tariff, photo, lat,
-      lng, rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday
+      lng, rating, description, monday, tuesday, wednesday, thursday, friday, saturday, sunday
     )
   }
 

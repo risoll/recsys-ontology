@@ -820,11 +820,13 @@ class RecommendationController(implicit val swagger: Swagger)
 
     println("DISTANCES", recommendedPlaces)
     val mergedPlaces = ListBuffer[Map[String, Any]]()
-    val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
-    placesDistance.foreach(place => {
-      val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
-      mergedPlaces.append(place ++ matched)
-    })
+    if(recommendedPlaces.nonEmpty){
+      val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
+      placesDistance.foreach(place => {
+        val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
+        mergedPlaces.append(place ++ matched)
+      })
+    }
     mergedPlaces
     //    downPropResult
 
