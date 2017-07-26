@@ -5,7 +5,7 @@ import scalikejdbc._
 /**
   * Created by solehuddien on 09/06/17.
   */
-case class Classes(id: Int, name: String, image: String)
+case class Classes(id: Int, name: String, image: String, description: String, root: String)
 
 object Classes extends SQLSyntaxSupport[Classes]{
   override val tableName = "classes"
@@ -16,20 +16,24 @@ object Classes extends SQLSyntaxSupport[Classes]{
   def apply(c: ResultName[Classes])(rs: WrappedResultSet): Classes = new Classes(
     id = rs.int(c.id),
     name = rs.string(c.name),
-    image = rs.string(c.image)
+    image = rs.string(c.image),
+    description = rs.string(c.description),
+    root = rs.string(c.root)
   )
   def apply(c: SyntaxProvider[Classes])(rs: WrappedResultSet): Classes = apply(c.resultName)(rs)
 
-  def create(name: String, image: String)
+  def create(name: String, image: String, description: String, root: String)
             (implicit session: DBSession = autoSession): Classes = {
 
     val id = withSQL {
       insert.into(Classes).namedValues(
         column.name -> name,
-        column.image -> image
+        column.image -> image,
+        column.description -> description,
+        column.root -> root
       )
     }.updateAndReturnGeneratedKey.apply().toInt
-    Classes(id, name, image)
+    Classes(id, name, image, description, root)
 
   }
 

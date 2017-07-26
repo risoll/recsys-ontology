@@ -72,7 +72,8 @@ class RecommendationController(implicit val swagger: Swagger)
     val node = params("node")
     val result = ListBuffer[Map[String, String]]()
     RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child => {
-      result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
+      val cls = Classes.getByName(child).get
+      result.append(Map("name" -> child, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root))
     })
     result
   }
@@ -87,8 +88,10 @@ class RecommendationController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node => {
       RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child => {
-        if (!resultBuffer.exists(child.contentEquals))
-          result.append(Map("name" -> child, "image" -> Classes.getByName(child).get.image))
+        if (!resultBuffer.exists(child.contentEquals)){
+          val cls = Classes.getByName(child).get
+          result.append(Map("name" -> child, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root))
+        }
         resultBuffer.append(child)
       })
     })
@@ -194,7 +197,8 @@ class RecommendationController(implicit val swagger: Swagger)
     Map(
       "data" -> downPropResult,
       "askedNodes" -> askedNodes.map(node => {
-        Map("name" -> node, "image" -> Classes.getByName(node).get.image)
+        val cls = Classes.getByName(node).get
+        Map("name" -> node, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root)
       })
     )
   }
