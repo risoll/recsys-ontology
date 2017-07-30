@@ -4,7 +4,7 @@ import java.io.{File, FileReader}
 
 import com.rizky.ta.config.DBInit
 import com.rizky.ta.model.Classes
-import com.rizky.ta.util.OwlUtil
+import com.rizky.ta.util.{OwlUtil, RecommendationUtil}
 import org.apache.jena.ontology.{OntModel, OntModelSpec}
 import org.apache.jena.query.{QueryExecutionFactory, QueryFactory, ResultSetFormatter, Syntax}
 import org.apache.jena.rdf.model.ModelFactory
@@ -152,12 +152,28 @@ object OwlTest extends App {
   //  val results = queryExecute.execSelect()
   //  ResultSetFormatter.out(System.out, results, query)
 
+
+  //todo OWL_MODEL sama seperti MODEL_WO_REASONER,
+  // todo bedanya, MODEL_W_REASONER menghasilkan semua child dibawahnya dengan rekursif
   val OWL_MODEL = ModelFactory.createDefaultModel()
+  val MODEL_W_REASONER = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF)
+  val MODEL_WO_REASONER = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM)
   val inputStream = FileManager.get().open(OwlConst.OWL_FILE)
   if (inputStream == null) {
     throw new IllegalArgumentException(s"File ${OwlConst.OWL_FILE} not found")
   }
+  val inputStream2 = FileManager.get().open(OwlConst.OWL_FILE)
+  if (inputStream2 == null) {
+    throw new IllegalArgumentException(s"File ${OwlConst.OWL_FILE} not found")
+  }
+
+  val inputStream3 = FileManager.get().open(OwlConst.OWL_FILE)
+  if (inputStream3 == null) {
+    throw new IllegalArgumentException(s"File ${OwlConst.OWL_FILE} not found")
+  }
   OWL_MODEL.read(inputStream, null)
+  MODEL_W_REASONER.read(inputStream2, null)
+  MODEL_WO_REASONER.read(inputStream3, null)
 
   val OWL_PREFIX =
     "PREFIX data:<http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#>" +
@@ -167,7 +183,34 @@ object OwlTest extends App {
     "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
     "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
 
-//  val queryString =
+//  val res = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
+  val res = RecommendationUtil.getChildren(OWL_MODEL, "Rekreasi")
+  val res2 = RecommendationUtil.getChildren(MODEL_W_REASONER, "Rekreasi")
+  val res3 = RecommendationUtil.getChildren(MODEL_WO_REASONER, "Rekreasi")
+
+
+  val res4 = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
+  val res5 = RecommendationUtil.getChildrenWoReasoner(MODEL_W_REASONER, "Rekreasi")
+  val res6 = RecommendationUtil.getChildrenWoReasoner(MODEL_WO_REASONER, "Rekreasi")
+
+
+  println("BIASA")
+  res.foreach(r=> println(r))
+  println("REASONER")
+  res2.foreach(r=> println(r))
+  println("GA PAKE REASONER")
+  res3.foreach(r=> println(r))
+
+
+  println("BIASA 2")
+  res4.foreach(r=> println(r))
+  println("REASONER 2")
+  res5.foreach(r=> println(r))
+  println("GA PAKE REASONER 2")
+  res6.foreach(r=> println(r))
+
+
+  //  val queryString =
 //    s"""
 //      $OWL_PREFIX
 //      select * where {
@@ -186,40 +229,40 @@ object OwlTest extends App {
 //    """
 
 
-  val queryString =
-    s"""
-          $OWL_PREFIX
-          select * where {
-            data:Museum_Yayasan_Pangeran rdf:type ?name
-
-          }
-    """
-
-
-//    val queryString =
+//  val queryString =
 //    s"""
 //          $OWL_PREFIX
 //          select * where {
-//            ?name owl:Class rdfs:subClassOf}
+//            data:Museum_Yayasan_Pangeran rdf:type ?name
+//
+//          }
 //    """
-  DBInit.config()
-  val query = QueryFactory.create(queryString)
-  val qe = QueryExecutionFactory.create(query, OWL_MODEL)
-  val results = qe.execSelect()
-  println("results")
-  var i = 0
-  var name = ""
-  while(results.hasNext){
-    name = results.next.getResource("name").getLocalName
-    name = name.replace("_", " ")
-    println(name)
-//    if(name != "Tempat Wisata"){
-//      val coba = Classes.getByName(name)
-//      println(name, coba.get.image)
-//    }
-    i += 1
-  }
-  println(i)
+//
+//
+////    val queryString =
+////    s"""
+////          $OWL_PREFIX
+////          select * where {
+////            ?name owl:Class rdfs:subClassOf}
+////    """
+//  DBInit.config()
+//  val query = QueryFactory.create(queryString)
+//  val qe = QueryExecutionFactory.create(query, OWL_MODEL)
+//  val results = qe.execSelect()
+//  println("results")
+//  var i = 0
+//  var name = ""
+//  while(results.hasNext){
+//    name = results.next.getResource("name").getLocalName
+//    name = name.replace("_", " ")
+//    println(name)
+////    if(name != "Tempat Wisata"){
+////      val coba = Classes.getByName(name)
+////      println(name, coba.get.image)
+////    }
+//    i += 1
+//  }
+//  println(i)
 //  OwlUtil.loadOntology()
 //  ResultSetFormatter.out(System.out, results, query)
   //  OWL_MODEL.write(System.out)

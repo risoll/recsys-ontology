@@ -74,6 +74,26 @@ object RecommendationUtil {
     executeQuery(queryString, OWL_MODEL)
   }
 
+  def getChildrenWoReasoner(OWL_MODEL: Model, node: String): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        ?name rdf:type data:${parseNode(node)} }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def getParentWoReasoner(OWL_MODEL: Model, node: String): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+        data:${parseNode(node)} rdf:type ?name }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
   def updatePreference(pOld: Double, pAssign: Double): Double ={
     round(Math.min(1, pOld + beta * pAssign))
   }
@@ -136,7 +156,7 @@ object RecommendationUtil {
       confidence = round(denominator/totalNode - alpha)
     else
       confidence = round(denominator/totalNode)
-    Map("pref" -> preference, "conf" -> Math.max(0, confidence))
+    Map("pref" -> preference, "conf" -> Math.max(0.00001, confidence))
   }
 
   def updateFromAgg(pOld: Double, pAgg: Double, cOld: Double, cAgg: Double): Map[String, Double] = {

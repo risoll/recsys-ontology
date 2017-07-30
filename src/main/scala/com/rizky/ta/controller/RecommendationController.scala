@@ -88,7 +88,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val resultBuffer = ListBuffer[String]()
     nodes.foreach(node => {
       RecommendationUtil.getChildren(OWL_MODEL, node).foreach(child => {
-        if (!resultBuffer.exists(child.contentEquals)){
+        if (!resultBuffer.exists(child.contentEquals)) {
           val cls = Classes.getByName(child).get
           result.append(Map("name" -> child, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root))
         }
@@ -199,6 +199,26 @@ class RecommendationController(implicit val swagger: Swagger)
       "askedNodes" -> askedNodes.map(node => {
         val cls = Classes.getByName(node).get
         Map("name" -> node, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root)
+      })
+    )
+  }
+
+  private val downwardPropagationV2 =
+    (apiOperation[List[String]]("/propagation/downwardv2")
+      summary "down propagation, update preference and confidence value of each children nodes"
+      parameter bodyParam[String]("nodes").defaultValue(nodesDown).description("The nodes which inherit the children"))
+  post("/propagation/downwardv2", operation(downwardPropagationV2)) {
+    val nodes = parsedBody.extract[List[Map[String, Any]]]
+    println("nodes", nodes)
+    downPropResult = ListBuffer()
+    childBuffer = nodes.to[ListBuffer]
+    val askedNodes = downwardPropagationV2(nodes)
+    Map(
+      "data" -> downPropResult,
+      "askedNodes" -> askedNodes.map(node => {
+        val nodeName = node("name").toString
+        val cls = Classes.getByName(nodeName).get
+        Map("name" -> nodeName, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root)
       })
     )
   }
@@ -747,6 +767,103 @@ class RecommendationController(implicit val swagger: Swagger)
        "pref": 0.6
      }
    ]}"""
+  private val upwardPropagationV2 =
+    (apiOperation[List[String]]("/propagation/upwardv2")
+      summary "upward propagation, update preference and confidence value of each parent nodes"
+      parameter bodyParam[String]("nodes").defaultValue(nodesUp).description("The children nodes"))
+  post("/propagation/upwardv2", operation(upwardPropagationV2)) {
+    val nodes = parsedBody.extract[Map[String, Any]]
+    val old = nodes("old").asInstanceOf[List[Map[String, Any]]]
+    val assigned = nodes("assigned").asInstanceOf[List[Map[String, Any]]]
+    val location = nodes("userLocation").asInstanceOf[Map[String, Double]]
+    val distance = nodes("distance").toString.toDouble
+    println("old", old)
+    println("assigned", assigned)
+
+    val updated = ListBuffer[Map[String, Any]]()
+    upPropResult = mutable.HashMap()
+    parentBuffer = mutable.HashMap()
+    tmpInverse = mutable.HashMap()
+    tmpContent = Map()
+    tmpLevel = 0.0
+    //update values
+    assigned.foreach(a => {
+      //ambil old value
+      val matched = old.filter(_ ("name") == a("name")).head
+      //update preference dan confidence
+      updated.append(Map(
+        "name" -> a("name"),
+        "pref" -> RecommendationUtil.updatePreference(matched("pref").toString.toDouble, a("pref").toString.toDouble),
+        "conf" -> RecommendationUtil.updateConfidence(matched("conf").toString.toDouble, a("conf").toString.toDouble)
+      ))
+    })
+
+    //hasil update value dari nilai yang diassign oleh user, dimasukkan ke map lama (hasil propagasi kebawah)
+    val updatedOld = ListBuffer[Map[String, Any]]()
+    old.foreach(o => {
+      var value = o
+      if (updated.map(_ ("name").toString).exists(o("name").toString.contentEquals)) {
+        value = value ++ updated.filter(_ ("name").toString == o("name")).head
+      }
+      updatedOld.append(value)
+    })
+
+    //mulai propagasi, hanya restrukturisasi hierarki agar mudah diolah
+    upwardPropagation(updatedOld.toList, 0)
+
+    //update value dengan agregasi dan update propagasi keatas, lalu filter hanya root node
+    val roots = RecommendationUtil.getChildren(OWL_MODEL, "tempat wisata")
+    val updatedNew = aggregateUpdateValues(tmpLevel, tmpInverse).filter(x => roots.exists(x._1.contentEquals))
+
+    //propagasi kebawah lagi dengan nilai root node yang baru
+    val listUpdateNew = RecommendationUtil.mapToList(updatedNew)
+    downPropResult = ListBuffer()
+    childBuffer = listUpdateNew.to[ListBuffer]
+    downwardPropagation(listUpdateNew, true)
+
+    //  filter hasil propagasi terakhir dengan threshold tertentu
+    val recommendedClasses = recommendClasses(downPropResult)
+    val recommendedPlaces = ListBuffer[Place]()
+    recommendedClasses.foreach(recomm => {
+      val category = recomm("name").toString
+      println("CATEGORY", category)
+      val places = RecommendationUtil.getIndividualByCategory(category, OWL_MODEL)
+      places.foreach(place => {
+        val p = Place.getByName(place)
+        p match {
+          case Some(value) =>
+            recommendedPlaces.append(value)
+          case None =>
+        }
+      })
+    })
+
+    println("DISTANCES", recommendedPlaces)
+    val mergedPlaces = ListBuffer[Map[String, Any]]()
+    if (recommendedPlaces.nonEmpty) {
+      val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
+      placesDistance.foreach(place => {
+        val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
+        mergedPlaces.append(place ++ matched)
+      })
+    }
+
+    val askedNodes = assigned.map(node=>{
+      val nodeName = node("name").toString
+      val children = RecommendationUtil.getChildren(OWL_MODEL, nodeName)
+      children.map(child => {
+        val cls = Classes.getByName(child).get
+        Map("name" -> cls.name, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root)
+      })
+    }).reduceLeft((a, b) => a ++ b)
+
+    Map(
+      "places"-> mergedPlaces,
+      "old" -> downPropResult,
+      "askedNodes" -> askedNodes
+    )
+  }
+
   private val upwardPropagation =
     (apiOperation[List[String]]("/propagation/upward")
       summary "upward propagation, update preference and confidence value of each parent nodes"
@@ -820,7 +937,7 @@ class RecommendationController(implicit val swagger: Swagger)
 
     println("DISTANCES", recommendedPlaces)
     val mergedPlaces = ListBuffer[Map[String, Any]]()
-    if(recommendedPlaces.nonEmpty){
+    if (recommendedPlaces.nonEmpty) {
       val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
       placesDistance.foreach(place => {
         val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
@@ -989,12 +1106,66 @@ class RecommendationController(implicit val swagger: Swagger)
           tmpInverse.put(parentName, content)
         })
 
-        //telusuri ontology dengan bfs disertasi level selanjutnya
+        //telusuri ontology dengan bfs disertai level selanjutnya
         tmpLevel = level
         val newLevel = level + 1
         upwardPropagation(parents, newLevel)
       }
     })
+  }
+
+  def downwardPropagationV2(nodes: List[Map[String, Any]], fromAgg: Boolean = false): List[Map[String, Any]] = {
+    var newNodes = ListBuffer[Map[String, Any]]()
+    nodes.foreach(node => {
+      //dapatkan children dari node yg dipilih
+      val children = RecommendationUtil.getChildren(OWL_MODEL, node("name").asInstanceOf[String])
+      children.foreach(child => {
+        //cek parents dari tiap child, karena bisa saja satu child punya 2 atau lebih parent
+        val parents = RecommendationUtil.getParent(OWL_MODEL, child)
+        var currentActivation = 0.0
+
+        val newParents = ListBuffer[Map[String, Any]]()
+        newParents.append(node)
+        parents.foreach(parent => {
+          //cek jika child punya lebih dari satu parent
+          childBuffer.foreach(child => {
+            if (child("name") == parent) {
+              //jika parent sudah ada sebelumnya, tidak usah ditambah ke buffer
+              if (!newParents.map(_ ("name").toString).exists(parent.contentEquals))
+                newParents.append(child)
+
+              //set previous activation ke current activation, hal ini seharusnya dilakukan segera setelah spreading
+              child.get("activation") match {
+                case Some(value) =>
+                  currentActivation = value.toString.toDouble
+                case None =>
+              }
+            }
+          })
+        })
+        val values = RecommendationUtil.calcValues(newParents.toList, fromAgg)
+
+        //buat activation level
+        println("NEIGHBOR", child)
+        val activation = RecommendationUtil.getActivation(newParents.toList, currentActivation)
+
+        //cek jika node sudah ditraverse sebelumnya, jika iya tidak usah dimasukkan lagi
+        if (!childBuffer.map(_ ("name").toString).exists(child.contentEquals)) {
+          val newValues = Map(
+            "name" -> child,
+            "activation" -> activation,
+            "pref" -> values("pref"),
+            "conf" -> values("conf"),
+            "parents" -> newParents
+          )
+          childBuffer.append(newValues)
+          newNodes.append(newValues)
+        }
+      })
+    })
+    downPropResult ++= newNodes
+    newNodes.toList
+
   }
 
   def downwardPropagation(nodes: List[Map[String, Any]], fromAgg: Boolean = false): Unit = {
