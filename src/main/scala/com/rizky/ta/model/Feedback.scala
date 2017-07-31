@@ -17,8 +17,8 @@ import scalikejdbc._
 
 case class Feedback(id: Int, user_agent: String, platform: String,
                     ip: String, city: String, name: String, gender: String,
-                    age: Int, profession: String,
-                    univ: String, majors: String, rating: Double)
+                    age: Int, rating: Double, pu1: Int, eou1: Int,
+                    tr1: Int, pe1: Int, bi1: Int)
 
 object Feedback extends SQLSyntaxSupport[Feedback] {
 
@@ -36,17 +36,19 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
     name = rs.string(c.name),
     gender = rs.string(c.gender),
     age = rs.int(c.age),
-    profession = rs.string(c.profession),
-    univ = rs.string(c.univ),
-    majors = rs.string(c.majors),
+    pu1 = rs.int(c.pu1),
+    eou1 = rs.int(c.eou1),
+    tr1 = rs.int(c.tr1),
+    pe1 = rs.int(c.pe1),
+    bi1 = rs.int(c.bi1),
     rating = rs.double(c.rating)
   )
   def apply(c: SyntaxProvider[Feedback])(rs: WrappedResultSet): Feedback = apply(c.resultName)(rs)
 
   def create(user_agent: String, platform: String,
              ip: String, city: String, name: String, gender: String,
-             age: Int, profession: String,
-             univ: String, majors: String, rating: Double)
+             age: Int, rating: Double, pu1: Int = 0, eou1: Int = 0,
+             tr1: Int = 0, pe1: Int = 0, bi1: Int = 0)
             (implicit session: DBSession = autoSession): Feedback = {
 
     val id = withSQL {
@@ -58,14 +60,17 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
         column.name -> name,
         column.gender -> gender,
         column.age -> age,
-        column.profession -> profession,
-        column.univ -> univ,
-        column.majors -> majors,
-        column.rating -> rating
+        column.rating -> rating,
+        column.pu1 -> pu1,
+        column.eou1 -> eou1,
+        column.tr1 -> tr1,
+        column.pe1 -> pe1,
+        column.bi1 -> bi1
       )
     }.updateAndReturnGeneratedKey.apply().toInt
     Feedback(id, user_agent, platform, ip, city, name, gender,
-      age, profession, univ, majors, rating)
+      age, rating, pu1, eou1,
+      tr1, pe1, bi1)
 
   }
 

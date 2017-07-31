@@ -35,15 +35,17 @@ class FeedbackController(implicit val swagger: Swagger)
   }
 
   private val addFeedback =
-    (apiOperation[Unit]("/add")
+    (
+      apiOperation[Unit]("/add")
       summary "add feedback"
       parameter bodyParam[Feedback]("feedback").description("New feedback definition").required)
   post("/add", operation(addFeedback)) {
     val feedback = parsedBody.extract[Feedback]
     Feedback.create(
       feedback.user_agent, feedback.platform, feedback.ip, feedback.city,
-      feedback.name, feedback.gender, feedback.age,
-      feedback.profession, feedback.univ, feedback.majors, feedback.rating
+      feedback.name, feedback.gender, feedback.age, feedback.rating,
+      feedback.pu1, feedback.eou1, feedback.tr1, feedback.pe1,
+      feedback.bi1
     )
   }
 }
