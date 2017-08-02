@@ -12,6 +12,7 @@ import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
 import net.liftweb.json._
+import org.apache.jena.ontology.OntModelSpec
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -40,11 +41,20 @@ class RecommendationController(implicit val swagger: Swagger)
 
   private val OWL_FILE = "data/attractions.owl"
   private val OWL_MODEL = ModelFactory.createDefaultModel()
+  private val MODEL_W_REASONER = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF)
+
+  private val inputStream2 = FileManager.get().open(OWL_FILE)
+  if (inputStream2 == null) {
+    throw new IllegalArgumentException(s"File ${OWL_FILE} not found")
+  }
+
   private val inputStream = FileManager.get().open(OWL_FILE)
   if (inputStream == null) {
     throw new IllegalArgumentException(s"File $OWL_FILE not found")
   }
   OWL_MODEL.read(inputStream, null)
+  MODEL_W_REASONER.read(inputStream2, null)
+
 
   private val individualCategory =
     (apiOperation[List[String]]("/individual/category")
@@ -798,6 +808,9 @@ class RecommendationController(implicit val swagger: Swagger)
       ))
     })
 
+    println("UPDATED")
+    updated.foreach(p=>println(p))
+
     //hasil update value dari nilai yang diassign oleh user, dimasukkan ke map lama (hasil propagasi kebawah)
     val updatedOld = ListBuffer[Map[String, Any]]()
     old.foreach(o => {
@@ -823,16 +836,22 @@ class RecommendationController(implicit val swagger: Swagger)
 
     //  filter hasil propagasi terakhir dengan threshold tertentu
     val recommendedClasses = recommendClasses(downPropResult)
-    val recommendedPlaces = ListBuffer[Place]()
+    val recommendedPlaces = ListBuffer[Map[String, Any]]()
+    val filters = List("Thing", "Resource", "Tempat Wisata")
+
     recommendedClasses.foreach(recomm => {
       val category = recomm("name").toString
+      val filtersCategory = filters :+ category
       println("CATEGORY", category)
+      val totalAncestors = RecommendationUtil.getParent(MODEL_W_REASONER, category)
+        .filterNot(ancestor => filtersCategory.exists(ancestor.contentEquals))
+        .size
       val places = RecommendationUtil.getIndividualByCategory(category, OWL_MODEL)
       places.foreach(place => {
         val p = Place.getByName(place)
         p match {
           case Some(value) =>
-            recommendedPlaces.append(value)
+            recommendedPlaces.append(CommonUtil.getCCParams(value) ++ Map("utilization" -> totalAncestors))
           case None =>
         }
       })
@@ -841,9 +860,9 @@ class RecommendationController(implicit val swagger: Swagger)
     println("DISTANCES", recommendedPlaces)
     val mergedPlaces = ListBuffer[Map[String, Any]]()
     if (recommendedPlaces.nonEmpty) {
-      val placesDistance = getPlacesDistance(location, distance, recommendedPlaces.toList)
+      val placesDistance = getPlacesDistanceV2(location, distance, recommendedPlaces.toList)
       placesDistance.foreach(place => {
-        val matched = CommonUtil.getCCParams(recommendedPlaces.filter(_.name == place("name")).head)
+        val matched = recommendedPlaces.filter(_("name") == place("name")).head
         mergedPlaces.append(place ++ matched)
       })
     }
@@ -858,7 +877,7 @@ class RecommendationController(implicit val swagger: Swagger)
     }).reduceLeft((a, b) => a ++ b)
 
     Map(
-      "places"-> mergedPlaces,
+      "places"-> mergedPlaces.sortWith(_("utilization").toString.toInt > _("utilization").toString.toInt),
       "old" -> downPropResult,
       "askedNodes" -> askedNodes
     )
@@ -895,6 +914,9 @@ class RecommendationController(implicit val swagger: Swagger)
       ))
     })
 
+    println("UPDATED")
+    updated.foreach(p=>println(p))
+
     //hasil update value dari nilai yang diassign oleh user, dimasukkan ke map lama (hasil propagasi kebawah)
     val updatedOld = ListBuffer[Map[String, Any]]()
     old.foreach(o => {
@@ -904,6 +926,7 @@ class RecommendationController(implicit val swagger: Swagger)
       }
       updatedOld.append(value)
     })
+
 
     //mulai propagasi, hanya restrukturisasi hierarki agar mudah diolah
     upwardPropagation(updatedOld.toList, 0)
@@ -963,12 +986,30 @@ class RecommendationController(implicit val swagger: Swagger)
     GoogleUtil.distanceMatrix(origins, newPlaces.toList).filter(_ ("distance").asInstanceOf[Map[String, Any]]("value").toString.toDouble <= distance * 1000)
   }
 
+  def getPlacesDistanceV2(origins: Map[String, Double], distance: Double, places: List[Map[String, Any]]): List[Map[String, Any]] = {
+    val newPlaces = ListBuffer[Map[String, Any]]()
+    places.foreach(place => {
+      println(place)
+      if (!newPlaces.map(_ ("name").toString).exists(place("name").toString.contentEquals))
+        newPlaces.append(Map(
+          "name" -> place("name"),
+          "lat" -> place("lat"),
+          "lng" -> place("lng")
+        ))
+    })
+    GoogleUtil.distanceMatrix(origins, newPlaces.toList).filter(_ ("distance").asInstanceOf[Map[String, Any]]("value").toString.toDouble <= distance * 1000)
+  }
+
   def recommendClasses(nodes: ListBuffer[Map[String, Any]]): List[Map[String, Any]] = {
     val recommended = ListBuffer[Map[String, Any]]()
     val decay = 0.8
-    val fp = nodes.map(_ ("pref").toString.toDouble).sum / nodes.size * decay // threshold untuk preference value
-    val fc = nodes.map(_ ("conf").toString.toDouble).sum / nodes.size * decay //threshold untuk confidence value
-    val fa = nodes.map(_ ("activation").toString.toDouble).sum / nodes.size * decay //threshold untuk activation value
+//    val fp = nodes.map(_ ("pref").toString.toDouble).sum / nodes.size * decay // threshold untuk preference value
+//    val fc = nodes.map(_ ("conf").toString.toDouble).sum / nodes.size * 0.6 //threshold untuk confidence value
+//    val fa = nodes.map(_ ("activation").toString.toDouble).sum / nodes.size * decay //threshold untuk activation value
+
+    val fp = 0.6 // threshold untuk preference value
+    val fc = 0.0 //threshold untuk confidence value
+    val fa = 0.6 //threshold untuk activation value
 
     println("FP", fp, "FC", fc, "FA", fa)
 
@@ -989,6 +1030,10 @@ class RecommendationController(implicit val swagger: Swagger)
           "activation" -> activation
         )
 
+
+        println("NODE TO APPEND 0", nodeToAppend)
+
+
         //        cek confidence,preference dan activation value > threshold
         //        if(conf > fc){
         //          passed = true
@@ -1004,6 +1049,7 @@ class RecommendationController(implicit val swagger: Swagger)
         if (conf > fc) {
           if (pref > fp) {
             if (activation > fa) {
+              println("passed 1")
               passed = true
               break
             }
@@ -1011,7 +1057,9 @@ class RecommendationController(implicit val swagger: Swagger)
         }
 
         //cek confidence, preference dan activation value tiap parent
+//        passed = true
         val parents = node("parents").asInstanceOf[ListBuffer[Map[String, Any]]]
+//        var passed2 = true
         parents.foreach(parent => {
           parent.get("activation") match {
             case Some(value) =>
@@ -1028,20 +1076,50 @@ class RecommendationController(implicit val swagger: Swagger)
               //                  break
               //                }
               //              }
+              println("passed 2.0", parent("name"), parentPref, parentConf)
+
               if (parentConf > fc) {
                 if (parentPref > fp) {
                   if (parentActivation > fa) {
+                    println("passed 2", parent("name"), parentPref, parentConf)
                     passed = true
+//                    break
+                  }
+                  else{
+                    passed = false
                     break
                   }
                 }
+                else{
+                  passed = false
+                  break
+                }
               }
+              else{
+                passed = false
+                break
+              }
+
+//              if(parentConf < fc){
+//                passed = false
+//                break
+//              }
+//              if(parentPref < fp){
+//                passed = false
+//                break
+//              }
+//              if(parentActivation < fa){
+//                passed = false
+//                break
+//              }
             case None =>
           }
         })
       }
-      if (passed)
+      if (passed){
+        println("NODE TO APPEND", nodeToAppend)
         recommended.append(nodeToAppend)
+      }
     })
     println("RECOMMENDED SIZE", recommended.size)
     println("NODES SIZE", nodes.size)
@@ -1068,6 +1146,10 @@ class RecommendationController(implicit val swagger: Swagger)
         //hitung nilai agregasi inverse parent dan update nilai tersebut
         val aggs = RecommendationUtil.calcValues(RecommendationUtil.mapToList(truncInv), true)
         val upds = RecommendationUtil.updateFromAgg(f._2("values")("pref"), aggs("pref"), f._2("values")("conf"), aggs("conf"))
+
+        println("AFTER UPWD", f._1)
+        println("AGGS", aggs)
+        println("UPDS", upds)
 
         //masukkan value ke temporary variable untuk ditambahkan ke pengecekan level selanjutnya
         tmpUpdated ++= Map(f._1 -> Map("pref" -> upds("pref"), "conf" -> upds("conf")))
@@ -1100,7 +1182,7 @@ class RecommendationController(implicit val swagger: Swagger)
           if (tmpInverse.keys.exists(parentName.contentEquals)) {
             //tambahkan inverse node
             var contentOrg = tmpInverse(parentName)
-            contentOrg ++= content
+//            contentOrg ++= content
             content ++= contentOrg
           }
           tmpInverse.put(parentName, content)

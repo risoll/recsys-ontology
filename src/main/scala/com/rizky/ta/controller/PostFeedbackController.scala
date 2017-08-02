@@ -1,20 +1,20 @@
 package com.rizky.ta.controller
 
-import com.rizky.ta.model.{Feedback}
+import com.rizky.ta.model.PostFeedback
 import org.json4s.{DefaultFormats, Formats}
-import org.scalatra.{CorsSupport, ScalatraServlet}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
+import org.scalatra.{CorsSupport, ScalatraServlet}
 
 /**
   * Created by solehuddien on 02/06/17.
   */
-class FeedbackController(implicit val swagger: Swagger)
+class PostFeedbackController(implicit val swagger: Swagger)
   extends ScalatraServlet
     with JacksonJsonSupport
     with CorsSupport
     with SwaggerSupport {
-  protected val applicationDescription = "The Feedback API. It manages the user's feedback after using the app"
+  protected val applicationDescription = "The PostFeedback API. It manages the user's feedback evaluating the app"
   protected implicit val jsonFormats: Formats = DefaultFormats
 
   options("/*") {
@@ -29,24 +29,24 @@ class FeedbackController(implicit val swagger: Swagger)
 
   private val feedbacks =
     (apiOperation[Unit]("/bulk")
-      summary "get list of all feedbacks")
+      summary "get list of all post feedbacks")
   get("/bulk", operation(feedbacks)) {
-    Feedback.list()
+    PostFeedback.list()
   }
 
   private val addFeedback =
     (
       apiOperation[Unit]("/add")
-      summary "add feedback"
-      parameter bodyParam[Feedback]("feedback").description("New feedback definition").required)
+      summary "add post feedback"
+      parameter bodyParam[PostFeedback]("feedback").description("New feedback definition").required)
   post("/add", operation(addFeedback)) {
-    val feedback = parsedBody.extract[Feedback]
-    Feedback.create(
+    val feedback = parsedBody.extract[PostFeedback]
+    PostFeedback.create(
       feedback.user_agent, feedback.platform, feedback.ip, feedback.city,
-      feedback.name, feedback.gender, feedback.age, feedback.rating,
-      feedback.eou, feedback.eou2, feedback.inf,
-      feedback.etu, feedback.etu2, feedback.pe, feedback.prq, feedback.prq2,
-      feedback.tr, feedback.tr2, feedback.mode, feedback.time
+      feedback.name, feedback.gender, feedback.age,
+      feedback.more_informative, feedback.easier, feedback.more_useful,
+      feedback.more_appropriate_result, feedback.more_helpful_interaction,
+      feedback.overall_preference, feedback.time
     )
   }
 }

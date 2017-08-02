@@ -193,21 +193,31 @@ object OwlTest extends App {
   val res5 = RecommendationUtil.getChildrenWoReasoner(MODEL_W_REASONER, "Rekreasi")
   val res6 = RecommendationUtil.getChildrenWoReasoner(MODEL_WO_REASONER, "Rekreasi")
 
+  val q = "oleh-oleh"
+  val r = q.capitalize
+  var res7 = RecommendationUtil.getParent(MODEL_W_REASONER, q)
+  val filters = List("Thing", "Resource", "Tempat Wisata")
+  val nf = filters:+RecommendationUtil.parseNode(q)
+  println(nf)
+  res7 = res7.filterNot(x=>nf.exists(x.contentEquals))
 
-  println("BIASA")
-  res.foreach(r=> println(r))
-  println("REASONER")
-  res2.foreach(r=> println(r))
-  println("GA PAKE REASONER")
-  res3.foreach(r=> println(r))
+  println("res7")
+  res7.foreach(r=>println(r))
 
-
-  println("BIASA 2")
-  res4.foreach(r=> println(r))
-  println("REASONER 2")
-  res5.foreach(r=> println(r))
-  println("GA PAKE REASONER 2")
-  res6.foreach(r=> println(r))
+//  println("BIASA")
+//  res.foreach(r=> println(r))
+//  println("REASONER")
+//  res2.foreach(r=> println(r))
+//  println("GA PAKE REASONER")
+//  res3.foreach(r=> println(r))
+//
+//
+//  println("BIASA 2")
+//  res4.foreach(r=> println(r))
+//  println("REASONER 2")
+//  res5.foreach(r=> println(r))
+//  println("GA PAKE REASONER 2")
+//  res6.foreach(r=> println(r))
 
 
   //  val queryString =
