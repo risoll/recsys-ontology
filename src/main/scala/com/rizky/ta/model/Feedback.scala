@@ -19,7 +19,7 @@ case class Feedback(id: Int, user_agent: String, platform: String,
                     ip: String, city: String, name: String, gender: String,
                     age: Int, rating: Double, eou: Int, eou2: Int, inf: Int,
                     etu: Int, etu2: Int, pe: Int, prq: Int, prq2: Int,
-                    tr: Int, tr2: Int, mode: Int, time: Long)
+                    tr: Int, tr2: Int, mode: Int, time: Long, profession: String)
 
 object Feedback extends SQLSyntaxSupport[Feedback] {
 
@@ -49,7 +49,8 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
     tr = rs.int(c.tr),
     tr2 = rs.int(c.tr2),
     mode = rs.int(c.mode),
-    time = rs.long(c.time)
+    time = rs.long(c.time),
+    profession = rs.string(c.profession)
   )
   def apply(c: SyntaxProvider[Feedback])(rs: WrappedResultSet): Feedback = apply(c.resultName)(rs)
 
@@ -57,7 +58,7 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
              ip: String, city: String, name: String, gender: String,
              age: Int, rating: Double,  eou: Int, eou2: Int, inf: Int,
              etu: Int, etu2: Int, pe: Int, prq: Int, prq2: Int,
-             tr: Int, tr2: Int, mode: Int, time: Long)
+             tr: Int, tr2: Int, mode: Int, time: Long, profession: String)
             (implicit session: DBSession = autoSession): Feedback = {
 
     val id = withSQL {
@@ -81,13 +82,14 @@ object Feedback extends SQLSyntaxSupport[Feedback] {
         column.tr -> tr,
         column.tr2 -> tr2,
         column.mode -> mode,
-        column.time -> time
+        column.time -> time,
+        column.profession -> profession
       )
     }.updateAndReturnGeneratedKey.apply().toInt
     Feedback(id, user_agent, platform, ip, city, name, gender,
       age, rating,  eou, eou2, inf,
       etu, etu2, pe, prq, prq2,
-      tr, tr2, mode, time)
+      tr, tr2, mode, time, profession)
 
   }
 

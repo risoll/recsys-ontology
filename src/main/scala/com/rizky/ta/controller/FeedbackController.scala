@@ -46,7 +46,7 @@ class FeedbackController(implicit val swagger: Swagger)
       feedback.name, feedback.gender, feedback.age, feedback.rating,
       feedback.eou, feedback.eou2, feedback.inf,
       feedback.etu, feedback.etu2, feedback.pe, feedback.prq, feedback.prq2,
-      feedback.tr, feedback.tr2, feedback.mode, feedback.time
+      feedback.tr, feedback.tr2, feedback.mode, feedback.time, feedback.profession
     )
   }
 }

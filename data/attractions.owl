@@ -309,6 +309,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Barat -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Barat">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Belanja">
@@ -403,19 +411,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga"/>
     </owl:Class>
     
 
@@ -424,14 +424,6 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Keluarga">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Internasional"/>
     </owl:Class>
     
 
@@ -633,6 +625,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Alam"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Rekreasi"/>
     </owl:Class>
     
 
@@ -720,6 +713,12 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandangan_Kota"/>
         <wisata:Alamat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Jl. Jatinangor Kab.Sumedang</wisata:Alamat>
     </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bandung_Grand_Mosque -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Bandung_Grand_Mosque"/>
     
 
 
@@ -1477,15 +1476,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Asia"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Jepang"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Korea"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Timur_Tengah"/>
-        </owl:members>
-    </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">

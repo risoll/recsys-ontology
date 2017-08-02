@@ -18,7 +18,7 @@ case class PostFeedback(id: Int, user_agent: String, platform: String,
                         ip: String, city: String, name: String, gender: String,
                         age: Int, more_informative: Int, easier: Int, more_useful: Int,
                         more_appropriate_result: Int, more_helpful_interaction: Int,
-                        overall_preference: Int, time: Long)
+                        overall_preference: Int, time: Long, profession: String)
 
 object PostFeedback extends SQLSyntaxSupport[PostFeedback] {
 
@@ -42,7 +42,8 @@ object PostFeedback extends SQLSyntaxSupport[PostFeedback] {
     more_appropriate_result = rs.int(c.more_appropriate_result),
     more_helpful_interaction = rs.int(c.more_helpful_interaction),
     overall_preference = rs.int(c.overall_preference),
-    time = rs.long(c.time)
+    time = rs.long(c.time),
+    profession = rs.string(c.profession)
   )
   def apply(c: SyntaxProvider[PostFeedback])(rs: WrappedResultSet): PostFeedback = apply(c.resultName)(rs)
 
@@ -50,7 +51,7 @@ object PostFeedback extends SQLSyntaxSupport[PostFeedback] {
              ip: String, city: String, name: String, gender: String,
              age: Int, more_informative: Int, easier: Int, more_useful: Int,
              more_appropriate_result: Int, more_helpful_interaction: Int,
-             overall_preference: Int, time: Long)
+             overall_preference: Int, time: Long, profession: String)
             (implicit session: DBSession = autoSession): PostFeedback = {
 
     val id = withSQL {
@@ -68,13 +69,14 @@ object PostFeedback extends SQLSyntaxSupport[PostFeedback] {
         column.more_appropriate_result -> more_appropriate_result,
         column.more_helpful_interaction -> more_helpful_interaction,
         column.overall_preference -> overall_preference,
-        column.time -> time
+        column.time -> time,
+        column.profession -> profession
       )
     }.updateAndReturnGeneratedKey.apply().toInt
     PostFeedback(id, user_agent, platform, ip, city, name, gender,
       age, more_informative, easier, more_useful,
       more_appropriate_result, more_helpful_interaction,
-      overall_preference, time)
+      overall_preference, time, profession)
   }
 
   def get(id: String)(implicit session: DBSession = autoSession): Option[PostFeedback] = withSQL {

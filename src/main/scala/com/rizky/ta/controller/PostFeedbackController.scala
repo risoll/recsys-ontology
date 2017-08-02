@@ -46,7 +46,7 @@ class PostFeedbackController(implicit val swagger: Swagger)
       feedback.name, feedback.gender, feedback.age,
       feedback.more_informative, feedback.easier, feedback.more_useful,
       feedback.more_appropriate_result, feedback.more_helpful_interaction,
-      feedback.overall_preference, feedback.time
+      feedback.overall_preference, feedback.time, feedback.profession
     )
   }
 }
