@@ -8,6 +8,7 @@ import scalikejdbc.{ConnectionPool, GlobalSettings, LoggingSQLAndTimeSettings}
   * Created by risol_000 on 1/30/2017.
   */
 object DBInit {
+
 //  val url = "jdbc:postgresql://localhost:5432/recsys-ta?charSet=UTF-8"
 //  val username = "postgres"
 //  val password = "PostgreS"

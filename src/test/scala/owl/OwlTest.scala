@@ -175,34 +175,36 @@ object OwlTest extends App {
   MODEL_W_REASONER.read(inputStream2, null)
   MODEL_WO_REASONER.read(inputStream3, null)
 
-  val OWL_PREFIX =
-    "PREFIX data:<http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#>" +
-    "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>" +
-    "PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
-    "PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" +
-    "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-    "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
+  println(RecommendationUtil.getParentByIndividual("all about strawberry", MODEL_W_REASONER))
 
-//  val res = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
-  val res = RecommendationUtil.getChildren(OWL_MODEL, "Rekreasi")
-  val res2 = RecommendationUtil.getChildren(MODEL_W_REASONER, "Rekreasi")
-  val res3 = RecommendationUtil.getChildren(MODEL_WO_REASONER, "Rekreasi")
-
-
-  val res4 = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
-  val res5 = RecommendationUtil.getChildrenWoReasoner(MODEL_W_REASONER, "Rekreasi")
-  val res6 = RecommendationUtil.getChildrenWoReasoner(MODEL_WO_REASONER, "Rekreasi")
-
-  val q = "oleh-oleh"
-  val r = q.capitalize
-  var res7 = RecommendationUtil.getParent(MODEL_W_REASONER, q)
-  val filters = List("Thing", "Resource", "Tempat Wisata")
-  val nf = filters:+RecommendationUtil.parseNode(q)
-  println(nf)
-  res7 = res7.filterNot(x=>nf.exists(x.contentEquals))
-
-  println("res7")
-  res7.foreach(r=>println(r))
+//  val OWL_PREFIX =
+//    "PREFIX data:<http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#>" +
+//    "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>" +
+//    "PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
+//    "PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>" +
+//    "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+//    "PREFIX dc:<http://purl.org/dc/elements/1.1/>"
+//
+////  val res = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
+//  val res = RecommendationUtil.getChildren(OWL_MODEL, "Rekreasi")
+//  val res2 = RecommendationUtil.getChildren(MODEL_W_REASONER, "Rekreasi")
+//  val res3 = RecommendationUtil.getChildren(MODEL_WO_REASONER, "Rekreasi")
+//
+//
+//  val res4 = RecommendationUtil.getChildrenWoReasoner(OWL_MODEL, "Rekreasi")
+//  val res5 = RecommendationUtil.getChildrenWoReasoner(MODEL_W_REASONER, "Rekreasi")
+//  val res6 = RecommendationUtil.getChildrenWoReasoner(MODEL_WO_REASONER, "Rekreasi")
+//
+//  val q = "oleh-oleh"
+//  val r = q.capitalize
+//  var res7 = RecommendationUtil.getParent(MODEL_W_REASONER, q)
+//  val filters = List("Thing", "Resource", "Tempat Wisata")
+//  val nf = filters:+RecommendationUtil.parseNode(q)
+//  println(nf)
+//  res7 = res7.filterNot(x=>nf.exists(x.contentEquals))
+//
+//  println("res7")
+//  res7.foreach(r=>println(r))
 
 //  println("BIASA")
 //  res.foreach(r=> println(r))

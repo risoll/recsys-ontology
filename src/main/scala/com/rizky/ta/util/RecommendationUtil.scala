@@ -21,13 +21,13 @@ object RecommendationUtil {
     """
   // decay factor untuk confidence value per level
   // nilai 0.24 diambil karena total depth di ontology berjumlah 4
-  private val alpha = 0.24
+  private val alpha = 0.3
 
   // decay factor untuk update preference dan confidence value
   private val beta = 0.3
 
   // decay factor untuk normalisasi activation level
-  private val normFactorActivation = 0.49
+  private val normFactorActivation = 0.6
 //  private val normFactorActivation = 0.2
 
   val fp = 0.6 // threshold untuk preference value
@@ -40,6 +40,16 @@ object RecommendationUtil {
        $PREFIX
        select * where {
         ?name rdf:type data:${parseNode(category)} }
+    """
+    executeQuery(queryString, OWL_MODEL)
+  }
+
+  def getParentByIndividual(category: String, OWL_MODEL: Model): List[String] ={
+    val queryString =
+      s"""
+       $PREFIX
+       select * where {
+         data:${parseNode(category)} rdf:type ?name }
     """
     executeQuery(queryString, OWL_MODEL)
   }

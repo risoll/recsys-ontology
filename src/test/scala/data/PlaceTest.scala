@@ -47,102 +47,18 @@ object PlaceTest extends App {
     "length_of_visit", "opening_hours", "formatted_phone_number"
   )
 
-  private val places = List(
-//    "Seni Calung dan Jaipongan",
-//    "Desa Wisata Rawakalong",
-//    "Situ Cileunca",
-//    "Kampung Toga",
-    "Kolam Tirta Riang",
-    "Gunung Kunci",
-//    "Strawberry 65",
-//    "Green Hill Park",
-//    "Curug Tilu",
-//    "Peneropongan Bintang Boscha",
-//    "Bandung Giri Gahana",
-//    "Maribaya",
-    "Desa Wisata Lebak Muncang",
-    "Terbang Buhun Pusaka Medal Laksana",
-    "Kin Strawberry",
-    "Curug Salamanja",
-//    "Tebing Keraton",
-//    "Ranca Saladah Waterboom",
-//    "Museum Asia Afrika",
-//    "Wisata Belanja Cibaduyut",
-//    "Museum SriBaduga",
-//    "Makam Dayeuh Luhur",
-    "Komunitas Batar Ulin",
-    "Wisata Belanja Ciwalk",
-//    "Makam Marangge",
-    "Curug Eli",
-//    "Wisata Lebah Madu",
-//    "Situ Lembang",
-    "Makam Kabuyutan",
-    "Yasmin Kartika Sari",
-    "Kawah Kamojang",
-//    "Museum Yayasan",
-    "Tamada All Adventure Team",
-    "Petik Strawberry Family",
-    "Fragaria Strawberry",
-    "Gua Pawon",
-//    "Agrowisata Gambung",
-    "Curug Cinulang",
-    "Situ Dano",
-    "Danau Ciharus",
-    "Situ Cisanti",
-    "Cipanas Sekarwangi",
-//    "THR. Ir. H. Juanda",
-    "Air Terjun Cipanji",
-//    "Situs Bumi Alit Kabuyutan",
-    "Bulu Ngampar",
-    "Pondok Strawberry",
-    "Waduk Saguling",
-    "Situs Cikahuripan",
-    "Pak Ale Strawberry",
-    "Situs Makam Eyang Pakujaga",
-//    "Museum Yayasan Pangeran",
-//    "Masigit Kareumbi",
-    "Museum Siliwangi",
-    "Cipanas Cileungsing",
-//    "Bale Bambu",
-//    "Museum Pos Indonesia",
-    "Kolam Renang Valley Ciwidey",
-    "Curug Cilengkrang",
-    "Wisata Rohani Daarut Tauhid",
-    "Kawah Rengganis",
-    "Geology Museum",
-    "Taman Lalu Lintas Ade Lima",
-    "Cibolang",
-//    "Kolam Renang Priangan Tirta",
-//    "Karang Setra",
-    "Cibingbin",
-    "Situ Ciburuy",
-    "Gunung Tangkuban Perahu",
-    "Sinar Asih Petik Strawberry",
-//    "Kebun Binatang",
-//    "Kolam Renang Oniba",
-    "Petik Strawberry The Oneng",
-    "Batu Kuda",
-//    "Menara Mesjid Raya jabar",
-//    "Indi Strawberry",
-    "Perkebunan Rancabali",
-//    "Ranca Upas",
-    "Kawah Putih",
-    "Jayagiri",
-//    "Kolam Renang Tirta Nadi",
-    "Petik Strawberry Raffa",
-//    "Saung Angklung Udjo",
-    "Waduk Cirata",
-    "Petik Strawberry Mr. Dede",
-    "Situ Patenggang",
-    "Walini",
-//    "TWA Cimanggu",
-    "Regar Orchid",
-//    "Puncak Bintang Moko",
-    "Museum Gaeusan Ulun"
-  )
-
   DBInit.config()
-  createValues()
+  val individuals = RecommendationUtil.getAllIndividual(OWL_MODEL)
+  val individuInDbs = Place.list().map(p=>p.name)
+  val filters = individuals.filterNot(i=>individuInDbs.exists(i.contentEquals))
+  filters.foreach(f=>println(f))
+  println("ont individu", individuals.size)
+  println("db individu", individuInDbs.size)
+  println("filter individu", filters.size)
+
+  val places = filters
+
+//  createValues()
 //  checkNull()
 //  println("place", Place.get("ChIJcVwN9hfRaC4RDogyRPU6Rvk"))
 
@@ -248,6 +164,10 @@ object PlaceTest extends App {
               }
             }
           })
+          val x = Place.get(placeId)
+          println("X", x)
+
+          //cek apakah di db sudah ada
           if (Place.get(placeId).isEmpty) {
             val name = tmpResult("name").toString
             val formattedAddress = tmpResult("formatted_address").toString

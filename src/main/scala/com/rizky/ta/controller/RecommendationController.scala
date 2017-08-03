@@ -207,8 +207,14 @@ class RecommendationController(implicit val swagger: Swagger)
     Map(
       "data" -> downPropResult,
       "askedNodes" -> askedNodes.map(node => {
-        val cls = Classes.getByName(node).get
-        Map("name" -> node, "image" -> cls.image, "description" -> cls.description, "root" -> cls.root)
+        val cls = Classes.getByName(node)
+        cls match {
+          case Some(value) =>
+            Map("name" -> node, "image" -> value.image, "description" -> value.description, "root" -> value.root)
+          case None =>
+            println("fail", node)
+
+        }
       })
     )
   }
@@ -1008,8 +1014,8 @@ class RecommendationController(implicit val swagger: Swagger)
 //    val fa = nodes.map(_ ("activation").toString.toDouble).sum / nodes.size * decay //threshold untuk activation value
 
     val fp = 0.6 // threshold untuk preference value
-    val fc = 0.0 //threshold untuk confidence value
-    val fa = 0.6 //threshold untuk activation value
+    val fc = 0.5 //threshold untuk confidence value
+    val fa = 0.5 //threshold untuk activation value
 
     println("FP", fp, "FC", fc, "FA", fa)
 
@@ -1076,7 +1082,7 @@ class RecommendationController(implicit val swagger: Swagger)
               //                  break
               //                }
               //              }
-              println("passed 2.0", parent("name"), parentPref, parentConf)
+              println("passed 2.0", parent("name"), parentPref, parentConf, parentActivation)
 
               if (parentConf > fc) {
                 if (parentPref > fp) {
