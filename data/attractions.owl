@@ -1061,6 +1061,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gantole_Cililin -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gantole_Cililin">
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Paralayang"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gedung_Indonesia_Menggugat -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gedung_Indonesia_Menggugat">

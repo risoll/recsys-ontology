@@ -56,7 +56,8 @@ object PlaceTest extends App {
   println("db individu", individuInDbs.size)
   println("filter individu", filters.size)
 
-  val places = filters
+//  val places = filters
+  val places = List("Gantole Cililin")
 
   createValues()
 //  checkNull()
