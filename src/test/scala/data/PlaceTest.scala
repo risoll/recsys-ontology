@@ -58,7 +58,7 @@ object PlaceTest extends App {
 
   val places = filters
 
-//  createValues()
+  createValues()
 //  checkNull()
 //  println("place", Place.get("ChIJcVwN9hfRaC4RDogyRPU6Rvk"))
 

@@ -1,7 +1,7 @@
 image: java:8
 
 stages:
-  - test
+#  - test
   - deploy
 
 before_script:
@@ -14,10 +14,10 @@ before_script:
   - apt-get install sbt -y
   - sbt sbt-version
 
-test:
-  stage: test
-  script:
-    - sbt clean coverage test coverageReport
+#test:
+#  stage: test
+#  script:
+#    - sbt clean coverage test coverageReport
 
 deploy:
   stage: deploy
