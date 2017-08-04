@@ -1089,6 +1089,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Gedung_Sate">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Kota"/>
     </owl:NamedIndividual>
     
 
@@ -1471,6 +1472,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen_Bandung_Lautan_Api_BKR">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Kota"/>
     </owl:NamedIndividual>
     
 
@@ -1479,6 +1481,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen_Perjuangan_Rakyat_Jawa_Barat">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Monumen"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Kota"/>
     </owl:NamedIndividual>
     
 

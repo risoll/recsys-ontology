@@ -27,12 +27,12 @@ object RecommendationUtil {
   private val beta = 0.3
 
   // decay factor untuk normalisasi activation level
-  private val normFactorActivation = 0.6
+  private val normFactorActivation = 0.4
 //  private val normFactorActivation = 0.2
 
   val fp = 0.6 // threshold untuk preference value
-  val fc = 0.6 //threshold untuk confidence value
-  val fa = 0.6 //threshold untuk activation value
+  val fc = 0.5 //threshold untuk confidence value
+  val fa = 0.5 //threshold untuk activation value
 
   def getIndividualByCategory(category: String, OWL_MODEL: Model): List[String] ={
     val queryString =
@@ -134,6 +134,42 @@ object RecommendationUtil {
     newNodes.toList
   }
 
+  def shouldAddPlace(recommendedClasses: List[Map[String, Any]], place: String, OWL_MODEL: Model): (Boolean, Map[String, Double]) = {
+    var shouldAdd = false
+    //get individual parents, karena bisa saja satu individu punya lebih dari satu parent
+    val parents = getParentByIndividual(place, OWL_MODEL)
+    val parentsWithVal = ListBuffer[Map[String, Any]]()
+    parents.foreach(parent=>{
+      val matched = recommendedClasses.filter(_("name").toString.contentEquals(parent))
+      if(matched.nonEmpty){
+        parentsWithVal.append(Map(
+          "name" -> parent,
+          "pref" -> matched.head("pref").toString.toDouble,
+          "conf" -> matched.head("conf").toString.toDouble,
+          "activation" -> matched.head("activation").toString.toDouble
+        ))
+      }
+    })
+//    println("SHOULD ADD PLACE", parentsWithVal.size)
+    var values = Map("pref" -> 0.0, "conf" -> 0.0, "activation" -> 0.0)
+    var activation = 0.0
+    if(parentsWithVal.nonEmpty){
+      activation = getActivation(parentsWithVal.toList)
+      println("parentsWithVal", parentsWithVal)
+      values = calcValues(parentsWithVal.toList)
+      println("added?", place, values)
+      if(values("conf") > 0.1){
+        if(values("pref") > fp){
+          println("ACTIVATION", activation)
+          if(activation > 0.3){
+            shouldAdd = true
+          }
+        }
+      }
+    }
+    (shouldAdd, values ++ Map("activation" -> activation))
+  }
+
   def parseNode(node: String): String = {
     node.split(" ").map(_.capitalize).mkString("_")
   }
@@ -179,7 +215,9 @@ object RecommendationUtil {
     //
     var newActivation = a
 //    var newActivation = 0.0
-    val linkWeight: Double = 1.0 / neighbors.size * normFactorActivation
+//    val linkWeight: Double = 1.0 / Math.sqrt(neighbors.size) * normFactorActivation
+    val linkWeight: Double = 1.0 / Math.sqrt(neighbors.size) * (1 - normFactorActivation)
+//    val linkWeight: Double = 1.0 / neighbors.size * (1 - normFactorActivation)
 //    val linkWeight: Double = neighbors.size * normFactorActivation
 //    val linkWeight: Double = calcNILF(possibleNodesSize, neighbors.size)
     neighbors.foreach(neighbor=>{
