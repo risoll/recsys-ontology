@@ -174,8 +174,8 @@ object RecommendationUtil {
     node.split(" ").map(_.capitalize).mkString("_")
   }
 
-  def round(num: Double): Double = {
-    BigDecimal(num).setScale(5, BigDecimal.RoundingMode.HALF_UP).toDouble
+  def round(num: Double, scale: Int = 5): Double = {
+    BigDecimal(num).setScale(scale, BigDecimal.RoundingMode.HALF_UP).toDouble
   }
 
   def createValues(destNodes: List[String], values: Map[String, Double]): Map[String, Map[String, Double]] ={

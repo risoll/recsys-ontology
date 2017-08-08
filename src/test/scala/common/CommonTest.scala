@@ -38,13 +38,16 @@ object CommonTest extends App{
 //  for(i <- 1 until 2){
 //    println("xx")
 //  }
-  val exes = List("2")
-  var x = List(Map("name" -> "1"), Map("name" -> "2"), Map("name" -> "3"))
-  breakable{
-    x.foreach(y=>{
-      println(y("name"))
-      if(y("name") == "2") break
-      println("ganteng")
-    })
-  }
+//  val exes = List("2")
+//  var x = List(Map("name" -> "1"), Map("name" -> "2"), Map("name" -> "3"))
+//  breakable{
+//    x.foreach(y=>{
+//      println(y("name"))
+//      if(y("name") == "2") break
+//      println("ganteng")
+//    })
+//  }
+  val x = List("prqModel1Count").map(x=>x.substring(0, x.indexOf("M")))
+  println(x)
+  println(List("prqModel1Count").map(x=>x.substring(0, x.indexOf("M"))).exists("prq2".contains))
 }

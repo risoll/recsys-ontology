@@ -1,6 +1,7 @@
 package com.rizky.ta.controller
 
 import com.rizky.ta.model.PostFeedback
+import com.rizky.ta.util.{CommonUtil, RecommendationUtil}
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.swagger.{Swagger, SwaggerSupport}
@@ -37,8 +38,8 @@ class PostFeedbackController(implicit val swagger: Swagger)
   private val addFeedback =
     (
       apiOperation[Unit]("/add")
-      summary "add post feedback"
-      parameter bodyParam[PostFeedback]("feedback").description("New feedback definition").required)
+        summary "add post feedback"
+        parameter bodyParam[PostFeedback]("feedback").description("New feedback definition").required)
   post("/add", operation(addFeedback)) {
     val feedback = parsedBody.extract[PostFeedback]
     PostFeedback.create(
@@ -48,5 +49,32 @@ class PostFeedbackController(implicit val swagger: Swagger)
       feedback.more_appropriate_result, feedback.more_helpful_interaction,
       feedback.overall_preference, feedback.time, feedback.profession
     )
+  }
+
+
+  private val results =
+    (
+      apiOperation[Unit]("/results")
+        summary "get results"
+      )
+  get("/results", operation(results)) {
+    val postFeedbacks = PostFeedback.list()
+    val size = postFeedbacks.size.toDouble
+    val postFeedbacksMap = postFeedbacks.map(feedback => CommonUtil.getCCParams(feedback))
+    var results = Map[String, Map[String, Double]]()
+    val keys = List("more_informative", "easier", "more_useful",
+      "more_appropriate_result", "more_helpful_interaction", "overall_preference")
+//    println("SIZE", size)
+    keys.foreach(key => {
+      var result = Map[String, Double]()
+      for(i <- 1 to 3){
+        val count = postFeedbacksMap.count(feedback => feedback(key).toString.toInt == i).toDouble
+//        println("COUNT", count)
+        result ++= Map(s"model$i" -> RecommendationUtil.round(count / size * 100, 2))
+      }
+      results ++= Map(key -> result)
+    })
+
+    results
   }
 }
