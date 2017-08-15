@@ -1443,11 +1443,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Maribaya_Natural_Hot_Spring_Resort">
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Air_Terjun"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Pemandian_Air_Panas"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bertema"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Water_Park"/>
     </owl:NamedIndividual>
     
 
@@ -2043,9 +2039,7 @@
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Wisata_Paku_Haji -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Wisata_Paku_Haji">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Water_Park"/>
     </owl:NamedIndividual>
     
 
