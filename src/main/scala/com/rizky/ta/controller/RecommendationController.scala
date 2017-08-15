@@ -1172,6 +1172,7 @@ class RecommendationController(implicit val swagger: Swagger)
         val aggs = RecommendationUtil.calcValues(RecommendationUtil.mapToList(truncInv), true)
         val upds = RecommendationUtil.updateFromAgg(f._2("values")("pref"), aggs("pref"), f._2("values")("conf"), aggs("conf"))
 
+        println("TRUNC INV", truncInv)
         println("AFTER UPWD", f._1)
         println("AGGS", aggs)
         println("UPDS", upds)

@@ -621,6 +621,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Kota">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Wisata_Kota"/>
     </owl:Class>
     
 
@@ -1255,13 +1256,8 @@
     <!-- http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kampung_Gajah_Wonderland -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kampung_Gajah_Wonderland">
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Agrowisata"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Fashion"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Kebun_Binatang"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Oleh-oleh"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Outbound"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Taman_Bermain"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/rizkysolechudin/ontologies/2017/1/wisata#Water_Park"/>
     </owl:NamedIndividual>
     
 
