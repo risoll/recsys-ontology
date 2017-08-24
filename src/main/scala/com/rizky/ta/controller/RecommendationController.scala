@@ -1029,7 +1029,7 @@ class RecommendationController(implicit val swagger: Swagger)
     val recommended = ListBuffer[Map[String, Any]]()
     val decay = 0.8
     val fp = nodes.map(_ ("pref").toString.toDouble).sum / nodes.size * decay // threshold untuk preference value
-    val fc = nodes.map(_ ("conf").toString.toDouble).sum / nodes.size * decay //threshold untuk confidence value
+    val fc = nodes.map(_ ("conf").toString.toDouble).sum / nodes.size * 0.6 //threshold untuk confidence value
     val fa = nodes.map(_ ("activation").toString.toDouble).sum / nodes.size * decay //threshold untuk activation value
 
 //    val fp = 0.8 // threshold untuk preference value
